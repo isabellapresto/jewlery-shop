@@ -6,7 +6,7 @@ export default function PurchaseBtn() {
   return (
     <Stack direction="row" spacing={2}>
       <Button variant="outlined" startIcon={<AddShoppingCartIcon />}>
-        Köp
+        Add to cart
       </Button>
     </Stack>
   );
