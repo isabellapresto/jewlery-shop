@@ -1,12 +1,11 @@
-
 import { useEffect, useState } from "react";
-import ProductModel from "../Models/productModel";
 import CategoryDropDown from '../CategoryDropDown/CategoryDropDown';
 import ProductCard from '../ProductCard/ProductCard';
+import Product from '../../interfaces';
 
 export default function ProductList() {
-const [products, setProducts] = useState<ProductModel[]>([]);
-
+  const [products, setProducts] = useState<Product[]>([]);
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -23,23 +22,22 @@ const [products, setProducts] = useState<ProductModel[]>([]);
   }, []);
 
   return (
-    <div>
-      <h3>Filter by category</h3>
-      <CategoryDropDown />
-      <h1>Product List</h1>
-      <ProductCard />
-      {products.map((product) => (
-        <div key={product.title}>
-          <h2>{product.title}</h2>
-          <p>{product.description}</p>
-          <p>Price: {product.price}</p>
-          <img
-            src={product.image}
-            alt={product.title}
-            style={{ maxWidth: "300px", maxHeight: "300px" }}
-          />
-        </div>
-      ))}
+    <div className="product_container">
+      <div className="category_filter">
+        <h3>Filter by category</h3>
+        <CategoryDropDown />
+      </div>
+      <h2>Product List</h2>
+      <div className="productlist">
+        {products.map(product => {
+          return <ProductCard
+          image={product.image}
+          title={product.title}
+          description={product.description}
+          price={product.price}
+          /> 
+        })}
+      </div>
     </div>
   );
 }
