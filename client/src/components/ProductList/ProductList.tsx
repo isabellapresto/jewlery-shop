@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import ProductModel from "../Models/productModel";
 
-interface Product {
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-}
+// interface Product {
+//   title: string;
+//   description: string;
+//   price: number;
+//   image: string;
+// }
 
 export default function ProductList() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductModel[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -16,8 +17,6 @@ export default function ProductList() {
         const apiUrl = "http://localhost:3000/api/products";
         const response = await fetch(apiUrl);
         const data = await response.json();
-        console.log(data);
-
         setProducts(data);
       } catch (error) {
         console.log(error);
