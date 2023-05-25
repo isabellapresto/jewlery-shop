@@ -1,12 +1,11 @@
 import ProductList from "../ProductList/ProductList";
 
-function MainContent () {
+
+export default function MainContent() {
   return (
-    <main>
+    <div>
       <ProductList />
-    </main>
+    </div>
   );
 }
-
-export default MainContent;
 
