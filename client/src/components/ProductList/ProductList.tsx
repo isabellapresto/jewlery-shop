@@ -30,7 +30,7 @@ export default function ProductList() {
         <CategoryDropDown />
       </div>
       <h2>Product List</h2>
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
       {products.map(product => {
         return <ProductCard
           image={product.image}
