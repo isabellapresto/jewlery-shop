@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import CategoryDropDown from '../CategoryDropDown/CategoryDropDown';
 import ProductCard from '../ProductCard/ProductCard';
 import Product from '../../interfaces';
+import Grid from '@mui/material/Grid';
+import { Link } from 'react-router-dom';
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -22,22 +24,21 @@ export default function ProductList() {
   }, []);
 
   return (
-    <div className="product_container">
+    <div className="product-container">
       <div className="category_filter">
         <h3>Filter by category</h3>
         <CategoryDropDown />
       </div>
       <h2>Product List</h2>
-      <div className="productlist">
-        {products.map(product => {
-          return <ProductCard
+      <Grid container spacing={1}>
+      {products.map(product => {
+        return <ProductCard
           image={product.image}
           title={product.title}
-          description={product.description}
           price={product.price}
           /> 
         })}
-      </div>
+      </Grid>
     </div>
   );
 }

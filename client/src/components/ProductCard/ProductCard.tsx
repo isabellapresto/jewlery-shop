@@ -1,10 +1,10 @@
 import PurchaseBtn from '../PurchaseBtn/PurchaseBtn'
 import Product from '../../interfaces'
+import Grid from '@mui/material/Grid';
 
-export default function ProductCard ({image, title, description, price}: Product) {
+export default function ProductCard ({image, title, price}: Product) {
   return (
-
-    <div className='product_card'>
+    <Grid xs={3}>
       <img
         src={image}
         alt={title}
@@ -12,10 +12,9 @@ export default function ProductCard ({image, title, description, price}: Product
       />
       <div className='product_card_info'>
         <h3>{title}</h3>
-        <p>{description}</p>
         <p>Price: {price} SEK</p>
         <PurchaseBtn />
       </div>
-  </div>
+  </Grid>
   );
 }
