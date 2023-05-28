@@ -7,7 +7,7 @@ import CheckOut from "../CheckOut/CheckOut";
 import About from "../About/About";
 
 
-function Main() {
+function MainContent() {
   return (
     
       <Routes>
@@ -20,5 +20,5 @@ function Main() {
     
   );
 }
-export default Main
+export default MainContent
 
