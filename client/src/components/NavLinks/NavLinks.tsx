@@ -7,10 +7,10 @@
 //       <NavLink to="/">
 //         <li>MOVIES</li>
 //       </NavLink>
-//       <NavLink to="/about">
+//       <NavLink to="/">
 //         <li>ABOUT</li>
 //       </NavLink>
-//       <NavLink to="/contact">
+//       <NavLink to="/">
 //         <li>CONTACT</li>
 //       </NavLink>
 //     </ul>
