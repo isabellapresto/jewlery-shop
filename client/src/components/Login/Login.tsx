@@ -1,5 +1,5 @@
 // import React from 'react';
-import LoginForm from "../LoginForm/LoginForm";
+import LoginForm from "../LoginForm/LoginForm"
 import "./Login.css"
 // import { CurrentUserContext} from '../CurrentUserContext';
 // import {Drawer, Button} from "@mui/material";
