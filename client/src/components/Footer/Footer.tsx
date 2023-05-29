@@ -1,12 +1,14 @@
-import React from 'react';
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import PinterestIcon from '@mui/icons-material/Pinterest';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
-
-function Footer() {
+export default function Footer() {
 
   return (
     <div className="">
         <div className="">
-            <ul className="">
+            <ul className="" style={{ listStyle: 'none' }}>
                 <li>Skötselråd</li>
                 <li>Återförsäljare</li>
                 <li>Kontakt</li>
@@ -20,16 +22,14 @@ function Footer() {
                 <li>Presentkort</li>
             </ul>
         </div>
-        <div className="">
-            <ul className="">
-                <li><i className=""></i> <a href=""></a></li>
-                <li><i className=""></i> <a href=""></a></li>
-                <li><i className=""></i> <a href=""></a></li>
-                <li><i className=""></i> <a href=""></a></li>
+        <div className="footer-right">
+            <ul className="social-icons" style={{ listStyle: 'none' }}>
+                <li>{<InstagramIcon />}</li>
+                <li>{<FacebookOutlinedIcon />}</li>
+                <li>{<PinterestIcon />}</li>
+                <li>{<LinkedInIcon />}</li>
             </ul>
         </div>
     </div>
   )
 }
-
-export default Footer;
