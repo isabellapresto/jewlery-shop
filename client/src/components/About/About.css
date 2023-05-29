@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.image {
+  width: 100%;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.customLoyaltyIcon {
+  color: rgb(242, 155, 170);
+}
