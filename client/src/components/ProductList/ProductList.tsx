@@ -3,7 +3,6 @@ import CategoryDropDown from '../CategoryDropDown/CategoryDropDown';
 import ProductCard from '../ProductCard/ProductCard';
 import Product from '../../interfaces';
 import Grid from '@mui/material/Grid';
-import { Link } from 'react-router-dom';
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -24,13 +23,21 @@ export default function ProductList() {
   }, []);
 
   return (
-    <div className="product-container">
+    <>
       <div className="category_filter">
         <h3>Filter by category</h3>
         <CategoryDropDown />
       </div>
       <h2>Product List</h2>
-      <Grid container spacing={2}>
+
+      <Grid
+        container
+        columns={{ xs: 4 }}
+        gap={3}
+        direction="row"
+        justifyContent="center"
+        alignItems="flex-start"
+      >
       {products.map(product => {
         return <ProductCard
           image={product.image}
@@ -39,6 +46,6 @@ export default function ProductList() {
           /> 
         })}
       </Grid>
-    </div>
+    </>
   );
 }
