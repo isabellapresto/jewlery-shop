@@ -1,7 +1,6 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
- function NavLinks() {
+function NavLinks() {
   return (
     <ul className="nav_links">
       <NavLink to="/">
@@ -15,7 +14,6 @@ import { NavLink } from "react-router-dom";
       </NavLink>
     </ul>
   );
-};
+}
 
 export default NavLinks;
-
