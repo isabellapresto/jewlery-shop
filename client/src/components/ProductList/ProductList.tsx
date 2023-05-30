@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import ProductCard from '../ProductCard/ProductCard';
-import { Product } from '../../context/ProductContext';
-import Grid from '@mui/material/Grid';
-import { Link } from 'react-router-dom';
-import './ProductList.css';
+import ProductCard from "../ProductCard/ProductCard";
+import { Product } from "../../context/ProductContext";
+import Grid from "@mui/material/Grid";
+import { Link } from "react-router-dom";
+import "./ProductList.css";
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -33,12 +33,12 @@ export default function ProductList() {
         justifyContent="center"
         alignItems="flex-start"
       >
-      {products.map((product) => (
-        <Link to={`/${product._id}`} key={product._id}>
-        <ProductCard product={product} /> </Link>
+        {products.map((product) => (
+          <Link to={`/${product._id}`} key={product._id}>
+            <ProductCard product={product} />
+          </Link>
         ))}
       </Grid>
     </>
   );
 }
-
