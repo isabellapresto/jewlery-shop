@@ -15,7 +15,7 @@ import { NavLink } from "react-router-dom";
       </NavLink>
     </ul>
   );
-};
+}
 
 export default NavLinks;
 
