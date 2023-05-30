@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductCard from '../ProductCard/ProductCard';
-import Product from '../../interfaces';
+import { Product } from '../../context/ProductContext';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import './ProductList.css';
