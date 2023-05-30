@@ -1,6 +1,7 @@
-import ShoppingCart from '@mui/icons-material/ShoppingCart';
+import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import { useState } from "react";
-import ShoppingDrawer from '../Drawer/Drawer';
+import ShoppingDrawer from "../Drawer/Drawer";
+import { Badge } from "@mui/material";
 
 export default function MyShoppingCart() {
   const [open, setOpen] = useState(false);
@@ -15,9 +16,10 @@ export default function MyShoppingCart() {
 
   return (
     <div>
-      <p>0</p>
       <div onClick={open ? handleClose : handleOpen}>
-        <ShoppingCart />
+        <Badge color="secondary" badgeContent={0} showZero>
+          <ShoppingCart />
+        </Badge>
       </div>
       <ShoppingDrawer open={open} setOpen={setOpen} />
     </div>
