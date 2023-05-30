@@ -3,10 +3,12 @@ import CategoryDropDown from '../CategoryDropDown/CategoryDropDown';
 import ProductCard from '../ProductCard/ProductCard';
 import Product from '../../interfaces';
 import Grid from '@mui/material/Grid';
+import { Link } from 'react-router-dom';
+import './ProductList.css';
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
-  
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -38,14 +40,17 @@ export default function ProductList() {
         justifyContent="center"
         alignItems="flex-start"
       >
-      {products.map(product => {
-        return <ProductCard
-          image={product.image}
-          title={product.title}
-          price={product.price}
-          /> 
-        })}
+      {products.map((product) => (
+        <Link to={`/${product._id}`} key={product._id}>
+        <ProductCard
+        image={product.image}
+        title={product.title}
+        price={product.price}
+        _id={product._id}
+        /> </Link>
+        ))}
       </Grid>
     </>
   );
 }
+
