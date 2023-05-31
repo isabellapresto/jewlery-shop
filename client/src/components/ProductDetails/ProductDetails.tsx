@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 //import ProductCard from "../ProductCard/ProductCard";
 import { Product } from "../../context/ProductContext";
 import { useParams } from "react-router-dom";
+import { Container, Grid } from "@mui/material";
+import PurchaseBtn from "../PurchaseBtn/PurchaseBtn";
 
 export default function ProductDetails() {
-  //const [product, setProduct] = useState(null);
-
   function inStockProduct(inStock: number) {
     if (inStock == 0) {
-      return "Ej i lager";
+      return "Not in stock";
     } else if (inStock < 20) {
-      return "Fåtal i lager";
+      return "Few in stock";
     } else {
-      return "I lager";
+      return "In stock";
     }
   }
 
@@ -35,11 +35,40 @@ export default function ProductDetails() {
   }, [id]);
 
   return product ? (
-    <div>
-      <h1>{product.title}</h1>
-      <p>{product.description}</p>
-      <p>{product.inStock}</p>
-      <p>{inStockProduct(product.inStock)}</p>
-    </div>
+    <Container>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Grid item xs={12} sm={12} md={8} lg={6}>
+          <img
+            src={product.image}
+            alt={product.title}
+            style={{ width: "100%", height: "auto" }}
+          />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={8}
+          lg={6}
+          sx={{
+            textAlign: "center",
+            gap: 2,
+          }}
+        >
+          <h2>{product.title}</h2>
+          <p style={{ fontStyle: "italic" }}>{product.price} kr</p>
+          <p>{product.description}</p>
+          <p>{inStockProduct(product.inStock)}</p>
+          <PurchaseBtn />
+        </Grid>
+      </Grid>
+    </Container>
   ) : null;
 }
