@@ -60,7 +60,7 @@ export default function Footer() {
           </ul>
         </Grid>
 
-        {/* Kolumn 4 */}
+        {/* Sociala ikoner */}
         <Grid item xs={3}>
           <ul className="social-icons" style={{ listStyle: 'none', display: 'flex' }}>
             <li style={{ marginRight: '10px' }}>
