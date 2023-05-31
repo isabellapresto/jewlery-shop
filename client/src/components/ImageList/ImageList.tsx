@@ -20,6 +20,7 @@ export default function ImageList() {
     >
 
         <Box sx={{display: 'flex', gap: '20px', marginBottom: '20px'}}>
+     
             <div>
                 <Link to='http://localhost:5173/shop'>
                     <img
@@ -30,7 +31,7 @@ export default function ImageList() {
                     />
                 </Link>
            </div>
-
+  
            <div>
                 <Link to='http://localhost:5173/shop'>
                     <img
