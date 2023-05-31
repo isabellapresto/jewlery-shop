@@ -5,67 +5,60 @@ import ringsFrontpage from '../../assets/ringsFrontpage.jpg';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
 import { Container } from "@mui/material";
+import '../ImageList/ImageList.css'
 
 export default function ImageList() {
   return (
 
     <Container 
         sx={{ 
-            width: '100%', 
+            width: '75%', 
             display: 'flex',
-            flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
+            gap: '20px',
+            marginBottom: '20px'
             }}
     >
 
-        <Box sx={{display: 'flex', gap: '20px', marginBottom: '20px'}}>
-     
-            <div>
-                <Link to='http://localhost:5173/shop'>
-                    <img
-                    src={earringsFrontpage}
-                    alt= "earrings"
-                    height= "350px"
-                    width= "350px"
-                    />
-                </Link>
-           </div>
-  
-           <div>
-                <Link to='http://localhost:5173/shop'>
-                    <img
-                    src={braceletsFrontpage}
-                    alt= "bracelets"
-                    height= "350px"
-                    width= "350px"
-                    />
-                </Link>
-            </div>
+        <Box sx={{width: '250px', height: '250px', position: 'relative'}}>
+            <Link to='http://localhost:5173/shop'>
+                <img
+                src={earringsFrontpage}
+                alt= "earrings"
+                className='imageBox'
+                />
+            </Link>
+        </Box>
+        
+        <Box sx={{width: '250px', height: '250px', position: 'relative'}}>
+            <Link to='http://localhost:5173/shop'>
+                <img
+                src={braceletsFrontpage}
+                alt= "bracelets"
+                className='imageBox'
+                />
+            </Link>
         </Box>
 
-        <Box sx={{display: 'flex', gap: '20px', marginBottom: '20px'}}>
-            <div>
-                <Link to='http://localhost:5173/shop'>
-                    <img
-                    src={necklacesFrontpage}
-                    alt= "necklaces"
-                    width="350px"
-                    height="350px"
-                    />
-                </Link>
-            </div>
+        <Box sx={{width: '250px', height: '250px', position: 'relative'}}>
+            <Link to='http://localhost:5173/shop'>
+                <img
+                src={necklacesFrontpage}
+                alt= "necklaces"
+                className='imageBox'
+                />
+            </Link>
+        </Box>  
 
-            <div>
-                <Link to='http://localhost:5173/shop'>
-                    <img
-                    src={ringsFrontpage}
-                    alt= "rings"
-                    width="350px"
-                    height="350px"
-                    />
-                </Link>
-            </div>
+        <Box sx={{width: '250px', height: '250px', position: 'relative'}}>  
+            <Link to='http://localhost:5173/shop'>
+                <img
+                src={ringsFrontpage}
+                alt= "rings"
+                className='imageBox'
+                />
+            </Link>
         </Box>   
     </Container>
     );
