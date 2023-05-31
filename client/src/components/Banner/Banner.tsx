@@ -1,5 +1,6 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import '../Banner/Banner.css'
 
 const images = [
   'https://lilyandrose.se/wp-content/uploads/2023/04/statement-gift-guide-kategori-1000x417.jpg',
