@@ -34,35 +34,35 @@ export default function Footer() {
         </Grid>
 
         {/* Kolumn 1 */}
-        <Grid item xs={3}>
-          <ul className="" style={{ listStyle: 'none' }}>
-            <li>Skötselråd</li>
-            <li>Återförsäljare</li>
-            <li>Kontakt</li>
+        <Grid item xs={12}  md={3}>
+          <ul className="" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <li>Returns and Exchanges</li>
+            <li>The Story</li>
+            <li>Career</li>
           </ul>
         </Grid>
 
         {/* Kolumn 2 */}
-        <Grid item xs={3}>
-          <ul className="" style={{ listStyle: 'none' }}>
-            <li>Betalningsvillkor</li>
-            <li>Leveransvillkor</li>
-            <li>Byten och returer</li>
+        <Grid item xs={12}  md={3}>
+          <ul className="" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <li>Payment Terms</li>
+            <li>Privacy Policy</li>
+            <li>Payment Terms</li>
           </ul>
         </Grid>
 
         {/* Kolumn 3 */}
-        <Grid item xs={3}>
-          <ul className="" style={{ listStyle: 'none' }}>
-            <li>Om Jewelry Shop</li>
-            <li>Karriär</li>
-            <li>Press</li>
+        <Grid item xs={12}  md={3}>
+          <ul className="" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <li>Retailers</li>
+            <li>Contact</li>
+            <li>Care Instructions</li>
           </ul>
         </Grid>
 
         {/* Sociala ikoner */}
-        <Grid item xs={3}>
-          <ul className="social-icons" style={{ listStyle: 'none', display: 'flex' }}>
+        <Grid item xs={12} md={3}>
+        <ul className="social-icons" style={{ listStyle: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <li style={{ marginRight: '10px' }}>
               <a href={socialIconsUrl} style={{ color: 'inherit', textDecoration: 'none' }}>
                 <InstagramIcon />
