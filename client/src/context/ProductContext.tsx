@@ -1,4 +1,3 @@
-
 import { createContext, useState, useEffect, useContext, PropsWithChildren } from 'react';
 
 export interface Product {

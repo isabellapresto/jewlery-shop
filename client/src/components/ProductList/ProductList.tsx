@@ -14,16 +14,17 @@ export default function ProductList() {
     <>
       <Grid
         container
-        columns={{ xs: 4 }}
+        columns={4}
         gap={3}
         direction="row"
         justifyContent="center"
-        alignItems="flex-start"
+        alignItems="center"
       >
+
       {products.map((product) => (
         <Link to={`/${product._id}`} key={product._id}>
         <ProductCard product={product} /> </Link>
-        ))}
+      ))}
       </Grid>
     </>
   );
