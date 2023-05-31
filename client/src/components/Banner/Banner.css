@@ -1,7 +1,6 @@
 .bannerContainer {
     display: flex;
     height: 75vh;
-    background-color: aqua;
 }
 
 .slideshow {
@@ -12,7 +11,6 @@
     position: relative;
     overflow: hidden;
     border-radius: 16px;
-    background-color: yellow;
 }
 
 .prevBtn {
