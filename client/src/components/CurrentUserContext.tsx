@@ -1,53 +1,104 @@
-// import { createContext, useEffect, useState} from 'react'
-// import { ProviderProps } from 'react';
+import {  ReactNode, createContext, useState, useEffect } from 'react'
 
 
-// export type UserType = {
-//     email: string;
-//     password: string;
-// }
-// export type UserContextType = {
-//     currentUser?: UserType;
-//     setCurrentUser: (user: UserType) => void;
-//     checkLogin: () => void;
-//     setAuthLoading: (isLoaing: boolean) => void;
-//     authLoding: boolean;
-//     handleLogout: () => void;
-//     testData: string;
-// }
+export type User = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    isAdmin?: boolean;
+}
 
 
-// export const CurrentUserContext = createContext<UserContextType>;
+export type UserType = {
+   
+        email: string,
+        password: string
+    };
 
-// export const CurrentUserProvider: React.FC = ({ children }: ProviderProps) => {
-//     const [currentUser, setCurrentUser] = useState<UserType>();
-//     const [authLoading, setAuthLoading] = useState(false);
+interface UserContextType  {
+    loggedInUser?: User | null;
+    login: (user: UserType) => Promise<void>;
+    logout: () => Promise<void>;
+};
 
-//     useEffect(() => {
-//         checkLogin();
-//     }, [])
+type Props = {
+    children: ReactNode
+}
 
-//     const checkLogin = () => {
-//         console.log("checkLogin");
+
+
+ export const UserContextType = createContext<UserContextType>({
+    loggedInUser: null,
+    login: async () => {},
+    logout: async () => {},
+});
+
+const UserProvider = ({ children }: Props) => {
+    const [loggedInUser, setloggedInUser] = useState<User | null>(null)
+
+    useEffect(() => {
+        const authorization = async () => {
+            try {
+                const response = await fetch('/api/users/authorize')
+                const data = await response.json() 
+                    if (response.status === 200) {
+                        setloggedInUser(data)
+                    
+                }
+            }
+            catch(err){
+                console.log(err);
+                
+            }
+        }
+        authorization()
+    }, [])
+
+    const login = async (user: UserType) => {
+        if (user) {
+            try {
+                const response = await fetch('api/users/login',{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(user),
+                                       
+                })
+                const data = await response.json()
+                localStorage.setItem('user', JSON.stringify(data));
+                if(response.status === 200) {
+                    setloggedInUser(data)
+                    console.log('logged in successfully as ' + loggedInUser?.firstName);
+                    
+                } else{
+                    console.log('wrong email or password');
+                }
+            }
+            catch(err){
+                console.log(err);
+                
+                
+                
+            }
+            
+        }
         
-//     }
+    }
+    const logout = () => {
+            setloggedInUser(null);
+            return Promise.resolve();
+        }
 
-//     const handleLogout = () => {
-//         setCurrentUser;
-//     }
+        
 
-//     const testData = "test data";
+    return (
+            <UserContextType.Provider value= {{ loggedInUser, login: login, logout: logout }}>
+                {children}
+            </UserContextType.Provider>
+        )
+ 
+}
 
-//     const stateValues = {
-//         currentUser,
-//         setCurrentUser,
-//         checkLogin,
-//         setAuthLoading,
-//         authLoading,
-//         handleLogout,
-//         testData
-
-//     }
-//     return <CurrentUserContext.Provider value= {stateValues}>{children}</CurrentUserContext.Provider>
-
-// }
+export default UserProvider;
