@@ -1,20 +1,39 @@
 import PurchaseBtn from '../PurchaseBtn/PurchaseBtn'
-import Product from '../../interfaces'
-import Grid from '@mui/material/Grid';
+import { Product } from '../../context/ProductContext';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import './ProductCard.css';
 
-export default function ProductCard ({image, title, price}: Product) {
-  return (
-    <Grid xs={3}>
-      <img
-        src={image}
-        alt={title}
-        style={{ maxWidth: "300px", maxHeight: "300px" }}
-      />
-      <div className='product_card_info'>
-        <h3>{title}</h3>
-        <p>Price: {price} SEK</p>
-        <PurchaseBtn />
-      </div>
-  </Grid>
-  );
+export type Props = {
+  product: Product
+}
+
+export default function ProductCard ({ product }: Props) {
+
+return (
+  <Card sx={{ width: 300, height: 460, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
+    <CardMedia
+      component='img'
+      alt={product.title}
+      image= {product.image}
+      height='300'
+    />
+
+    <CardContent>
+      <Typography gutterBottom variant="h6" component="div" fontSize="13px" fontWeight="bold" textAlign="center">
+        {product.title}
+      </Typography>
+      <Typography variant="body2" color="text.secondary" fontSize="12px">
+        {product.price + " SEK"}
+      </Typography>
+    </CardContent>
+
+    <CardActions>
+      <PurchaseBtn />
+    </CardActions>
+  </Card>
+);
 }

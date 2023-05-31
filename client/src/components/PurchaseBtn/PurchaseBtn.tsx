@@ -1,13 +1,18 @@
 import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import './PurchaseBtn.css';
+
+const handleClick = (event : any) => {
+  event.preventDefault();
+}
 
 export default function PurchaseBtn() {
   return (
-    <Stack direction="row" spacing={2}>
-      <Button variant="outlined" startIcon={<AddShoppingCartIcon />}>
+    <Box sx={{width: '100%', display: 'flex', justifyContent:'center', marginBottom: '1rem'}}>
+       <Button variant="outlined"  onClick={handleClick} startIcon={<AddShoppingCartIcon />} >
         Add to cart
       </Button>
-    </Stack>
+    </Box>
   );
 }

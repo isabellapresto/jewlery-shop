@@ -1,44 +1,32 @@
-import { useEffect, useState } from "react";
-import CategoryDropDown from '../CategoryDropDown/CategoryDropDown';
+// import { useEffect, useState } from "react";
 import ProductCard from '../ProductCard/ProductCard';
-import Product from '../../interfaces';
+import { Product } from '../../context/ProductContext';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
+import './ProductList.css';
+import { useProductContext } from "../../context/ProductContext";
 
 export default function ProductList() {
-  const [products, setProducts] = useState<Product[]>([]);
-  
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const apiUrl = "http://localhost:3000/api/products";
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
-    fetchProducts();
-  }, []);
+  const {products} = useProductContext();
 
   return (
-    <div className="product-container">
-      <div className="category_filter">
-        <h3>Filter by category</h3>
-        <CategoryDropDown />
-      </div>
-      <h2>Product List</h2>
-      <Grid container spacing={2}>
-      {products.map(product => {
-        return <ProductCard
-          image={product.image}
-          title={product.title}
-          price={product.price}
-          /> 
-        })}
+    <>
+      <Grid
+        container
+        columns={4}
+        gap={3}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+
+      {products.map((product) => (
+        <Link to={`/${product._id}`} key={product._id}>
+        <ProductCard product={product} /> </Link>
+      ))}
       </Grid>
-    </div>
+    </>
   );
 }
+
