@@ -1,7 +1,3 @@
-import earringsFrontpage from '../../assets/earringsFrontpage.jpg';
-import braceletsFrontpage from '../../assets/braceletsFrontpage.jpg';
-import necklacesFrontpage from '../../assets/necklacesFrontpage.jpg';
-import ringsFrontpage from '../../assets/ringsFrontpage.jpg';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
 import { Container } from "@mui/material";
@@ -24,7 +20,7 @@ export default function ImageList() {
         <Box sx={{width: '250px', height: '250px', position: 'relative'}}>
             <Link to='http://localhost:5173/shop'>
                 <img
-                src={earringsFrontpage}
+                src='https://lilyandrose.se/wp-content/uploads/2023/04/66a.jpg'
                 alt= "earrings"
                 className='imageBox'
                 />
@@ -34,7 +30,7 @@ export default function ImageList() {
         <Box sx={{width: '250px', height: '250px', position: 'relative'}}>
             <Link to='http://localhost:5173/shop'>
                 <img
-                src={braceletsFrontpage}
+                src='https://lilyandrose.se/wp-content/uploads/2023/04/brace-12.jpg'
                 alt= "bracelets"
                 className='imageBox'
                 />
@@ -44,7 +40,7 @@ export default function ImageList() {
         <Box sx={{width: '250px', height: '250px', position: 'relative'}}>
             <Link to='http://localhost:5173/shop'>
                 <img
-                src={necklacesFrontpage}
+                src='https://lilyandrose.se/wp-content/uploads/2023/04/mn.jpg'
                 alt= "necklaces"
                 className='imageBox'
                 />
@@ -54,7 +50,7 @@ export default function ImageList() {
         <Box sx={{width: '250px', height: '250px', position: 'relative'}}>  
             <Link to='http://localhost:5173/shop'>
                 <img
-                src={ringsFrontpage}
+                src='https://lilyandrose.se/wp-content/uploads/2023/04/ring.jpg'
                 alt= "rings"
                 className='imageBox'
                 />
