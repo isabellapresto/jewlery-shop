@@ -1,7 +1,11 @@
+import Banner from '../Banner/Banner'
+import ImageList from '../ImageList/ImageList';
+
 export default function Home() {
     return (
         <div>
-            <h1>HELLO WORLD FROM HOMEPAGE</h1>
+            <Banner></Banner>
+            <ImageList></ImageList>
         </div>
 
     );

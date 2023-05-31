@@ -1,4 +1,4 @@
-import JewelryShopLogo from "../JewelryShopLogo.png";
+import JewelryShopLogo from "../../assets/JewelryShopLogo.png";
 import { Container } from "@mui/material";
 export default function PrintLogo() {
   return (
