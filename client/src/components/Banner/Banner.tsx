@@ -30,7 +30,7 @@ export default function Banner() {
   }
 
     return (
-      <div className="container">
+      <div className="bannerContainer">
         <div className="slideshow">
           <img src={images[index]} alt="slides" className="slides" />
           <button className="prevBtn" onClick={prevStep}><ArrowBackIosIcon /></button>

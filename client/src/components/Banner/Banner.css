@@ -1,12 +1,13 @@
-.container {
+.bannerContainer {
     display: flex;
-    height: 85vh;
+    height: 75vh;
     background-color: aqua;
 }
 
 .slideshow {
     margin: auto;
-    width: 60%;
+    width: 70%;
+    height: 90%;
     aspect-ratio: calc(16/9);
     position: relative;
     overflow: hidden;
@@ -14,11 +15,12 @@
     background-color: yellow;
 }
 
-button {
+.prevBtn {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: black;
+    opacity: 0.5;
     width: 50px;
     font-size: 18px;
     aspect-ratio: 1;
@@ -26,23 +28,35 @@ button {
     border: none;
     cursor: pointer;
     color: white;
-}
-button:hover {
-    background-color: lightgrey;
-}
-
-.prevBtn {
     position: absolute;
     top: 50%;
     left: 16px;
     transform: translateY(-50%);
 }
+.prevBtn:hover {
+    opacity: 1;
+}
 
 .nextBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    opacity: 0.5;
+    width: 50px;
+    font-size: 18px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    color: white;
     position: absolute;
     top: 50%;
     right: 16px;
     transform: translateY(-50%);
+}
+.nextBtn:hover {
+    opacity: 1;
 }
 
 .slides {
