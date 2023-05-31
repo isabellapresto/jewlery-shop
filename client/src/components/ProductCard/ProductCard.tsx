@@ -16,9 +16,10 @@ export default function ProductCard ({ product }: Props) {
 return (
   <Card sx={{ width: 300, height: 460, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
     <CardMedia
-      sx={{ width: 300, height: 300 }}
+      component='img'
+      alt={product.title}
       image= {product.image}
-      title={product.title}
+      height='300'
     />
 
     <CardContent>

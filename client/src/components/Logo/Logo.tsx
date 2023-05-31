@@ -1,14 +1,20 @@
-import JewelryShopLogo from '../JewelryShopLogo.png';
-
-
+import JewelryShopLogo from "../JewelryShopLogo.png";
+import { Container } from "@mui/material";
 export default function PrintLogo() {
-return (
-<div>
-  <div>
-     <img src={JewelryShopLogo} alt="JewelryShopLogo" />
-   </div>
- </div>
-
-
-);
+  return (
+    <Container>
+      <div>
+        <img
+          src={JewelryShopLogo}
+          alt="JewelryShopLogo"
+          style={{
+            width: "70%",
+            display: "block",
+            margin: "auto",
+            padding: "50px",
+          }}
+        />
+      </div>
+    </Container>
+  );
 }

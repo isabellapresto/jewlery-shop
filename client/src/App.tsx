@@ -2,16 +2,23 @@ import MainContent from "./components/MainContent/MainContent";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 
-// import { CurrentUserProvider } from "./components/CurrentUserContext";
+import  UserProvider  from "./components/CurrentUserContext";
+
+import ProductProvider from "./context/ProductContext";
+
 
 const App = () => {
   return (
     <div>
-      {/* <CurrentUserProvider> */}
-      <Header/>
-      <MainContent />
-      <Footer/>
-    {/* </CurrentUserProvider> */}
+     <UserProvider>
+      <ProductProvider>
+        <Header/>
+        <MainContent />
+        <Footer/>
+      </ProductProvider>
+    </UserProvider>
+ 
+
      
     </div>
   );
