@@ -1,5 +1,5 @@
 import PurchaseBtn from '../PurchaseBtn/PurchaseBtn'
-import Product from '../../interfaces'
+import { Product } from '../../context/ProductContext';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -16,9 +16,10 @@ export default function ProductCard ({ product }: Props) {
 return (
   <Card sx={{ width: 300, height: 460, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
     <CardMedia
-      sx={{ width: 300, height: 300 }}
+      component='img'
+      alt={product.title}
       image= {product.image}
-      title={product.title}
+      height='300'
     />
 
     <CardContent>
