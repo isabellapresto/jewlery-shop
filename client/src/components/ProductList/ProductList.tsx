@@ -1,27 +1,14 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import ProductCard from '../ProductCard/ProductCard';
 import { Product } from '../../context/ProductContext';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import './ProductList.css';
+import { useProductContext } from "../../context/ProductContext";
 
 export default function ProductList() {
-  const [products, setProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const apiUrl = "http://localhost:3000/api/products";
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  const {products} = useProductContext();
 
   return (
     <>

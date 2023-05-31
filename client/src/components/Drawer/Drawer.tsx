@@ -21,6 +21,7 @@ function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
     setOpen(false);
   };
 
+
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
