@@ -1,17 +1,16 @@
 import MainContent from "./components/MainContent/MainContent";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-
-// import { CurrentUserProvider } from "./components/CurrentUserContext";
+import  UserProvider  from "./components/CurrentUserContext";
 
 const App = () => {
   return (
     <div>
-      {/* <CurrentUserProvider> */}
+      <UserProvider>
       <Header/>
       <MainContent />
       <Footer/>
-    {/* </CurrentUserProvider> */}
+    </UserProvider>
      
     </div>
   );
