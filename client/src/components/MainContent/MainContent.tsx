@@ -5,13 +5,16 @@ import Login from "../Login/Login";
 import CheckOut from "../CheckOut/CheckOut";
 import About from "../About/About";
 import Contact from "../Contact/Contact";
+import Home from "../Home/Home";
 
 function MainContent() {
   return (
     
       <Routes>
-        <Route path='/' element= {<ProductList />} />
+        <Route path='/' element= {<Home />} />
+        <Route path='/shop' element= {<ProductList />} />
         <Route path='/about' element= {<About />} /> 
+        <Route path='/contact' element= {<Contact />} />
         <Route path='/checkout' element= {<CheckOut />} /> 
         <Route path='/:id' element= {<ProductDetails />}  />
         <Route path='/login' element= {<Login />} />

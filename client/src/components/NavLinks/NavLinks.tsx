@@ -19,7 +19,14 @@ function NavLinks() {
       <NavLink to="/" style={{ textDecoration: "none" }}>
         <Button component={ListItem} disableRipple>
           <ListItemText
-            primary={<Typography variant="body1">Home</Typography>}
+            primary={<Typography variant="body1">HOME</Typography>}
+          />
+        </Button>
+      </NavLink>
+      <NavLink to="/shop" style={{ textDecoration: "none" }}>
+        <Button component={ListItem} disableRipple>
+          <ListItemText
+            primary={<Typography variant="body1">SHOP</Typography>}
           />
         </Button>
       </NavLink>

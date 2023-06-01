@@ -1,11 +1,10 @@
-
 import { useEffect, useState } from "react";
-import ProductCard from "../ProductCard/ProductCard";
-import { Product } from "../../context/ProductContext";
-import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
-import "./ProductList.css";
-
+import ProductCard from '../ProductCard/ProductCard';
+//import { Product } from '../../context/ProductContext';
+import Grid from '@mui/material/Grid';
+import { Link } from 'react-router-dom';
+import './ProductList.css';
+import { useProductContext } from "../../context/ProductContext";
 
 export default function ProductList() {
 
