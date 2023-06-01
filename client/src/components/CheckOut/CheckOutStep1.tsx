@@ -3,19 +3,29 @@ import { TextField, Button } from '@mui/material';
 
 interface Step1Props {
   onNext: () => void;
+  // user: {
+  //   firstName: string;
+  //   lastName: string;
+  //   email: string;
+  // };
+
 }
+
+
 
 const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [name, setName] = useState('');
+  // const [name, setName] = useState(`${user.firstName} ${user.lastName}`);
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState(user.email);
   const [postcode, setPostCode] = useState('');
   const [town, setTown] = useState('');
   const [country, setCountry] = useState('');
 
   const handleNext = () => {
     // spara
-    if (name && address && email) {
+    if (name && address && email && postcode && town && country) {
       onNext();
     } else {
       // alert, felmedd
