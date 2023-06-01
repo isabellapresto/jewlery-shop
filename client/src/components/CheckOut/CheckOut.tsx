@@ -44,8 +44,13 @@ export default function CheckoutPage() {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography variant="h5">Thank you for your purchase!</Typography>
-            <Button onClick={() => setActiveStep(0)}>Back</Button>
+            {/* <h2 style={{ padding: '50px', textAlign: 'center' }}>Billing Details</h2>  */}
+            <Typography variant="h2" style={{ padding: '50px', textAlign: 'center' }}>Thank you for your purchase!</Typography>
+            <Button onClick={() => setActiveStep(0)}
+              variant="contained"
+              color="inherit" 
+            
+              style={{ margin: '0 auto', backgroundColor: 'black', color: 'white' }} >Back</Button>
           </div>
         ) : (
           <div>

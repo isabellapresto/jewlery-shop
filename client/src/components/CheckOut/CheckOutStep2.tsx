@@ -14,15 +14,23 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
     const selectedShippingMethod = e.target.value;
     setShippingMethod(selectedShippingMethod);
 
-    // Uppdatera texten baserat på vald shipping-metod - här ska en funktion göras som räknar ut leveransdatum?
     let text = '';
     if (selectedShippingMethod === 'standard') {
-      text = '24h, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt';
+      const deliveryDate = new Date();
+      deliveryDate.setHours(deliveryDate.getHours() + 24);
+      text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}, ${deliveryDate.toLocaleTimeString()}`;
+    
     } else if (selectedShippingMethod === 'express') {
-      text = '48h Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt';
+      const deliveryDate = new Date();
+      deliveryDate.setHours(deliveryDate.getHours() + 48);
+      text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}, ${deliveryDate.toLocaleTimeString()}`;
+   
     } else if (selectedShippingMethod === 'shipping3') {
-      text = '4-5 days Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor';
+      const deliveryDate = new Date();
+      deliveryDate.setDate(deliveryDate.getDate() + 4);
+      text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}, ${deliveryDate.toLocaleTimeString()}`;
     }
+
     setShippingMethodText(text);
   };
 
@@ -39,9 +47,10 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       <h2 style={{ padding: '50px', textAlign: 'center' }}>Shipping methods</h2>
       <FormControl component="fieldset">
         <RadioGroup value={shippingMethod} onChange={handleShippingMethodChange}>
-          <FormControlLabel value="standard" control={<Radio />} label="Shipping 1" />
-          <FormControlLabel value="express" control={<Radio />} label="Shipping 2" />
-          <FormControlLabel value="shipping3" control={<Radio />} label="Shipping 3" />
+          {/* Vilka shipping methods och pris? */}
+          <FormControlLabel value="standard" control={<Radio />} label="Shipping 1, 24h" />
+          <FormControlLabel value="express" control={<Radio />} label="Shipping 2, 48h" />
+          <FormControlLabel value="shipping3" control={<Radio />} label="Shipping 3, 4 days" />
         </RadioGroup>
       </FormControl>
 
@@ -70,5 +79,6 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
 };
 
 export default Step2;
+
 
 

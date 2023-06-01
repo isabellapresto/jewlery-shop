@@ -5,6 +5,8 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
+
+
 export default function Footer() {
   const socialIconsUrl = 'https://medieinstitutet.se/';
 
