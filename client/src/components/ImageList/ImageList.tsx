@@ -5,9 +5,9 @@ import '../ImageList/ImageList.css'
 export default function ImageList() {
   return (
 
-    <Grid container width='80%' margin='auto' marginBottom='20px'>
+    <Grid container width='80%' margin='auto' marginTop='40px' marginBottom='50px'>
 
-        <Grid item xs={12} sm={6} md={6} lg={3}>
+        <Grid item margin='auto' xs={12} sm={6} md={6} lg={3}>
         <div className="imageContainer">
             <Link to='http://localhost:5173/shop'>
                 <img

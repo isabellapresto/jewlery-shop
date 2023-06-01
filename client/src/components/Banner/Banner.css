@@ -1,6 +1,7 @@
 .bannerContainer {
     display: flex;
     height: 75vh;
+    margin: 0;
 }
 
 .slideshow {
