@@ -9,7 +9,7 @@ function Login() {
 
     return(
         <div  className="loginContainer">
-            <h2>Logga in här</h2>
+            
             <LoginForm />
             {/* <h2>{testData}</h2> */}
         </div>
