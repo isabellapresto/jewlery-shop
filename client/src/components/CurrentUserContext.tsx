@@ -1,6 +1,7 @@
 import {  ReactNode, createContext, useState, useEffect } from 'react'
 
 
+
 export type User = {
     firstName: string;
     lastName: string;
@@ -44,11 +45,20 @@ const UserProvider = ({ children }: Props) => {
                 const data = await response.json() 
                     if (response.status === 200) {
                         setloggedInUser(data)
+                        console.log('du är inloggad som ' + data.firstName) ;  
+                        console.log(data);
+                             
+                 }
+                //  else {
+                //     setloggedInUser(null)
+                //     console.log('du är inte inloggad');
                     
-                }
+                // }
             }
             catch(err){
                 console.log(err);
+                console.log('du är inte inloggad');
+                
                 
             }
         }
@@ -67,10 +77,12 @@ const UserProvider = ({ children }: Props) => {
                                        
                 })
                 const data = await response.json()
-                localStorage.setItem('user', JSON.stringify(data));
+                // localStorage.setItem('user', JSON.stringify(data));
                 if(response.status === 200) {
                     setloggedInUser(data)
-                    console.log('logged in successfully as ' + loggedInUser?.firstName);
+                    console.log('logged in successfully');
+                    
+                    
                     
                 } else{
                     console.log('wrong email or password');
@@ -86,10 +98,34 @@ const UserProvider = ({ children }: Props) => {
         }
         
     }
-    const logout = () => {
-            setloggedInUser(null);
-            return Promise.resolve();
-        }
+   
+    const logout = async () => {
+         
+            try {
+                const response = await fetch('api/users/logout',{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+
+                                       
+                })
+            
+                if(response.status === 204) {
+                    
+                    setloggedInUser(null)
+                
+            }
+            
+            
+        }  catch(err){
+                console.log(err);
+    } 
+    
+        
+    
+}
+
 
         
 
