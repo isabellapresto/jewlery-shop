@@ -1,14 +1,16 @@
 import { createContext, useState, useEffect, useContext, PropsWithChildren } from 'react';
 
 export interface Product {
-    _id: string,
-    title: string,
-    description: string,
-    price: number,
-    image: string,
-    inStock: number,
-    categories: string[]
-  }
+
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  inStock: number;
+  categories: string[];
+}
+
 
   interface ProductContext {
     products: Product[];
@@ -38,3 +40,4 @@ const ProductProvider = ({children}: PropsWithChildren) => {
 }
 
 export default ProductProvider
+

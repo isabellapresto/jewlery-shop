@@ -1,4 +1,4 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from '../ProductCard/ProductCard';
 //import { Product } from '../../context/ProductContext';
 import Grid from '@mui/material/Grid';
@@ -21,12 +21,13 @@ export default function ProductList() {
         alignItems="center"
       >
 
-      {products.map((product) => (
-        <Link to={`/${product._id}`} key={product._id}>
-        <ProductCard product={product} /> </Link>
-      ))}
+        {products.map((product) => (
+          <Link to={`/${product._id}`} key={product._id}>
+            <ProductCard product={product} />
+          </Link>
+        ))}
+
       </Grid>
     </>
   );
 }
-
