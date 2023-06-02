@@ -1,27 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Button } from '@mui/material';
+import { UserType, UserContextType } from "../CurrentUserContext"
+
 
 interface Step1Props {
   onNext: () => void;
-  // user: {
-  //   firstName: string;
-  //   lastName: string;
-  //   email: string;
-  // };
-
 }
 
-
-
 const Step1: React.FC<Step1Props> = ({ onNext }) => {
-  const [name, setName] = useState('');
-  // const [name, setName] = useState(`${user.firstName} ${user.lastName}`);
+  const {loggedInUser} = useContext(UserContextType);
+  const [name, setName] = useState(loggedInUser?.firstName + ' ' + loggedInUser?.lastName );
   const [address, setAddress] = useState('');
-  const [email, setEmail] = useState('');
-  // const [email, setEmail] = useState(user.email);
+  const [email, setEmail] = useState(loggedInUser?.email);
   const [postcode, setPostCode] = useState('');
   const [town, setTown] = useState('');
-  const [country, setCountry] = useState('');
+  const [country, setCountry] = useState(''); 
 
   const handleNext = () => {
     // spara
@@ -86,7 +79,6 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         margin="normal"
       />
 
-   
 <Button
         variant="contained"
         color="inherit" 
