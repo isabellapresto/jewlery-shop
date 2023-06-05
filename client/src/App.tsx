@@ -5,21 +5,23 @@ import Header from "./components/Header/Header";
 import  UserProvider  from "./components/CurrentUserContext";
 
 import ProductProvider from "./context/ProductContext";
+import ShoppingCartProvider from "./context/CartContext";
 
 
 const App = () => {
   return (
     <div>
-     <UserProvider>
+      <ShoppingCartProvider>
+      <UserProvider>
       <ProductProvider>
         <Header/>
         <MainContent />
         <Footer/>
-      </ProductProvider>
+    </ProductProvider>
     </UserProvider>
- 
+    </ShoppingCartProvider>
+   
 
-     
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-//import ProductCard from "../ProductCard/ProductCard";
 import { Product } from "../../context/ProductContext";
 import { useParams } from "react-router-dom";
 import { Container, Grid } from "@mui/material";
@@ -66,7 +65,7 @@ export default function ProductDetails() {
           <p style={{ fontStyle: "italic" }}>{product.price} kr</p>
           <p>{product.description}</p>
           <p>{inStockProduct(product.inStock)}</p>
-          <PurchaseBtn />
+          <PurchaseBtn product={product} />
         </Grid>
       </Grid>
     </Container>
