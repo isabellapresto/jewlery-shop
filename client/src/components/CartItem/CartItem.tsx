@@ -51,7 +51,13 @@ export default function CartItem( { id, quantity} : CartItemProps) {
             <Box className="cartitem-qty-btn">
                 <div className="qty-div">x {quantity}</div>
             </Box>
-            <Button className="cartitem-qty-btn" onClick={() => item && decreaseCartQuantity(item?._id)}><RemoveIcon /></Button>
+
+            {quantity > 1 ? (
+                <Button className="cartitem-qty-btn" onClick={() => item && decreaseCartQuantity(item?._id)}><RemoveIcon /></Button>
+            ) : (
+                <Button className="cartitem-qty-btn"><RemoveIcon /></Button>
+            )}
+            
             <Button className="cartitem-qty-btn" onClick={() => item && removeFromCart(item?._id)}><DeleteIcon /></Button>
         </Stack>
     </Stack>
