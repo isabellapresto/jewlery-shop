@@ -1,8 +1,11 @@
 import { useShoppingCart } from "../../context/CartContext"
 import { useProductContext } from "../../context/ProductContext";
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete'
+import Icon from '@mui/material/Icon';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 //SKULLE BEHÖVA ANVÄNDA DENNA FÖR PRISET MEN FÅR FEL I KODEN DÅ - HJÄLP!!!!
 //DEN FUNKTIONEN FUNGERAR I DRAWER - VARFÖR INTE HÄR????
@@ -16,48 +19,34 @@ type CartItemProps = {
 
 
 export default function CartItem( { id, quantity} : CartItemProps) {
-    const { removeFromCart } = useShoppingCart()
+    const { increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
     const {products} = useProductContext();
-
 
     const item = products.find(i => i._id === id)
     if ( item === null) return null
 
     return (
     <Stack>
-        <img 
+        <div className="cartitem-container">
+            <img 
             src={item?.image}
-            style={{width: '75px', height: '75px', objectFit: 'cover'}}
-        />
+            style={{width: '50px', height: '50px', objectFit: 'cover'}}
+            />
 
-        <div className="cartitem-title">
-            {item?.title} {" "} 
-            {quantity > 1 && (
-                <span>
-                    <br />
-                    x {quantity} st
-                </span>
-            )}
+            <div className="cartitem-info">
+                <span>{item?.title} {" "}</span>
+                <br/>
+                <span>{item && item.price * quantity} kr</span>
+            </div>
         </div>
 
-        <div className="cartitem-price">
-            {quantity > 1 ? (
-                <span>à {item?.price} kr</span>
-            ) : (
-                <span>{item?.price} kr</span>
-            )}
+        <div className="cartitem-qty">
+            <Button onClick={() => item && increaseCartQuantity(item?._id)}><AddIcon /></Button>
+            <div>{quantity} st</div>
+            <Button onClick={() => item && decreaseCartQuantity(item?._id)}><RemoveIcon /></Button>
+            <Button onClick={() => item && removeFromCart(item?._id)}><DeleteIcon /></Button>
         </div>
-
-        <div className="cartitem-totprice">
-        {quantity > 1 && (
-            <span>{item && item.price * quantity} kr</span>
-        )} 
-        </div>
-
-        <IconButton aria-label="delete" onClick={()=> item && removeFromCart(item._id)}>
-            <DeleteIcon />
-        </IconButton>
-
+ 
     </Stack>
 )
 }
