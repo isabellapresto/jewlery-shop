@@ -25,16 +25,15 @@ function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
     setOpen(false);
   };
 
-
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
-        <h5>Din kundvagn</h5>
+        <h5>Your ShoppingCart</h5>
        {/* { cartItems.map(item => (
        <CartItem key={item.id} {...item} />))} */}
         <NavLink to="/checkout">
           <Button variant="outlined" onClick={handleButtonClick}>
-            Till Kassan
+            To Checkout
           </Button>
         </NavLink>
       </div>
