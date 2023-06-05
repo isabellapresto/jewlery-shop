@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react'
 export default function Shipping(){
     interface ShippingMethod  {
     
-        company: "string",
+        company: string,
         deliveryTimeInHours: number,
         price: number,
-        id: 'string'
+        id: string
     }
 
     const [shippings, setShippings] = useState<ShippingMethod[]>([]);
