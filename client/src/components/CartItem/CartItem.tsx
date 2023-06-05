@@ -1,8 +1,9 @@
 import { useShoppingCart } from "../../context/CartContext"
 import { useProductContext } from "../../context/ProductContext";
+import '../CartItem/CartItem.css'
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Icon from '@mui/material/Icon';
+import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -27,26 +28,32 @@ export default function CartItem( { id, quantity} : CartItemProps) {
 
     return (
     <Stack>
-        <div className="cartitem-container">
-            <img 
-            src={item?.image}
-            style={{width: '50px', height: '50px', objectFit: 'cover'}}
-            />
 
-            <div className="cartitem-info">
-                <span>{item?.title} {" "}</span>
+        {/* "Raden" för bild, titel och pris*/}
+        <Stack direction="row" spacing={2}>
+            <Box sx={{}}>
+                <img 
+                src={item?.image}
+                style={{width: '50px', height: '50px', objectFit: 'cover'}}
+                />
+            </Box>
+
+            <Box sx={{}}>
+                <span className="cartitem-title">{item?.title} {" "}</span>
                 <br/>
-                <span>{item && item.price * quantity} kr</span>
-            </div>
-        </div>
+                <span className="cartitem-price">{item && item.price * quantity} kr</span>
+            </Box>
+        </Stack>
 
-        <div className="cartitem-qty">
-            <Button onClick={() => item && increaseCartQuantity(item?._id)}><AddIcon /></Button>
-            <div>{quantity} st</div>
-            <Button onClick={() => item && decreaseCartQuantity(item?._id)}><RemoveIcon /></Button>
-            <Button onClick={() => item && removeFromCart(item?._id)}><DeleteIcon /></Button>
-        </div>
- 
+        {/* "Raden" för knapparna samt quantity */}
+        <Stack direction="row" spacing={0.5} justifyContent="center">
+            <Button className="cartitem-qty-btn" onClick={() => item && increaseCartQuantity(item?._id)}><AddIcon /></Button>
+            <Box className="cartitem-qty-btn">
+                <div className="qty-div">x {quantity}</div>
+            </Box>
+            <Button className="cartitem-qty-btn" onClick={() => item && decreaseCartQuantity(item?._id)}><RemoveIcon /></Button>
+            <Button className="cartitem-qty-btn" onClick={() => item && removeFromCart(item?._id)}><DeleteIcon /></Button>
+        </Stack>
     </Stack>
 )
 }
