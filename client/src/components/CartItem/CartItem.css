@@ -1,0 +1,23 @@
+.cartitem-qty-btn{
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.qty-div {
+    text-align: center;
+    transform: translateY(50%);
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+}
+
+.cartitem-title {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.cartitem-price {
+    font-size: 13px;
+    font-style: italic;
+}
