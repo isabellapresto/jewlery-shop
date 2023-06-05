@@ -1,33 +1,59 @@
-import React, { useState } from 'react';
-import { FormControl, FormControlLabel, RadioGroup, Radio, Button } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import {
+  FormControl,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  Button,
+} from "@mui/material";
 
 interface Step2Props {
   onBack: () => void;
   onNext: () => void;
 }
 
-const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
-  const [shippingMethod, setShippingMethod] = useState('');
-  const [shippingMethodText, setShippingMethodText] = useState('');
+interface ShippingMethod {
+  company: string;
+  deliveryTimeInHours: number;
+  price: number;
+}
 
-  const handleShippingMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
+  const [shippingMethods, setShippingMethods] = useState<ShippingMethod[]>([]);
+  const [shippingMethod, setShippingMethod] = useState("");
+  const [shippingMethodText, setShippingMethodText] = useState("");
+
+  useEffect(() => {
+    const getShippingMethods = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/shippingMethod"
+        );
+        const data = await response.json();
+        setShippingMethods(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getShippingMethods();
+  }, []);
+
+  const handleShippingMethodChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const selectedShippingMethod = e.target.value;
     setShippingMethod(selectedShippingMethod);
 
-    let text = '';
-    if (selectedShippingMethod === 'standard') {
+    let text = "";
+    const selectedMethod = shippingMethods.find(
+      (method) => method.company === selectedShippingMethod
+    );
+    if (selectedMethod) {
       const deliveryDate = new Date();
-      deliveryDate.setHours(deliveryDate.getHours() + 24);
-      text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}, ${deliveryDate.toLocaleTimeString()}`;
-    
-    } else if (selectedShippingMethod === 'express') {
-      const deliveryDate = new Date();
-      deliveryDate.setHours(deliveryDate.getHours() + 48);
-      text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}, ${deliveryDate.toLocaleTimeString()}`;
-   
-    } else if (selectedShippingMethod === 'shipping3') {
-      const deliveryDate = new Date();
-      deliveryDate.setDate(deliveryDate.getDate() + 4);
+      deliveryDate.setHours(
+        deliveryDate.getHours() + selectedMethod.deliveryTimeInHours
+      );
       text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}, ${deliveryDate.toLocaleTimeString()}`;
     }
 
@@ -38,29 +64,40 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
     if (shippingMethod) {
       onNext();
     } else {
-      alert('Please select a shipping method.');
+      alert("Please select a shipping method.");
     }
   };
 
   return (
-    <div style={{ padding: '50px' }}>
-      <h2 style={{ padding: '50px', textAlign: 'center' }}>Shipping methods</h2>
+    <div style={{ padding: "50px" }}>
+      <h2 style={{ padding: "50px", textAlign: "center" }}>Shipping methods</h2>
       <FormControl component="fieldset">
-        <RadioGroup value={shippingMethod} onChange={handleShippingMethodChange}>
-          {/* Vilka shipping methods och pris? */}
-          <FormControlLabel value="standard" control={<Radio />} label="Shipping 1, 24h" />
-          <FormControlLabel value="express" control={<Radio />} label="Shipping 2, 48h" />
-          <FormControlLabel value="shipping3" control={<Radio />} label="Shipping 3, 4 days" />
+        <RadioGroup
+          value={shippingMethod}
+          onChange={handleShippingMethodChange}
+        >
+          {shippingMethods.map((method) => (
+            <FormControlLabel
+              key={method.company}
+              value={method.company}
+              control={<Radio />}
+              label={`${method.company}, ${method.deliveryTimeInHours} hours`}
+            />
+          ))}
         </RadioGroup>
       </FormControl>
 
       <p>{shippingMethodText}</p>
 
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginTop: "20px" }}>
         <Button
           variant="contained"
           color="inherit"
-          style={{ backgroundColor: 'black', color: 'white', marginRight: '10px' }}
+          style={{
+            backgroundColor: "black",
+            color: "white",
+            marginRight: "10px",
+          }}
           onClick={onBack}
         >
           Back
@@ -68,7 +105,7 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
         <Button
           variant="contained"
           color="inherit"
-          style={{ backgroundColor: 'black', color: 'white' }}
+          style={{ backgroundColor: "black", color: "white" }}
           onClick={handleNext}
         >
           Next
@@ -79,6 +116,3 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
 };
 
 export default Step2;
-
-
-
