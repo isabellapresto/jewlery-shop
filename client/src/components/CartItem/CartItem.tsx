@@ -7,10 +7,7 @@ import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-//SKULLE BEHÖVA ANVÄNDA DENNA FÖR PRISET MEN FÅR FEL I KODEN DÅ - HJÄLP!!!!
-//DEN FUNKTIONEN FUNGERAR I DRAWER - VARFÖR INTE HÄR????
-//import { formatCurrency } from "../../utilities/formatCurrency";
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 type CartItemProps = {
     id: string
@@ -41,7 +38,10 @@ export default function CartItem( { id, quantity} : CartItemProps) {
             <Box sx={{}}>
                 <span className="cartitem-title">{item?.title} {" "}</span>
                 <br/>
-                <span className="cartitem-price">{item && item.price * quantity} kr</span>
+              
+                <span>  
+                    {item && formatCurrency(item?.price * quantity)} kr 
+                </span>
             </Box>
         </Stack>
 
