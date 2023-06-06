@@ -5,9 +5,22 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    z-index: 2;
+    position:relative; 
   }
 
-  .totalPrice{
+  .close-drawer{
+    position:absolute; 
+    top:1rem; 
+    right:1rem;
+  }
+
+  .close-drawer:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    }
+
+  .total-price{
     font-weight: bold;
   }
   

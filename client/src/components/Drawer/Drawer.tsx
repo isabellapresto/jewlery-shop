@@ -7,6 +7,7 @@ import { useShoppingCart } from "../../context/CartContext";
 import { useProductContext } from "../../context/ProductContext";
 import CartItem from "../CartItem/CartItem";
 import { formatCurrency } from "../../utilities/formatCurrency";
+import CloseIcon from '@mui/icons-material/Close';
 
 interface ShoppingDrawerProps {
   open: boolean;
@@ -36,8 +37,11 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
-        <h5>Your ShoppingCart</h5>
-   
+
+        <CloseIcon className="close-drawer" onClick={handleButtonClick}></CloseIcon>
+
+        {isCartEmpty ? " " : <h4>Your ShoppingCart</h4>}
+
         <div className="body-drawer">
           <Stack>
             {cartItems.map(item => (
@@ -46,10 +50,8 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
           </Stack>
         </div> 
 
-        <div className="totalPrice">
+        <div className="total-price">
   
-          Total{" "}
-
           {isCartEmpty ? "Your Shopping Cart is empty" : `Total ${formatCurrency(
 
             cartItems.reduce((total, cartItem) => {
