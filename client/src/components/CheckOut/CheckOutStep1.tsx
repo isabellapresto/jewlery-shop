@@ -37,7 +37,8 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       {/* mitten */}
       
       {/* mitten */}
-      <h2 style={{ padding: '50px', textAlign: 'center' }}>Cart</h2> 
+      <h2 style={{ padding: '50px', paddingBottom: '0.5rem', textAlign: 'center' }}>Cart</h2> 
+      <p style={{ paddingBottom: '1rem', textAlign: 'center', fontStyle: 'italic' }}>Please check your cart details</p>
       <div className= "cartContainer">
         <Stack>
             {cartItems.map(item => (
@@ -45,7 +46,8 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
               ))}
           </Stack>
         </div>
-      <h2 style={{ padding: '50px', textAlign: 'center' }}>Billing Details</h2> 
+      <h2 style={{ padding: '50px', paddingBottom: '0.5rem', textAlign: 'center' }}>Billing Details</h2>
+      <p style={{ paddingBottom: '1rem', textAlign: 'center', fontStyle: 'italic' }}>Please fill in your billing details</p> 
       <TextField
         label="Name"
         value={name}
