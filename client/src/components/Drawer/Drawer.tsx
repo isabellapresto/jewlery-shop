@@ -13,6 +13,7 @@ interface ShoppingDrawerProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+
 function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
   
   const { cartItems } = useShoppingCart();
@@ -44,6 +45,7 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
         </div> 
 
         <div className="totalPrice">
+  
           Total{" "}
 
           {formatCurrency(
@@ -53,6 +55,7 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
               return total + (item?.price || 0) * cartItem.quantity
           }, 0)
         )}
+
         </div>
 
         <NavLink to="/checkout">

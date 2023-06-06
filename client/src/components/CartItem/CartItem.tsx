@@ -39,8 +39,8 @@ export default function CartItem( { id, quantity} : CartItemProps) {
                 <span className="cartitem-title">{item?.title} {" "}</span>
                 <br/>
               
-                <span>  
-                    {item && formatCurrency(item?.price * quantity)} kr 
+                <span className="cartitem-price ">  
+                    {item && formatCurrency(item?.price * quantity)} 
                 </span>
             </Box>
         </Stack>
