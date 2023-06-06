@@ -5,7 +5,7 @@ import CheckOutStep1 from "../CheckOut/CheckOutStep1";
 import CheckOutStep2 from '../CheckOut/CheckOutStep2';
 import CheckOutStep3 from '../CheckOut/CheckOutStep3';
 
-const steps = ['Billing Details', 'Shipping methods', 'Payment methods'];
+const steps = ['Check your details', 'Shipping methods', 'Payment methods'];
 
 export default function CheckoutPage() {
   const [activeStep, setActiveStep] = useState(0);
