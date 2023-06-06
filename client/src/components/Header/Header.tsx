@@ -5,10 +5,12 @@ import { Container, Typography } from "@mui/material";
 
 // import Login from "../Login/Login";
 import NavLinks from "../NavLinks/NavLinks";
+import "./Header.css";
 
 export default function Header() {
   return (
     <header>
+      <div className="headerAreaOne">
       <Container
         sx={{
           display: "flex",
@@ -34,17 +36,18 @@ export default function Header() {
             gap: "20px",
           }}
         >
-          <ShoppingCartIcon />
+          <ShoppingCartIcon/>
           <LoginBtn />
         </Container>
       </Container>
+</div>
 
-      <Container>
-        <Logo />
-      </Container>
-      <Container>
-        <NavLinks />
-      </Container>
-    </header>
+<div className="headerAreaTwo">
+  <Container>
+    <Logo />
+    <NavLinks />
+  </Container>
+</div>
+</header>
   );
 }

@@ -1,4 +1,3 @@
-import PurchaseBtn from '../PurchaseBtn/PurchaseBtn'
 import { Product } from '../../context/ProductContext';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -6,21 +5,26 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import './ProductCard.css';
+import { Link } from 'react-router-dom';
+import PurchaseBtn from '../PurchaseBtn/PurchaseBtn';
+ 
+type Props = {
+  product: Product}
 
-export type Props = {
-  product: Product
-}
 
-export default function ProductCard ({ product }: Props) {
+export default function ProductCard ({product} : Props) {
+
 
 return (
-  <Card sx={{ width: 300, height: 460, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
+  <Card sx={{ width: 300, height: 500, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
+    <Link to={`/${product._id}`} key = {product._id} >
     <CardMedia
       component='img'
       alt={product.title}
       image= {product.image}
       height='300'
     />
+    </Link>
 
     <CardContent>
       <Typography gutterBottom variant="h6" component="div" fontSize="13px" fontWeight="bold" textAlign="center">
@@ -32,7 +36,7 @@ return (
     </CardContent>
 
     <CardActions>
-      <PurchaseBtn />
+      <PurchaseBtn product={product}/>
     </CardActions>
   </Card>
 );

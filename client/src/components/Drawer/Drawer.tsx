@@ -1,14 +1,24 @@
 import Drawer from "@mui/material/Drawer";
 import Button from '@mui/material/Button';
 import { NavLink } from "react-router-dom";
+import Stack from '@mui/material/Stack';
 import './Drawer.css'
+import { useShoppingCart } from "../../context/CartContext";
+import { useProductContext } from "../../context/ProductContext";
+import CartItem from "../CartItem/CartItem";
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 interface ShoppingDrawerProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
+
+function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
+  
+  const { cartItems } = useShoppingCart();
+  const {products} = useProductContext();
+
   const toggleDrawer = () => (event: { type: string; key: string; }) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
@@ -21,16 +31,46 @@ function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
     setOpen(false);
   };
 
+  const isCartEmpty = cartItems.length === 0;
 
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
-        <h5>Din kundvagn</h5>
+        <h5>Your ShoppingCart</h5>
+   
+        <div className="body-drawer">
+          <Stack>
+            {cartItems.map(item => (
+              <CartItem key= {item.id} {...item} />
+              ))}
+          </Stack>
+        </div> 
+
+        <div className="totalPrice">
+  
+          Total{" "}
+
+          {isCartEmpty ? "Your Shopping Cart is empty" : `Total ${formatCurrency(
+
+            cartItems.reduce((total, cartItem) => {
+              const item = products.find(i => i._id === cartItem.id)
+              return total + (item?.price || 0) * cartItem.quantity
+
+            }, 0)
+          )}`}
+
+        </div>
+
+          {!isCartEmpty && (
+
         <NavLink to="/checkout">
           <Button variant="outlined" onClick={handleButtonClick}>
-            Till Kassan
+            To Checkout
           </Button>
         </NavLink>
+
+          )}
+          
       </div>
     </Drawer>
   );

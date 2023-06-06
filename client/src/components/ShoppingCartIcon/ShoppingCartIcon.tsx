@@ -1,13 +1,13 @@
+import React, { useState } from "react";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
-import { useState } from "react";
-import ShoppingDrawer from '../Drawer/Drawer';
-import { useProductContext } from '../../context/ProductContext';
 import { Badge } from "@mui/material";
+import ShoppingDrawer from "../Drawer/Drawer";
+import { useShoppingCart } from "../../context/CartContext";
+import "./ShoppingCartIcon.css";
 
 export default function MyShoppingCart() {
   const [open, setOpen] = useState(false);
-
-  const {products} = useProductContext();
+  const { cartQuantity } = useShoppingCart();
 
   const handleOpen = () => {
     setOpen(true);
@@ -20,8 +20,8 @@ export default function MyShoppingCart() {
   return (
     <div>
       <div onClick={open ? handleClose : handleOpen}>
-        <Badge color="secondary" badgeContent={products.length} showZero>
-          <ShoppingCart />
+        <Badge color="secondary" badgeContent={cartQuantity} showZero>
+          <ShoppingCart className="shopping-cart-icon" />
         </Badge>
       </div>
       <ShoppingDrawer open={open} setOpen={setOpen} />

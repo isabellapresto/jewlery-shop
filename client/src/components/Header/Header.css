@@ -1,0 +1,12 @@
+.headerAreaOne {
+ position: fixed;
+ background-color: #E9D5EF;
+ z-index: 9999;
+ width: 100%;
+ margin-bottom: 50px; 
+}
+
+.headerAreaTwo  {
+ padding-top: 45px;
+}
+
