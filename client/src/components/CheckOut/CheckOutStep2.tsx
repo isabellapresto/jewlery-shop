@@ -54,7 +54,7 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       deliveryDate.setHours(
         deliveryDate.getHours() + selectedMethod.deliveryTimeInHours
       );
-      text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}, ${deliveryDate.toLocaleTimeString()}`;
+      text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}`;
     }
 
     setShippingMethodText(text);
@@ -81,7 +81,7 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
               key={method.company}
               value={method.company}
               control={<Radio />}
-              label={`${method.company}, ${method.deliveryTimeInHours} hours`}
+              label={`${method.company}, ${method.deliveryTimeInHours} hours, ${method.price} kr`}
             />
           ))}
         </RadioGroup>
