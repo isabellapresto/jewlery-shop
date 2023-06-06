@@ -31,6 +31,8 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
     setOpen(false);
   };
 
+  const isCartEmpty = cartItems.length === 0;
+
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
@@ -48,21 +50,27 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
   
           Total{" "}
 
-          {formatCurrency(
-            cartItems.reduce((total, cartItem) => {
+          {isCartEmpty ? "Your Shopping Cart is empty" : `Total ${formatCurrency(
 
+            cartItems.reduce((total, cartItem) => {
               const item = products.find(i => i._id === cartItem.id)
               return total + (item?.price || 0) * cartItem.quantity
-          }, 0)
-        )}
+
+            }, 0)
+          )}`}
 
         </div>
+
+          {!isCartEmpty && (
 
         <NavLink to="/checkout">
           <Button variant="outlined" onClick={handleButtonClick}>
             To Checkout
           </Button>
         </NavLink>
+
+          )}
+          
       </div>
     </Drawer>
   );
