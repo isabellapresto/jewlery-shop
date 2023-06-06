@@ -24,18 +24,18 @@ export default function CartItem( { id, quantity} : CartItemProps) {
     if ( item === null) return null
 
     return (
-    <Stack>
+    <>
 
         {/* "Raden" för bild, titel och pris*/}
-        <Stack direction="row" spacing={2}>
-            <Box sx={{}}>
+        <Stack direction="row" spacing={2} alignItems="center">
+            <Box>
                 <img 
                 src={item?.image}
                 style={{width: '50px', height: '50px', objectFit: 'cover'}}
                 />
             </Box>
 
-            <Box sx={{}}>
+            <Box>
                 <span className="cartitem-title">{item?.title} {" "}</span>
                 <br/>
               
@@ -46,7 +46,7 @@ export default function CartItem( { id, quantity} : CartItemProps) {
         </Stack>
 
         {/* "Raden" för knapparna samt quantity */}
-        <Stack direction="row" spacing={0.5} justifyContent="center">
+        <Stack direction="row" spacing={0.5} justifyContent="center" alignItems="center">
             <Button className="cartitem-qty-btn" onClick={() => item && increaseCartQuantity(item?._id)}><AddIcon /></Button>
             <Box className="cartitem-qty-btn">
                 <div className="qty-div">x {quantity}</div>
@@ -60,6 +60,6 @@ export default function CartItem( { id, quantity} : CartItemProps) {
             
             <Button className="cartitem-qty-btn" onClick={() => item && removeFromCart(item?._id)}><DeleteForeverOutlinedIcon /></Button>
         </Stack>
-    </Stack>
+    </>
 )
 }

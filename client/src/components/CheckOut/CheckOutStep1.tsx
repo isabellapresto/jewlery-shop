@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { TextField, Button } from '@mui/material';
-import { UserType, UserContextType } from "../CurrentUserContext"
+import { UserContextType } from "../CurrentUserContext"
 
 import Stack from '@mui/material/Stack';
 import CartItem from '../CartItem/CartItem';
@@ -42,7 +42,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       <div className= "cartContainer">
         <Stack spacing={2}>
             {cartItems.map(item => (
+              <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
               <CartItem key= {item.id} {...item} />
+              </Stack>
               ))}
           </Stack>
         </div>
