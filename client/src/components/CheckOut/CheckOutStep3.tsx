@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FormControl, FormControlLabel, RadioGroup, Radio, Button, TextField } from '@mui/material';
-import { useShoppingCart } from '../../context/CartContext'; // context
+import { useShoppingCart } from '../../context/CartContext'; // hämtar context
 
 interface Step3Props {
   onBack: () => void;
@@ -19,23 +19,21 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
   const handleComplete = () => {
     if (paymentMethod === 'creditCard') {
       if (cardNumber && expiryDate && cvcCode) {
-        // Töm kundvagnen
-        emptyCart();
         onComplete();
+
       } else {
         alert('Please fill in all card details.');
       }
+
     } else if (paymentMethod === 'paypal') {
       if (email) {
-        // Töm kundvagnen
-        emptyCart();
         onComplete();
+
       } else {
         alert('Please enter your email address.');
       }
+
     } else {
-      // Töm kundvagnen
-      emptyCart();
       onComplete();
     }
   };
@@ -107,7 +105,11 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         variant="contained"
         color="inherit"
         style={{ backgroundColor: 'black', color: 'white' }}
-        onClick={handleComplete}
+        onClick={() => {
+          //
+          handleComplete();
+          emptyCart();
+        }}
       >
         Complete purchase
       </Button>

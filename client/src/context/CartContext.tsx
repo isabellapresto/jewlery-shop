@@ -72,7 +72,7 @@ export default function ShoppingCartProvider({ children }: ShoppingCartProviderP
       return currItems.filter(item => item.id !== id);
     });
   }
-//
+//Tömmer kundvagnen med tom array
   function emptyCart() {
     setCartItems([]);
   } 
