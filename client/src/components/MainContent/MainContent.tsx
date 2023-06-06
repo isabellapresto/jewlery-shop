@@ -6,6 +6,7 @@ import CheckOut from "../CheckOut/CheckOut";
 import About from "../About/About";
 import Contact from "../Contact/Contact";
 import Home from "../Home/Home";
+import Shipping from "../Shipping/Shipping"
 
 function MainContent() {
   return (
@@ -18,6 +19,7 @@ function MainContent() {
         <Route path='/checkout' element= {<CheckOut />} /> 
         <Route path='/:id' element= {<ProductDetails />}  />
         <Route path='/login' element= {<Login />} />
+        <Route path='/shipping' element= {<Shipping />} />
       </Routes>
   
   );

@@ -46,15 +46,16 @@ Content-Type: application/json
   "description": "This is a earring category."
 }
 
-
+##
 //Skapa fraktsätt här
+
 POST http://localhost:3000/api/shippingMethod
 Content-Type: application/json
 
 {
-  "company": "PostNord",
+  "company": "Standard",
   "price": 20,
- "deliveryTimeInHours": 72
+ "deliveryTimeInHours": 24
 }
 
 ##
