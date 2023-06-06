@@ -6,6 +6,7 @@
 
 .slideshow {
     margin: auto;
+    margin-top: 1.5rem;
     width: 70%;
     height: 90%;
     aspect-ratio: calc(16/9);
