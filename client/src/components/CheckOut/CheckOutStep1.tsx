@@ -30,7 +30,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
     <div style={{ padding: '50px' }}>
       {/* mitten */}
       <h2 style={{ padding: '50px', textAlign: 'center' }}>Billing Details</h2> 
-      <TextField
+      <TextField required id="standard-required"
         label="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -39,7 +39,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         margin="normal"
       />
 
-      <TextField
+      <TextField required id="standard-required"
         label="Street address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
@@ -47,7 +47,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         margin="normal"
       />
 
-<TextField
+<TextField required id="standard-required"
         label="Post code"
         value={postcode}
         onChange={(e) => setPostCode(e.target.value)}
@@ -55,7 +55,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         margin="normal"
       />
 
-<TextField
+<TextField required id="standard-required"
         label="Town / City"
         value={town}
         onChange={(e) => setTown(e.target.value)}
@@ -63,7 +63,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         margin="normal"
       />
 
-<TextField
+<TextField required id="standard-required"
         label="Country"
         value={country}
         onChange={(e) => setCountry(e.target.value)}
@@ -71,7 +71,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         margin="normal"
       />
 
-<TextField
+<TextField required id="standard-required"
         label="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
