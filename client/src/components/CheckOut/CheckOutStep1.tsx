@@ -40,7 +40,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       <h2 style={{ padding: '50px', paddingBottom: '0.5rem', textAlign: 'center' }}>Cart</h2> 
       <p style={{ paddingBottom: '1rem', textAlign: 'center', fontStyle: 'italic' }}>Please check your cart details</p>
       <div className= "cartContainer">
-        <Stack>
+        <Stack spacing={2}>
             {cartItems.map(item => (
               <CartItem key= {item.id} {...item} />
               ))}
