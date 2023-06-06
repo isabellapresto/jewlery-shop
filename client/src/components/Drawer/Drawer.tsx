@@ -36,8 +36,9 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
-        <h5>Your ShoppingCart</h5>
-   
+
+      {isCartEmpty ? " " : <h5>Your ShoppingCart</h5>}
+        
         <div className="body-drawer">
           <Stack>
             {cartItems.map(item => (
@@ -48,8 +49,6 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
 
         <div className="totalPrice">
   
-          Total{" "}
-
           {isCartEmpty ? "Your Shopping Cart is empty" : `Total ${formatCurrency(
 
             cartItems.reduce((total, cartItem) => {
