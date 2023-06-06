@@ -6,9 +6,17 @@
     align-items: center;
     gap: 2rem;
     z-index: 2;
+    position:relative; 
   }
 
-  .totalPrice{
+  .close-drawer{
+    position:absolute; 
+    top:1rem; 
+    right:1rem;
+    background-color: aqua;
+  }
+
+  .total-price{
     font-weight: bold;
   }
   
