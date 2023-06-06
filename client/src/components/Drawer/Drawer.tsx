@@ -15,10 +15,11 @@ interface ShoppingDrawerProps {
 }
 
 
+
 function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
   
   const { cartItems } = useShoppingCart();
-  const {products} = useProductContext();
+  const {products } = useProductContext();
 
   const toggleDrawer = () => (event: { type: string; key: string; }) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
