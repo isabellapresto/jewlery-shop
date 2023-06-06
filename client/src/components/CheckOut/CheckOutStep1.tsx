@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { TextField, Button } from '@mui/material';
-import { UserType, UserContextType } from "../CurrentUserContext"
+import { UserContextType } from "../CurrentUserContext"
 
 interface Step1Props {
   onNext: () => void;
