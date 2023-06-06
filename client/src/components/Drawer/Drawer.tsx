@@ -38,7 +38,7 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
 
-        <CloseIcon className="close-drawer"></CloseIcon>
+        <CloseIcon className="close-drawer" onClick={handleButtonClick}></CloseIcon>
 
         {isCartEmpty ? " " : <h4>Your ShoppingCart</h4>}
 
