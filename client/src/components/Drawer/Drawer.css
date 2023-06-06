@@ -6,4 +6,8 @@
     align-items: center;
     gap: 2rem;
   }
+
+  .totalPrice{
+    font-weight: bold;
+  }
   

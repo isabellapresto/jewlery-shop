@@ -13,6 +13,7 @@ interface ShoppingDrawerProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+
 function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
   
   const { cartItems } = useShoppingCart();
@@ -45,15 +46,19 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
           </Stack>
         </div> 
 
-          <div className="totalPrice">
+        <div className="totalPrice">
+  
+          Total{" "}
 
           {isCartEmpty ? "Your Shopping Cart is empty" : `Total ${formatCurrency(
 
             cartItems.reduce((total, cartItem) => {
               const item = products.find(i => i._id === cartItem.id)
               return total + (item?.price || 0) * cartItem.quantity
+
             }, 0)
           )}`}
+
         </div>
 
           {!isCartEmpty && (

@@ -6,11 +6,8 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import DeleteIcon from '@mui/icons-material/Delete';
-
-//SKULLE BEHÖVA ANVÄNDA DENNA FÖR PRISET MEN FÅR FEL I KODEN DÅ - HJÄLP!!!!
-//DEN FUNKTIONEN FUNGERAR I DRAWER - VARFÖR INTE HÄR????
-//import { formatCurrency } from "../../utilities/formatCurrency";
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 type CartItemProps = {
     id: string
@@ -41,7 +38,10 @@ export default function CartItem( { id, quantity} : CartItemProps) {
             <Box sx={{}}>
                 <span className="cartitem-title">{item?.title} {" "}</span>
                 <br/>
-                <span className="cartitem-price">{item && item.price * quantity} kr</span>
+              
+                <span className="cartitem-price ">  
+                    {item && formatCurrency(item?.price * quantity)} 
+                </span>
             </Box>
         </Stack>
 
@@ -51,8 +51,14 @@ export default function CartItem( { id, quantity} : CartItemProps) {
             <Box className="cartitem-qty-btn">
                 <div className="qty-div">x {quantity}</div>
             </Box>
-            <Button className="cartitem-qty-btn" onClick={() => item && decreaseCartQuantity(item?._id)}><RemoveIcon /></Button>
-            <Button className="cartitem-qty-btn" onClick={() => item && removeFromCart(item?._id)}><DeleteIcon /></Button>
+
+            {quantity > 1 ? (
+                <Button className="cartitem-qty-btn" onClick={() => item && decreaseCartQuantity(item?._id)}><RemoveIcon /></Button>
+            ) : (
+                <Button className="cartitem-qty-btn"><RemoveIcon /></Button>
+            )}
+            
+            <Button className="cartitem-qty-btn" onClick={() => item && removeFromCart(item?._id)}><DeleteForeverOutlinedIcon /></Button>
         </Stack>
     </Stack>
 )
