@@ -55,21 +55,21 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
       {paymentMethod === 'card' && (
         <div>
-          <TextField
+          <TextField required id="standard-required"
             label="Card number"
             value={cardNumber}
             onChange={(e) => setCardNumber(e.target.value)}
             fullWidth
             margin='normal'
           />
-          <TextField
+          <TextField required id="standard-required"
             label="Expiry date"
             value={expiryDate}
             onChange={(e) => setExpiryDate(e.target.value)}
             fullWidth
             margin='normal'
           />
-          <TextField
+          <TextField required id="standard-required"
             label="CVC"
             value={cvcCode}
             onChange={(e) => setCvcCode(e.target.value)}
@@ -81,7 +81,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
       {paymentMethod === 'paypal' && (
         <div>
-          <TextField
+          <TextField required id="standard-required"
             label="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

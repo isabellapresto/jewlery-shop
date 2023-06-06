@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { TextField, Button } from '@mui/material';
 import { UserContextType } from "../CurrentUserContext"
 
@@ -7,33 +7,38 @@ import CartItem from '../CartItem/CartItem';
 import { useShoppingCart } from "../../context/CartContext";
 import './CheckOut.css'
 
-
 interface Step1Props {
   onNext: () => void;
 }
 
 const Step1: React.FC<Step1Props> = ({ onNext }) => {
-  const {loggedInUser} = useContext(UserContextType);
-  const [name, setName] = useState(loggedInUser?.firstName + ' ' + loggedInUser?.lastName );
+  const { loggedInUser } = useContext(UserContextType);
+  const [name, setName] = useState('');
   const [address, setAddress] = useState('');
-  const [email, setEmail] = useState(loggedInUser?.email);
+  const [email, setEmail] = useState('');
   const [postcode, setPostCode] = useState('');
   const [town, setTown] = useState('');
-  const [country, setCountry] = useState(''); 
-  const { cartItems } = useShoppingCart();
+  const [country, setCountry] = useState('');
+
+  useEffect(() => {
+    if (loggedInUser) {
+      setName(loggedInUser.firstName + ' ' + loggedInUser.lastName);
+      setEmail(loggedInUser.email);
+    }
+  }, [loggedInUser]);
 
   const handleNext = () => {
-    // spara
     if (name && address && email && postcode && town && country) {
       onNext();
     } else {
-      // alert, felmedd
       alert('Please fill in all mandatory fields.');
     }
   };
 
   return (
     <div style={{ padding: '50px' }}>
+
+
       {/* mitten */}
       
       {/* mitten */}
@@ -50,60 +55,66 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         </div>
       <h2 style={{ padding: '50px', paddingBottom: '0.5rem', textAlign: 'center' }}>Billing Details</h2>
       <p style={{ paddingBottom: '1rem', textAlign: 'center', fontStyle: 'italic' }}>Please fill in your billing details</p> 
+
       <TextField
+        required
+        id="standard-required"
         label="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         fullWidth
-        
         margin="normal"
       />
-
       <TextField
+        required
+        id="standard-required"
         label="Street address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
         fullWidth
         margin="normal"
       />
-
-<TextField
+      <TextField
+        required
+        id="standard-required"
         label="Post code"
         value={postcode}
         onChange={(e) => setPostCode(e.target.value)}
         fullWidth
         margin="normal"
       />
-
-<TextField
+      <TextField
+        required
+        id="standard-required"
         label="Town / City"
         value={town}
         onChange={(e) => setTown(e.target.value)}
         fullWidth
         margin="normal"
       />
-
-<TextField
+      <TextField
+        required
+        id="standard-required"
         label="Country"
         value={country}
         onChange={(e) => setCountry(e.target.value)}
         fullWidth
         margin="normal"
       />
-
-<TextField
+      <TextField
+        required
+        id="standard-required"
         label="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
         margin="normal"
       />
-
-<Button
+      <Button
         variant="contained"
-        color="inherit" 
+        color="inherit"
         onClick={handleNext}
-        style={{ margin: '0 auto', backgroundColor: 'black', color: 'white' }} 
+        style={{ margin: '0 auto', backgroundColor: 'black', color: 'white' }}
       >
         Continue to Shipping
       </Button>
@@ -112,3 +123,4 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
 };
 
 export default Step1;
+
