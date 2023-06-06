@@ -2,6 +2,11 @@ import React, { useState, useContext } from 'react';
 import { TextField, Button } from '@mui/material';
 import { UserType, UserContextType } from "../CurrentUserContext"
 
+import Stack from '@mui/material/Stack';
+import CartItem from '../CartItem/CartItem';
+import { useShoppingCart } from "../../context/CartContext";
+import './CheckOut.css'
+
 
 interface Step1Props {
   onNext: () => void;
@@ -15,6 +20,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [postcode, setPostCode] = useState('');
   const [town, setTown] = useState('');
   const [country, setCountry] = useState(''); 
+  const { cartItems } = useShoppingCart();
 
   const handleNext = () => {
     // spara
@@ -29,6 +35,16 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   return (
     <div style={{ padding: '50px' }}>
       {/* mitten */}
+      
+      {/* mitten */}
+      <h2 style={{ padding: '50px', textAlign: 'center' }}>Cart</h2> 
+      <div className= "cartContainer">
+        <Stack>
+            {cartItems.map(item => (
+              <CartItem key= {item.id} {...item} />
+              ))}
+          </Stack>
+        </div>
       <h2 style={{ padding: '50px', textAlign: 'center' }}>Billing Details</h2> 
       <TextField
         label="Name"
