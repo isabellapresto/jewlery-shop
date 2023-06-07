@@ -6,6 +6,7 @@ import CheckOut from "../CheckOut/CheckOut";
 import About from "../About/About";
 import Contact from "../Contact/Contact";
 import Home from "../Home/Home";
+import Admin from "../Admin/Admin";
 import Shipping from "../Shipping/Shipping"
 
 function MainContent() {
@@ -20,6 +21,7 @@ function MainContent() {
         <Route path='/:id' element= {<ProductDetails />}  />
         <Route path='/login' element= {<Login />} />
         <Route path='/shipping' element= {<Shipping />} />
+        <Route path='/admin' element= {<Admin />} />
       </Routes>
   
   );
