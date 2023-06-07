@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FormControl, FormControlLabel, RadioGroup, Radio, Button, TextField } from '@mui/material';
+import { useShoppingCart } from '../../context/CartContext'; // hämtar context
 
 interface Step3Props {
   onBack: () => void;
@@ -13,28 +14,26 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
   const [cvcCode, setCvcCode] = useState('');
   const [email, setEmail] = useState('');
 
+  const { emptyCart } = useShoppingCart(); // Hämtar emptyCart fån context
+
   const handleComplete = () => {
-    // spara 
     if (paymentMethod === 'creditCard') {
-      // Validera kortuppgifter och spara data
       if (cardNumber && expiryDate && cvcCode) {
-        // Spara, gå vidare
         onComplete();
+
       } else {
-        // alert, fyll i 
         alert('Please fill in all card details.');
       }
+
     } else if (paymentMethod === 'paypal') {
-      // Validera e-postadress och spara data
       if (email) {
-        // Spara, gå vidare
         onComplete();
+
       } else {
-        // alert, fyll i 
         alert('Please enter your email address.');
       }
+
     } else {
-      // Spara bet-metod
       onComplete();
     }
   };
@@ -45,7 +44,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
   return (
     <div style={{ padding: '50px' }}>
-    <h2 style={{ padding: '50px', textAlign: 'center' }}>Payment methods</h2>
+      <h2 style={{ padding: '50px', textAlign: 'center' }}>Payment methods</h2>
       <FormControl component="fieldset">
         <RadioGroup value={paymentMethod} onChange={handlePaymentMethodChange}>
           <FormControlLabel value="card" control={<Radio />} label="Card" />
@@ -55,6 +54,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
       {paymentMethod === 'card' && (
         <div>
+
           <TextField required id="standard-required"
             label="Card number"
             value={cardNumber}
@@ -62,6 +62,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
             fullWidth
             margin='normal'
           />
+
           <TextField required id="standard-required"
             label="Expiry date"
             value={expiryDate}
@@ -69,6 +70,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
             fullWidth
             margin='normal'
           />
+
           <TextField required id="standard-required"
             label="CVC"
             value={cvcCode}
@@ -81,6 +83,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
       {paymentMethod === 'paypal' && (
         <div>
+
           <TextField required id="standard-required"
             label="Email address"
             value={email}
@@ -90,18 +93,26 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
           />
         </div>
       )}
- <div style={{ marginTop: '20px' }}></div>
-      <Button onClick={onBack}
-      style={{ backgroundColor: 'black', color: 'white', marginRight: '10px' }}>Back to shipping</Button>
-      <Button     variant="contained"
-          color="inherit"
-          style={{ backgroundColor: 'black', color: 'white' }} onClick={handleComplete}>
+      <div style={{ marginTop: '20px' }}></div>
+      <Button onClick={onBack} style={{ backgroundColor: 'black', color: 'white', marginRight: '10px' }}>
+        Back to shipping
+      </Button>
+      <Button
+        variant="contained"
+        color="inherit"
+        style={{ backgroundColor: 'black', color: 'white' }}
+        onClick={() => {
+          //
+          handleComplete();
+          emptyCart();
+        }}
+      >
         Complete purchase
       </Button>
-
     </div>
   );
 };
 
 export default Step3;
+
 

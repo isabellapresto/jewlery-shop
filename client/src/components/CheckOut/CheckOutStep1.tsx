@@ -19,6 +19,8 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [postcode, setPostCode] = useState('');
   const [town, setTown] = useState('');
   const [country, setCountry] = useState('');
+  const { cartItems } = useShoppingCart ();
+
 
   useEffect(() => {
     if (loggedInUser) {
