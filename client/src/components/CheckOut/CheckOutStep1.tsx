@@ -21,6 +21,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [country, setCountry] = useState('');
   const { cartItems } = useShoppingCart ();
 
+
   useEffect(() => {
     if (loggedInUser) {
       setName(loggedInUser.firstName + ' ' + loggedInUser.lastName);
