@@ -2,6 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import { TextField, Button } from '@mui/material';
 import { UserContextType } from "../CurrentUserContext"
 
+import Stack from '@mui/material/Stack';
+import CartItem from '../CartItem/CartItem';
+import { useShoppingCart } from "../../context/CartContext";
+import './CheckOut.css'
+
 interface Step1Props {
   onNext: () => void;
 }
@@ -14,6 +19,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [postcode, setPostCode] = useState('');
   const [town, setTown] = useState('');
   const [country, setCountry] = useState('');
+  const { cartItems } = useShoppingCart ();
 
   useEffect(() => {
     if (loggedInUser) {
@@ -32,7 +38,25 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
 
   return (
     <div style={{ padding: '50px' }}>
-      <h2 style={{ padding: '50px', textAlign: 'center' }}>Billing Details</h2>
+
+
+      {/* mitten */}
+      
+      {/* mitten */}
+      <h2 style={{ padding: '50px', paddingBottom: '0.5rem', textAlign: 'center' }}>Cart</h2> 
+      <p style={{ paddingBottom: '1rem', textAlign: 'center', fontStyle: 'italic' }}>Please check your cart details</p>
+      <div className= "cartContainer">
+        <Stack spacing={2}>
+            {cartItems.map(item => (
+              <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
+              <CartItem key= {item.id} {...item} />
+              </Stack>
+              ))}
+          </Stack>
+        </div>
+      <h2 style={{ padding: '50px', paddingBottom: '0.5rem', textAlign: 'center' }}>Billing Details</h2>
+      <p style={{ paddingBottom: '1rem', textAlign: 'center', fontStyle: 'italic' }}>Please fill in your billing details</p> 
+
       <TextField
         required
         id="standard-required"
