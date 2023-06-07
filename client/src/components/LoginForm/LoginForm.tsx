@@ -1,7 +1,9 @@
-import { TextField, Button, Box  } from "@mui/material";
+import { TextField, Button, Box, IconButton  } from "@mui/material";
 import './LoginForm.css';
 import {  UserType, UserContextType } from '../CurrentUserContext'
 import { useContext, useState } from 'react'
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import { NavLink } from "react-router-dom";
 
 
 export default function LoginForm() {
@@ -32,17 +34,26 @@ export default function LoginForm() {
      
         <>
           {loggedInUser?.isAdmin == true ? (
-            <Box sx={{ width: "85%", opacity: 0.8, display: 'flex', alignItems: 'center', margin: 'auto', marginTop: 10, marginBottom: 10 }}>
+            
+              <Box sx={{ width: "85%", opacity: 0.8, display: 'flex', alignItems: 'center', margin: 'auto', marginTop: 10, marginBottom: 10, flexDirection:"column" }}>
               <div className='imgContainer'>
-                <div className='centered'>ADMINISTRATÖR</div>
+                <div className='centered'>Welcome {loggedInUser.firstName}!!</div>
                 <img src="https://lilyandrose.se/wp-content/uploads/2023/04/Banner_miranda-collection.jpg" width={"85%"} />
               </div>
+              <div className='messageDiv'>You are logged in as an administrator</div>
+                <NavLink to="/admin">
+                  <Button variant="outlined" startIcon={<AdminPanelSettingsIcon />}>Go to AdminPanel</Button>
+                </NavLink>
             </Box>
+               
+            
+            
           ) : loggedInUser ? (
             <Box sx={{ width: "85%", opacity: 0.8, display: 'flex', alignItems: 'center', margin: 'auto', marginTop: 10, marginBottom: 10 }}>
               <div className='imgContainer'>
-                <div className='centered'>Welcome!! You are logged in as {loggedInUser.firstName}</div>
+                <div className='centered'>Welcome {loggedInUser.firstName}!!</div>
                 <img src="https://lilyandrose.se/wp-content/uploads/2023/04/Banner_miranda-collection.jpg" width={"85%"} />
+                <div className='messageDiv'>You are logged in as a member</div>
               </div>
             </Box>
           ) : (
