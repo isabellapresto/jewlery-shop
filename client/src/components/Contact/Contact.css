@@ -1,9 +1,22 @@
-.customButton {
-  background-color: #d8696c;
+/* .customButton {
+  background-color: #d8696d;
   color: white;
 }
 
-.customButton:hover {
+.CustomButton:hover {
   background-color: #d8696c;
   color: white;
+} */
+
+.contact-container {
+text-align: center;
 }
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-left: 20%;
+}
+
+
