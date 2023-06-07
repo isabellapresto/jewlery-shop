@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/LogIn';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useContext} from 'react'
@@ -32,31 +32,31 @@ export default function LoginBtn() {
         <Button size="small" variant="outlined" startIcon={<LogoutIcon />} onClick={handleLogout}>
           Logout
         </Button>
-        <NavLink to="/login">
-          <AccountCircleIcon/>
-        </NavLink>
+        <Link to="/login">
+            <AccountCircleIcon/>
+        </Link>
         </>
       ) :  loggedInUser ? (
         <>
         <Button variant="outlined" startIcon={<LogoutIcon />} onClick={handleLogout}>
           Logout
         </Button>
-        <NavLink to="/login">
+        <Link to="/login">
           <AccountCircleIcon/>
-        </NavLink>
-        <NavLink to="/admin">
+        </Link>
+        <Link to="/admin">
           <AdminPanelSettingsIcon/>
-        </NavLink>
+        </Link>
         
         </>
 
         ) : (
       
-        <NavLink to="/login">
+        <Link to="/login">
           <Button variant="outlined" startIcon={<LoginIcon />}>
             LogIn
           </Button>
-        </NavLink>
+        </Link>
        )}
     </>
      
