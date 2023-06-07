@@ -1,37 +1,40 @@
 import { CartItem } from "../context/CartContext";
-import React, {
-  createContext,
-  useContext,
-  useState,
-  PropsWithChildren,
-} from "react";
+
+import { createContext, useContext, useState, PropsWithChildren } from "react";
+
 interface Address {
-  steeet: string;
+  street: string;
   zipcode: string;
   city: string;
   country: string;
 }
 
-interface Order {
+export interface Order {
   orderItems: CartItem[];
   deliveryAddress: Address;
-  shippingMethod: string;
+  shippingMethod: string | number;
 }
 
 interface IOrderContext {
-  order: Order | null;
-  setOrder: (order: Order) => void;
+  order: Order;
+  setOrder: React.Dispatch<React.SetStateAction<Order>>;
 }
 
+const defaultOrder = {
+  orderItems: [],
+  deliveryAddress: {} as Address,
+  shippingMethod: "",
+};
+
 export const OrderContext = createContext<IOrderContext>({
-  order: null,
+  order: defaultOrder,
   setOrder: () => {},
 });
 
 export const useOrder = () => useContext(OrderContext);
 
-export const OrderProvider: React.FC = ({ children }: PropsWithChildren) => {
-  const [order, setOrder] = useState<Order | null>(null);
+export const OrderProvider = ({ children }: PropsWithChildren<{}>) => {
+  const [order, setOrder] = useState<Order>(defaultOrder);
 
   return (
     <OrderContext.Provider value={{ order, setOrder }}>

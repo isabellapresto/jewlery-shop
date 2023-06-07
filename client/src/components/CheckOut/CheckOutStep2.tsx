@@ -12,7 +12,7 @@ interface Step2Props {
   onNext: () => void;
 }
 
-interface ShippingMethod {
+export interface ShippingMethod {
   company: string;
   deliveryTimeInHours: number;
   price: number;
