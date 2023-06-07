@@ -17,10 +17,15 @@ form {
   .imgContainer {
     position: relative;
     text-align: center;
+
   }
  
   .messageDiv {
     margin-top: 10px;
     margin-bottom: 20px;
     font-size: 3vw;
+  }
+
+  .imgStyle {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   }

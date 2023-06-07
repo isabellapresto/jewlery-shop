@@ -29,7 +29,7 @@ export default function LoginBtn() {
     <>
       {loggedInUser?.isAdmin === false ? (
         <>
-        <Button variant="outlined" startIcon={<LogoutIcon />} onClick={handleLogout}>
+        <Button size="small" variant="outlined" startIcon={<LogoutIcon />} onClick={handleLogout}>
           Logout
         </Button>
         <NavLink to="/login">

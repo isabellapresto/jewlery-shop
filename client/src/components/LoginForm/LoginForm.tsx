@@ -35,14 +35,14 @@ export default function LoginForm() {
         <>
           {loggedInUser?.isAdmin == true ? (
             
-              <Box sx={{ width: "85%", opacity: 0.8, display: 'flex', alignItems: 'center', margin: 'auto', marginTop: 10, marginBottom: 10, flexDirection:"column" }}>
+              <Box sx={{ width: "85%", opacity: 0.8, display: 'flex', alignItems: 'center', margin: 'auto', marginTop: 10, marginBottom: 10, flexDirection:"column"}}>
               <div className='imgContainer'>
                 <div className='centered'>Welcome {loggedInUser.firstName}!!</div>
-                <img src="https://lilyandrose.se/wp-content/uploads/2023/04/Banner_miranda-collection.jpg" width={"85%"} />
+                <img className="imgStyle" src="https://lilyandrose.se/wp-content/uploads/2023/04/Banner_miranda-collection.jpg" width={"85%"} />
               </div>
               <div className='messageDiv'>You are logged in as an administrator</div>
                 <NavLink to="/admin">
-                  <Button variant="outlined" startIcon={<AdminPanelSettingsIcon />}>Go to AdminPanel</Button>
+                  <Button variant="text" startIcon={<AdminPanelSettingsIcon />}>Go to AdminPanel</Button>
                 </NavLink>
             </Box>
                
@@ -61,7 +61,7 @@ export default function LoginForm() {
               <Box sx={{ width: "50%", height: 380, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: "center", marginTop: 5, boxShadow: 3, borderRadius: 2, px: 4, py: 6 }}>
                 <h1>Sign In</h1><br />
                 <TextField required id="standard-required" fullWidth={true} label="Email address" value={email} onChange={(e) => setEmail(e.target.value)} /> <br />
-                <TextField required id="standard-required" fullWidth={true} label="Password" value={password} onChange={(e) => setPassword(e.target.value)} /> <br />
+                <TextField required id="standard-required" fullWidth={true} type="password" label="Password" value={password} onChange={(e) => setPassword(e.target.value)} /> <br />
                 <Button fullWidth variant="outlined" type="submit">Sign In</Button> <br />
               </Box>
             </form>
