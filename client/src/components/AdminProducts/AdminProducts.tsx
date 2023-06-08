@@ -11,18 +11,28 @@ export default function AdminProducts() {
   return (
     <>
         {products.map((product) => (
-        <Stack direction="row" spacing={3} alignItems="center" marginLeft={'10rem'} width={'80%'} justifyContent={'space-between'}>
-        <Box>
+        <Stack direction="row"
+        spacing={3}
+        alignItems="center"
+        marginLeft={'5%'}
+        width={'90%'}
+        justifyContent={'space-between'}
+        >
+
+        <Box >
             <img 
             src={product?.image}
             style={{width: '50px', height: '50px', objectFit: 'cover'}}
             />
         </Box>
 
-        <Box>
+        <Box style={{width: '40%'}}>
             <span className="product-title">{product?.title} {" "}</span>
-            <span className="product-price ">{product && formatCurrency(product?.price)}</span>
+            
         </Box>
+        <Box style={{width: '10%'}}>
+          <span className="product-price ">{product && formatCurrency(product?.price)}</span>
+          </Box>
         <Button variant='outlined'>Modify product</Button>
         <Button variant='outlined'>Remove product</Button>
     </Stack>
