@@ -7,12 +7,15 @@ import {
   Button,
 } from "@mui/material";
 
+import { useOrder } from "../../context/OrderContext";
+
 interface Step2Props {
   onBack: () => void;
   onNext: () => void;
 }
 
 export interface ShippingMethod {
+  _id: string;
   company: string;
   deliveryTimeInHours: number;
   price: number;
@@ -23,6 +26,7 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
   const [shippingMethod, setShippingMethod] = useState("");
   const [shippingMethodText, setShippingMethodText] = useState("");
 
+  const { order, setOrder } = useOrder();
   useEffect(() => {
     const getShippingMethods = async () => {
       try {
@@ -42,12 +46,12 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
   const handleShippingMethodChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const selectedShippingMethod = e.target.value;
-    setShippingMethod(selectedShippingMethod);
+    const selectedShippingMethodId = e.target.value;
+    setShippingMethod(selectedShippingMethodId);
 
     let text = "";
     const selectedMethod = shippingMethods.find(
-      (method) => method.company === selectedShippingMethod
+      (method) => method._id === selectedShippingMethodId
     );
     if (selectedMethod) {
       const deliveryDate = new Date();
@@ -56,12 +60,14 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       );
       text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}, ${deliveryDate.toLocaleTimeString()}`;
     }
-
+    setShippingMethod(selectedShippingMethodId);
     setShippingMethodText(text);
   };
 
   const handleNext = () => {
     if (shippingMethod) {
+      setOrder({ ...order, shippingMethod: shippingMethod });
+      console.log("Shipping method:", shippingMethod);
       onNext();
     } else {
       alert("Please select a shipping method.");
@@ -78,8 +84,8 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
         >
           {shippingMethods.map((method) => (
             <FormControlLabel
-              key={method.company}
-              value={method.company}
+              key={method._id}
+              value={method._id}
               control={<Radio />}
               label={`${method.company}, ${method.deliveryTimeInHours} hours`}
             />
