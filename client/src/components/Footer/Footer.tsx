@@ -11,7 +11,7 @@ export default function Footer() {
   const socialIconsUrl = 'https://medieinstitutet.se/';
 
   return (
-    <div style={{ backgroundColor: '#EDD6D3', padding: '20px 0' }}>
+    <div style={{ backgroundColor: '#EDD6D3',marginTop:'50px', padding: '20px 0' }}>
       <Grid container spacing={2}>
         {/* Nyhetsbrev */}
         <Grid item xs={12}>
@@ -19,9 +19,9 @@ export default function Footer() {
             <h3 style={{ fontSize: '1.5em' }}>JOIN OUR NEWSLETTER</h3>
             <p style={{ fontSize: '1em' }}>ENJOY 15% OFF</p>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
-            <TextField label="Your Email" variant="outlined" style={{ marginRight: '10px', width: '200px' }} />
-            <Button variant="contained" color="primary" style={{ backgroundColor: 'black' }}>Subscribe</Button>
+          <div style={{width: '25%', height: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center',margin: 'auto', marginBottom: '10px' }}>
+            <TextField label="Your Email" variant="outlined" size="small" style={{width: '75%'}} />
+            <Button variant="contained" color="primary" style={{width: '25%', backgroundColor: 'black' }}>Subscribe</Button>
           </div>
           <div style={{ textAlign: 'center', fontSize: '0.8em' }}>
             <FormControlLabel
