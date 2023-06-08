@@ -9,6 +9,7 @@ import Home from "../Home/Home";
 import Admin from "../Admin/Admin";
 import Shipping from "../Shipping/Shipping"
 import AdminProducts from "../AdminProducts/AdminProducts";
+import AddNewProduct from "../AddNewProduct/AddNewProduct";
 
 function MainContent() {
   return (
@@ -24,6 +25,7 @@ function MainContent() {
         <Route path='/shipping' element= {<Shipping />} />
         <Route path='/admin' element= {<Admin />} />
         <Route path='/adminproducts' element= {<AdminProducts />} />
+        <Route path='/addnewproduct' element= {<AddNewProduct />} />
       </Routes>
   
   );
