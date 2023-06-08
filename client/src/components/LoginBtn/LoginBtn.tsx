@@ -33,7 +33,7 @@ export default function LoginBtn() {
     <>
       {loggedInUser?.isAdmin === false ? (
         <>
-        <Button size="small" variant="outlined" startIcon={<LogoutIcon />} onClick={handleLogout}>
+        <Button size="small" variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>
           Logout
         </Button>
         <Link to="/login">
@@ -42,7 +42,7 @@ export default function LoginBtn() {
         </>
       ) :  loggedInUser ? (
         <>
-        <Button variant="outlined" startIcon={<LogoutIcon />} onClick={handleLogout}>
+        <Button variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>
           Logout
         </Button>
         <Link to="/login">
@@ -57,7 +57,7 @@ export default function LoginBtn() {
         ) : (
       
         <Link to="/login">
-          <Button variant="outlined" startIcon={<LoginIcon />}>
+          <Button variant="text" startIcon={<LoginIcon />}>
             LogIn
           </Button>
         </Link>

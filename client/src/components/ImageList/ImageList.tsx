@@ -5,7 +5,7 @@ import '../ImageList/ImageList.css'
 export default function ImageList() {
   return (
 
-    <Grid container width='80%' margin='auto' marginTop='40px' marginBottom='50px' spacing={2}>
+    <Grid container width='80%' margin='auto' marginTop='30px' paddingBottom='50px' spacing={2}>
 
         <Grid item margin='auto' xs={12} sm={6} md={6} lg={3}>
             <div className="imageContainer">
