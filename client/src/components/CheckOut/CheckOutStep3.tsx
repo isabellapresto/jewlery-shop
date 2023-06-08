@@ -51,7 +51,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
     setPaymentMethod(e.target.value);
   };
 
-  const getDataFromLocalStorage = () => {
+  const cartIntoOrder = () => {
     const cart = localStorage.getItem("shopping-cart");
     const parsedCart = JSON.parse(cart || "[]");
 
@@ -135,7 +135,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         onClick={() => {
           //
 
-          getDataFromLocalStorage();
+          cartIntoOrder();
           handleComplete();
           emptyCart();
         }}
