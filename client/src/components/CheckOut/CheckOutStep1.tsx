@@ -1,10 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import { UserContextType } from "../CurrentUserContext"; //UserType,
+
 import { useOrder } from "../../context/OrderContext";
-import React, { useState, useContext, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
-import { UserContextType } from "../CurrentUserContext";
 
 import Stack from "@mui/material/Stack";
 import CartItem from "../CartItem/CartItem";
@@ -25,6 +23,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [postcode, setPostCode] = useState("");
   const [town, setTown] = useState("");
   const [country, setCountry] = useState("");
+  const { cartItems } = useShoppingCart();
 
   const { setOrder, order } = useOrder();
 

@@ -20,25 +20,15 @@ const App = () => {
         <ShoppingCartProvider>
           <UserProvider>
             <ProductProvider>
-              <Header />
-              <MainContent />
-              <Footer />
+              <OrderProvider>
+                <Header />
+                <MainContent />
+                <Footer />
+              </OrderProvider>
             </ProductProvider>
           </UserProvider>
         </ShoppingCartProvider>
       </ThemeProvider>
-
-      <ShoppingCartProvider>
-        <UserProvider>
-          <ProductProvider>
-            <OrderProvider>
-              <Header />
-              <MainContent />
-              <Footer />
-            </OrderProvider>
-          </ProductProvider>
-        </UserProvider>
-      </ShoppingCartProvider>
     </div>
   );
 };
