@@ -22,7 +22,6 @@ type ShoppingCartContext = {
 type ShoppingCartProviderProps = {
   children: ReactNode;
 };
-
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
 
 export function useShoppingCart() {

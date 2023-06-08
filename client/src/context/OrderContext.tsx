@@ -1,5 +1,4 @@
 import { CartItem } from "../context/CartContext";
-
 import { createContext, useContext, useState, PropsWithChildren } from "react";
 
 interface Address {
