@@ -9,17 +9,21 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 
 
+
 export default function LoginBtn() {
   
 
   const {logout, loggedInUser } = useContext(UserContextType);
+  
 
   const handleLogout = async () => {
     
     
     await logout();
     
+   
       alert('You are logged out ');
+     
     
     
   };
