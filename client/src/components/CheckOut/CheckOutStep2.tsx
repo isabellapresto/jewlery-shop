@@ -47,7 +47,10 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const selectedShippingMethodId = e.target.value;
-    setShippingMethod(selectedShippingMethodId);
+    // setShippingMethod(selectedShippingMethodId);
+
+    // console.log("Selected Shipping Method ID:", selectedShippingMethodId);
+    // console.log("Shipping Methods:", shippingMethods);
 
     let text = "";
     const selectedMethod = shippingMethods.find(
@@ -61,12 +64,15 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}, ${deliveryDate.toLocaleTimeString()}`;
     }
     setShippingMethod(selectedShippingMethodId);
+
     setShippingMethodText(text);
   };
 
   const handleNext = () => {
     if (shippingMethod) {
-      setOrder({ ...order, shippingMethod: shippingMethod });
+      const updatedOrder = { ...order, shippingMethod: shippingMethod };
+      console.log("Updated Order:", updatedOrder);
+      setOrder(updatedOrder);
       console.log("Shipping method:", shippingMethod);
       onNext();
     } else {
