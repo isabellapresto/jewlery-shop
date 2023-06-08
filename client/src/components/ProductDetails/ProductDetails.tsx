@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Product } from "../../context/ProductContext";
 import { useParams } from "react-router-dom";
-import { Container, Grid } from "@mui/material";
+import { Container, Stack } from "@mui/material";
+import Divider from '@mui/material/Divider';
 import PurchaseBtn from "../PurchaseBtn/PurchaseBtn";
 
 export default function ProductDetails() {
@@ -34,40 +35,32 @@ export default function ProductDetails() {
   }, [id]);
 
   return product ? (
-    <Container>
-      <Grid
-        container
+    <Container style={{margin:'3rem'}}>
+        <Stack
+        direction="row"
         spacing={2}
-        sx={{
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Grid item xs={12} sm={12} md={8} lg={6}>
+        useFlexGap flexWrap="wrap">
+        <div style={{ width: "40%"}}>
           <img
             src={product.image}
             alt={product.title}
             style={{ width: "100%", height: "auto" }}
           />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={8}
-          lg={6}
-          sx={{
-            textAlign: "center",
-            gap: 2,
-          }}
-        >
+        </div> 
+        <div style={{ width: "50%",
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '1rem'
+                      }}>
           <h2>{product.title}</h2>
           <p style={{ fontStyle: "italic" }}>{product.price} kr</p>
           <p>{product.description}</p>
           <p>{inStockProduct(product.inStock)}</p>
           <PurchaseBtn product={product} />
-        </Grid>
-      </Grid>
+          </div>
+        </Stack>
     </Container>
   ) : null;
 }

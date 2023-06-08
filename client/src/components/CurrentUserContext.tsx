@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
+import Admin from "./Admin/Admin";
 
 export type User = {
   firstName: string;
@@ -11,12 +12,14 @@ export type User = {
 export type UserType = {
   email: string;
   password: string;
+  isAdmin?: boolean;
 };
 
 interface UserContextType {
   loggedInUser?: User | null;
   login: (user: UserType) => Promise<void>;
   logout: () => Promise<void>;
+  isAdmin: (user: UserType) => void;
 }
 
 type Props = {
@@ -27,6 +30,7 @@ export const UserContextType = createContext<UserContextType>({
   loggedInUser: null,
   login: async () => {},
   logout: async () => {},
+  isAdmin: () => {},
 });
 
 const UserProvider = ({ children }: Props) => {
@@ -39,8 +43,9 @@ const UserProvider = ({ children }: Props) => {
         const data = await response.json();
         if (response.status === 200) {
           setloggedInUser(data);
-          // console.log('du är inloggad som ' + data.firstName) ;
-          // console.log(data);
+          console.log("du är inloggad som " + data.firstName);
+          //isAdmin(data);
+          console.log(data.isAdmin);
         }
         //  else {
         //     setloggedInUser(null)
@@ -48,12 +53,21 @@ const UserProvider = ({ children }: Props) => {
 
         // }
       } catch (err) {
-        // console.log(err);
-        // console.log("du är inte inloggad");
+        console.log(err);
+        console.log("du är inte inloggad");
       }
     };
     authorization();
   }, []);
+
+  //Check if user is an admin
+  const isAdmin = (user: UserType) => {
+    if (user.isAdmin == false) {
+      console.log("No - not an Admin");
+    } else {
+      console.log("Yes - you are an Admin");
+    }
+  };
 
   const login = async (user: UserType) => {
     if (user) {
@@ -69,9 +83,9 @@ const UserProvider = ({ children }: Props) => {
         // localStorage.setItem('user', JSON.stringify(data));
         if (response.status === 200) {
           setloggedInUser(data);
-          //   console.log("logged in successfully");
+          console.log("logged in successfully");
         } else {
-          //   console.log("wrong email or password");
+          console.log("wrong email or password");
         }
       } catch (err) {
         console.log(err);
@@ -98,7 +112,7 @@ const UserProvider = ({ children }: Props) => {
 
   return (
     <UserContextType.Provider
-      value={{ loggedInUser, login: login, logout: logout }}
+      value={{ loggedInUser, isAdmin: isAdmin, login: login, logout: logout }}
     >
       {children}
     </UserContextType.Provider>

@@ -1,22 +1,29 @@
 import { Button } from '@mui/material';
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/LogIn';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useContext} from 'react'
 import {  UserContextType,} from '../CurrentUserContext'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
 
 
 
 export default function LoginBtn() {
+  
 
   const {logout, loggedInUser } = useContext(UserContextType);
+  
 
   const handleLogout = async () => {
     
     
     await logout();
     
+   
       alert('You are logged out ');
+     
     
     
   };
@@ -24,20 +31,36 @@ export default function LoginBtn() {
   
   return (
     <>
-      {loggedInUser ? (
+      {loggedInUser?.isAdmin === false ? (
         <>
-        <Button variant="outlined" startIcon={<LogoutIcon />} onClick={handleLogout}>
+        <Button size="small" variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>
           Logout
         </Button>
+        <Link to="/login">
+            <AccountCircleIcon/>
+        </Link>
+        </>
+      ) :  loggedInUser ? (
+        <>
+        <Button variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>
+          Logout
+        </Button>
+        <Link to="/login">
+          <AccountCircleIcon/>
+        </Link>
+        <Link to="/admin">
+          <AdminPanelSettingsIcon/>
+        </Link>
         
         </>
+
         ) : (
       
-        <NavLink to="/login">
-          <Button variant="outlined" startIcon={<LoginIcon />}>
+        <Link to="/login">
+          <Button variant="text" startIcon={<LoginIcon />}>
             LogIn
           </Button>
-        </NavLink>
+        </Link>
        )}
     </>
      

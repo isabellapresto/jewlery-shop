@@ -14,6 +14,7 @@ type ShoppingCartContext = {
   increaseCartQuantity: (id: string) => void;
   decreaseCartQuantity: (id: string) => void;
   removeFromCart: (id: string) => void;
+  emptyCart: () => void; // Lägg till emptyCart-funktionen
   cartQuantity: number;
   cartItems: CartItem[];
 };
@@ -21,6 +22,7 @@ type ShoppingCartContext = {
 type ShoppingCartProviderProps = {
   children: ReactNode;
 };
+
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
 
 export function useShoppingCart() {
@@ -81,6 +83,10 @@ export default function ShoppingCartProvider({
       return currItems.filter((item) => item.id !== id);
     });
   }
+  //Tömmer kundvagnen med tom array
+  function emptyCart() {
+    setCartItems([]);
+  }
 
   return (
     <ShoppingCartContext.Provider
@@ -89,6 +95,7 @@ export default function ShoppingCartProvider({
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,
+        emptyCart,
         cartQuantity,
         cartItems,
       }}

@@ -1,17 +1,26 @@
 import { FormEvent } from "react";
 import { Typography, Container, TextField, Button } from "@mui/material";
 import "./Contact.css";
+import { styled } from '@mui/material/styles';
+
+const CustomButton = styled(Button)({
+  backgroundColor: '#ef9a9a',
+  '&:hover': {
+    backgroundColor: '#e57373',
+  },
+}) as typeof Button;
+
 
 export default function Contact() {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
   };
   return (
-    <Container>
+    <Container className="contact-container">
       <Typography variant="h6" component="h2" gutterBottom>
         Contact Us
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="contact-form">
         <TextField
           label="Name"
           variant="outlined"
@@ -36,9 +45,9 @@ export default function Contact() {
           multiline
           rows={4}
         />
-        <Button type="submit" variant="contained" className="customButton">
+        <CustomButton type="submit" variant="contained" className="CustomButton">
           Submit
-        </Button>
+        </CustomButton>
       </form>
     </Container>
   );
