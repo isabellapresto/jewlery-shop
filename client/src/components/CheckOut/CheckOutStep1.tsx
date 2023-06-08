@@ -113,10 +113,10 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         margin="normal"
       />
       <Button
-        variant="contained"
-        color="inherit"
+        variant="outlined"
+        // color="inherit"
         onClick={handleNext}
-        style={{ margin: '0 auto', backgroundColor: 'black', color: 'white' }}
+        
       >
         Continue to Shipping
       </Button>
