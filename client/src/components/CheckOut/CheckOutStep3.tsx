@@ -7,9 +7,9 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import { useShoppingCart } from "../../context/CartContext"; // hämtar context
+//import { useShoppingCart } from "../../context/CartContext"; // hämtar context
 
-import { useOrder } from "../../context/OrderContext";
+import { Order, useOrder } from "../../context/OrderContext";
 
 interface Step3Props {
   onBack: () => void;
@@ -25,7 +25,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
   const { setOrder, order } = useOrder();
 
-  const { emptyCart } = useShoppingCart(); // Hämtar emptyCart fån context
+  // const { emptyCart } = useShoppingCart(); // Hämtar emptyCart fån context
 
   const handleComplete = () => {
     if (paymentMethod === "creditCard") {
@@ -58,7 +58,38 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
     const orderFinish = { ...order, orderItems: parsedCart };
     console.log("WrappingUp order", orderFinish);
     setOrder(orderFinish);
+    sendOrderToDataBase(order);
   };
+
+  //----------------------------OrderToDataBase-------------------------------------//
+
+  const sendOrderToDataBase = async (orderData: Order) => {
+    const { orderItems, deliveryAddress, shippingMethod } = orderData;
+    console.log(
+      "ORDER BEFORE SENDING TO DATABASE",
+      orderItems,
+      deliveryAddress,
+      shippingMethod,
+      orderData
+    );
+    try {
+      const orderResponse = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ orderItems, deliveryAddress, shippingMethod }),
+      });
+
+      if (orderResponse.ok) {
+        const order = await orderResponse.json();
+        console.log("Order successfully sent to the database:", order);
+      }
+    } catch (error) {
+      console.error("Error sending order to the database:", error);
+    }
+  };
+  //----------------------------OrderToDataBase-------------------------------------//
 
   return (
     <div style={{ padding: "50px" }}>
@@ -137,7 +168,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
           cartIntoOrder();
           handleComplete();
-          emptyCart();
+          // emptyCart();
         }}
       >
         Complete purchase
