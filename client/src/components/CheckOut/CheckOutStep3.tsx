@@ -7,7 +7,7 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-//import { useShoppingCart } from "../../context/CartContext"; // hämtar context
+import { useShoppingCart } from "../../context/CartContext"; // hämtar context
 
 import { Order, useOrder } from "../../context/OrderContext";
 
@@ -25,7 +25,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
   const { setOrder, order } = useOrder();
 
-  // const { emptyCart } = useShoppingCart(); // Hämtar emptyCart fån context
+  const { emptyCart } = useShoppingCart(); // Hämtar emptyCart fån context
 
   const handleComplete = () => {
     if (paymentMethod === "creditCard") {
@@ -65,20 +65,23 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
   const sendOrderToDataBase = async (orderData: Order) => {
     const { orderItems, deliveryAddress, shippingMethod } = orderData;
-    console.log(
-      "ORDER BEFORE SENDING TO DATABASE",
-      orderItems,
-      deliveryAddress,
-      shippingMethod,
-      orderData
-    );
+    const orderItems2 = orderItems.map((item) => ({
+      product: item.id,
+      quantity: item.quantity,
+    }));
+    console.log(orderItems2);
+    // console.log("ORDER BEFORE SENDING TO DATABASE", orderData);
     try {
       const orderResponse = await fetch("/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ orderItems, deliveryAddress, shippingMethod }),
+        body: JSON.stringify({
+          orderItems: orderItems2,
+          deliveryAddress,
+          shippingMethod,
+        }),
       });
 
       if (orderResponse.ok) {
@@ -168,7 +171,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
           cartIntoOrder();
           handleComplete();
-          // emptyCart();
+          emptyCart();
         }}
       >
         Complete purchase
