@@ -58,7 +58,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
     const orderFinish = { ...order, orderItems: parsedCart };
     console.log("WrappingUp order", orderFinish);
     setOrder(orderFinish);
-    sendOrderToDataBase(order);
+    sendOrderToDataBase(orderFinish);
   };
 
   //----------------------------OrderToDataBase-------------------------------------//
