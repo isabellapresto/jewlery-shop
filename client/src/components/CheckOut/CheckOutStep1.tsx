@@ -1,11 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { TextField, Button } from '@mui/material';
-import { UserContextType } from "../CurrentUserContext"
+import React, { useState, useContext, useEffect } from "react";
+import { TextField, Button } from "@mui/material";
+import { UserContextType } from "../CurrentUserContext"; //UserType,
 
-import Stack from '@mui/material/Stack';
-import CartItem from '../CartItem/CartItem';
+import { useOrder } from "../../context/OrderContext";
+
+import Stack from "@mui/material/Stack";
+import CartItem from "../CartItem/CartItem";
 import { useShoppingCart } from "../../context/CartContext";
-import './CheckOut.css'
+import "./CheckOut.css";
 
 interface Step1Props {
   onNext: () => void;
@@ -13,50 +15,92 @@ interface Step1Props {
 
 const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const { loggedInUser } = useContext(UserContextType);
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [email, setEmail] = useState('');
-  const [postcode, setPostCode] = useState('');
-  const [town, setTown] = useState('');
-  const [country, setCountry] = useState('');
-  const { cartItems } = useShoppingCart ();
+  const [name, setName] = useState(
+    loggedInUser?.firstName + " " + loggedInUser?.lastName
+  );
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState(loggedInUser?.email);
+  const [postcode, setPostCode] = useState("");
+  const [town, setTown] = useState("");
+  const [country, setCountry] = useState("");
+  const { cartItems } = useShoppingCart();
 
+  const { setOrder, order } = useOrder();
 
   useEffect(() => {
-    if (loggedInUser) {
-      setName(loggedInUser.firstName + ' ' + loggedInUser.lastName);
-      setEmail(loggedInUser.email);
-    }
-  }, [loggedInUser]);
+    console.log(order);
+    setAddress(order.deliveryAddress.street);
+    setPostCode(order.deliveryAddress.zipcode);
+    setTown(order.deliveryAddress.city);
+    setCountry(order.deliveryAddress.country);
+  }, [order]);
+
+  useEffect(() => {
+    console.log(order);
+  }, [order]);
 
   const handleNext = () => {
     if (name && address && email && postcode && town && country) {
       onNext();
     } else {
-      alert('Please fill in all mandatory fields.');
+      // alert, felmedd
+      alert("Please fill in all mandatory fields.");
     }
   };
 
-  return (
-    <div style={{ padding: '50px' }}>
-
-
+  return loggedInUser ? (
+    <div style={{ padding: "50px" }}>
       {/* mitten */}
-      
-      {/* mitten */}
-      <h2 style={{ padding: '50px', paddingBottom: '0.5rem', textAlign: 'center' }}>Cart</h2> 
-      <p style={{ paddingBottom: '1rem', textAlign: 'center', fontStyle: 'italic' }}>Please check your cart details</p>
-      <div className= "cartContainer">
+      <h2
+        style={{
+          padding: "50px",
+          paddingBottom: "0.5rem",
+          textAlign: "center",
+        }}
+      >
+        Cart
+      </h2>
+      <p
+        style={{
+          paddingBottom: "1rem",
+          textAlign: "center",
+          fontStyle: "italic",
+        }}
+      >
+        Please check your cart details
+      </p>
+      <div className="cartContainer">
         <Stack spacing={2}>
-            {cartItems.map(item => (
-              <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
-              <CartItem key= {item.id} {...item} />
-              </Stack>
-              ))}
-          </Stack>
-        </div>
-      <h2 style={{ padding: '50px', paddingBottom: '0.5rem', textAlign: 'center' }}>Billing Details</h2>
-      <p style={{ paddingBottom: '1rem', textAlign: 'center', fontStyle: 'italic' }}>Please fill in your billing details</p> 
+          {cartItems.map((item) => (
+            <Stack
+              direction="row"
+              spacing={2}
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <CartItem key={item.id} {...item} />
+            </Stack>
+          ))}
+        </Stack>
+      </div>
+      <h2
+        style={{
+          padding: "50px",
+          paddingBottom: "0.5rem",
+          textAlign: "center",
+        }}
+      >
+        Billing Details
+      </h2>
+      <p
+        style={{
+          paddingBottom: "1rem",
+          textAlign: "center",
+          fontStyle: "italic",
+        }}
+      >
+        Please fill in your billing details
+      </p>
 
       <TextField
         required
@@ -72,7 +116,15 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         id="standard-required"
         label="Street address"
         value={address}
-        onChange={(e) => setAddress(e.target.value)}
+        onChange={(e) =>
+          setOrder({
+            ...order,
+            deliveryAddress: {
+              ...order.deliveryAddress,
+              street: e.target.value,
+            },
+          })
+        }
         fullWidth
         margin="normal"
       />
@@ -81,7 +133,15 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         id="standard-required"
         label="Post code"
         value={postcode}
-        onChange={(e) => setPostCode(e.target.value)}
+        onChange={(e) =>
+          setOrder({
+            ...order,
+            deliveryAddress: {
+              ...order.deliveryAddress,
+              zipcode: e.target.value,
+            },
+          })
+        }
         fullWidth
         margin="normal"
       />
@@ -90,7 +150,15 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         id="standard-required"
         label="Town / City"
         value={town}
-        onChange={(e) => setTown(e.target.value)}
+        onChange={(e) =>
+          setOrder({
+            ...order,
+            deliveryAddress: {
+              ...order.deliveryAddress,
+              city: e.target.value,
+            },
+          })
+        }
         fullWidth
         margin="normal"
       />
@@ -99,7 +167,15 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         id="standard-required"
         label="Country"
         value={country}
-        onChange={(e) => setCountry(e.target.value)}
+        onChange={(e) =>
+          setOrder({
+            ...order,
+            deliveryAddress: {
+              ...order.deliveryAddress,
+              country: e.target.value,
+            },
+          })
+        }
         fullWidth
         margin="normal"
       />
@@ -116,13 +192,11 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         variant="outlined"
         // color="inherit"
         onClick={handleNext}
-        
       >
         Continue to Shipping
       </Button>
     </div>
-  );
+  ) : null;
 };
 
 export default Step1;
-

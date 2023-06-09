@@ -3,11 +3,11 @@ POST http://localhost:3000/api/users/register
 Content-Type: application/json
 
 {
-  "firstName": "Admin",
-  "lastName": "Adminsson",
-  "email": "admin@admin.se",
-  "password": "admin",
-  "isAdmin": true
+  "firstName": "User",
+  "lastName": "Usersson",
+  "email": "user@user.se",
+  "password": "user",
+  "isAdmin": false
 }
 
 ###
