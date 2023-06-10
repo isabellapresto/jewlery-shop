@@ -10,13 +10,13 @@ interface NewProduct {
   inStock: number
 }
 
-export default function AddProductForm() {
+export default function AddProduct() {
   const [newProduct, setNewProduct] = useState<NewProduct>({
     title: '',
     description: '',
-    price: '',
+    price: 0,
     image: '',
-    inStock: '',
+    inStock: 0,
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,9 +30,9 @@ export default function AddProductForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
    
-    console.log(newProduct);
+    setNewProduct({ title: '', description: '', price: 0, image: '', inStock: 0 });
 
-    setNewProduct({ title: '', description: '', price: '', image: '', inStock:'' });
+    console.log(newProduct);
   };
 
   return (
@@ -81,7 +81,7 @@ export default function AddProductForm() {
         <Grid item xs={12}>
           <TextField
             label="In Stock"
-            name="instock"
+            name="inStock"
             value={newProduct.inStock}
             onChange={handleInputChange}
             required
