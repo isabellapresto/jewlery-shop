@@ -1,16 +1,10 @@
 
 import React, { useState } from 'react';
 import { TextField, Button, Grid } from '@mui/material';
+import { NewProduct } from '../../context/ProductContext'
 
-interface NewProduct {
-  title: string;
-  description: string;
-  price: number,
-  image: string,
-  inStock: number
-}
 
-export default function AddProduct() {
+export default function AddNewProduct() {
   const [newProduct, setNewProduct] = useState<NewProduct>({
     title: '',
     description: '',
@@ -18,6 +12,8 @@ export default function AddProduct() {
     image: '',
     inStock: 0,
   });
+
+  //----------------------------START - Handle inputfield for add new product-------------------------------------//
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -27,13 +23,54 @@ export default function AddProduct() {
     }));
   };
 
+  //----------------------------END - Handle inputfield for add new product-------------------------------------//
+
+
+  //----------------------------START - Add/send new product to database-------------------------------------//
+
+  const sendNewProductToDataBase = async (productData: NewProduct) => {
+    
+    const { title, description, price, image, inStock } = productData;
+   
+    console.log(" NEW PRODUCT BEFORE SENDING TO DATABASE", productData);
+
+    try {
+      const productResponse = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          description: description,
+          price: price,
+          image: image,
+          inStock: inStock
+        }),
+      });
+
+      console.log('PRODUCT RESPONSE', productResponse)
+
+      if (productResponse.ok) {
+        const newProductToDatabase = await productResponse.json();
+        console.log("New product successfully added to the database:", newProductToDatabase);
+      }
+    } catch (error) {
+      console.error("Error adding new product to the database:", error);
+    }
+  };
+
+  //----------------------------END - Add/send new product to database-------------------------------------//
+
+  //----------------------------START - Handle submit / button-------------------------------------//
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
    
-    setNewProduct({ title: '', description: '', price: 0, image: '', inStock: 0 });
-
-    console.log(newProduct);
+    sendNewProductToDataBase(newProduct);
   };
+
+  //----------------------------END - Handle submit / button-------------------------------------//
 
   return (
     <form onSubmit={handleSubmit}>
