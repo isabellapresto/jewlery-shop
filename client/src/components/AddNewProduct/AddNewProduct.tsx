@@ -1,30 +1,18 @@
 
 import React, { useState } from 'react';
 import { TextField, Button, Grid } from '@mui/material';
-import { NewProduct } from '../../context/ProductContext'
+import { NavLink } from "react-router-dom";
+import { NewProduct } from '../../context/ProductContext';
+import Alert from '@mui/material/Alert';
 
 
 export default function AddNewProduct() {
-  const [newProduct, setNewProduct] = useState<NewProduct>({
-    title: '',
-    description: '',
-    price: 0,
-    image: '',
-    inStock: 0,
-  });
 
-  //----------------------------START - Handle inputfield for add new product-------------------------------------//
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setNewProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: value,
-    }));
-  };
-
-  //----------------------------END - Handle inputfield for add new product-------------------------------------//
-
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState<number>(0);
+  const [image, setImage] = useState("");
+  const [inStock, setInStock] = useState<number>(0);
 
   //----------------------------START - Add/send new product to database-------------------------------------//
 
@@ -53,10 +41,14 @@ export default function AddNewProduct() {
 
       if (productResponse.ok) {
         const newProductToDatabase = await productResponse.json();
+
+        <Alert severity="success">New product successfully added to the database</Alert>
         console.log("New product successfully added to the database:", newProductToDatabase);
+        
       }
     } catch (error) {
       console.error("Error adding new product to the database:", error);
+      <Alert severity="error">Error adding new product to the database</Alert>
     }
   };
 
@@ -66,21 +58,40 @@ export default function AddNewProduct() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-   
+
+    const newProduct : NewProduct = {
+      title,
+      description,
+      price,
+      image,
+      inStock,
+    };
+
     sendNewProductToDataBase(newProduct);
   };
 
   //----------------------------END - Handle submit / button-------------------------------------//
 
   return (
-    <form onSubmit={handleSubmit}>
+
+    <div style={{paddingBottom: '50px'}}>
+
+      <div style={{width: '5rem', marginLeft: '30%', paddingTop: '10px', paddingBottom: '10px'}}>
+        <NavLink to="/admin" style={{textDecoration: "none" }}>
+          <Button variant='outlined'>Back</Button>
+        </NavLink>
+      </div>
+
+      <h3 style={{textAlign: 'center', paddingBottom: '25px'}}>Add a new product to the database</h3>
+   
+      <form onSubmit={handleSubmit} style={{width: '40%', margin: 'auto'}}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
             label="Product Name"
             name="title"
-            value={newProduct.title}
-            onChange={handleInputChange}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             required
             fullWidth
           />
@@ -89,8 +100,8 @@ export default function AddNewProduct() {
           <TextField
             label="Product Description"
             name="description"
-            value={newProduct.description}
-            onChange={handleInputChange}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             required
             fullWidth
           />
@@ -99,8 +110,8 @@ export default function AddNewProduct() {
           <TextField
             label="Price"
             name="price"
-            value={newProduct.price}
-            onChange={handleInputChange}
+            value={price}
+            onChange={(e) => setPrice(Number(e.target.value))}
             required
             fullWidth
           />
@@ -109,8 +120,8 @@ export default function AddNewProduct() {
           <TextField
             label="Image URL"
             name="image"
-            value={newProduct.image}
-            onChange={handleInputChange}
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
             required
             fullWidth
           />
@@ -119,8 +130,8 @@ export default function AddNewProduct() {
           <TextField
             label="In Stock"
             name="inStock"
-            value={newProduct.inStock}
-            onChange={handleInputChange}
+            value={inStock}
+            onChange={(e) => setInStock(Number(e.target.value))}
             required
             fullWidth
           />
@@ -132,6 +143,7 @@ export default function AddNewProduct() {
         </Grid>
     </Grid>
     </form>
+  </div>
   )
 }
 
