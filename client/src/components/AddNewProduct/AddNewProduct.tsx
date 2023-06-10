@@ -5,14 +5,18 @@ import { TextField, Button, Grid } from '@mui/material';
 interface NewProduct {
   title: string;
   description: string;
-  image: string;
+  price: number,
+  image: string,
+  inStock: number
 }
 
 export default function AddProductForm() {
   const [newProduct, setNewProduct] = useState<NewProduct>({
     title: '',
     description: '',
+    price: '',
     image: '',
+    inStock: '',
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +32,7 @@ export default function AddProductForm() {
    
     console.log(newProduct);
 
-    setNewProduct({ title: '', description: '', image: '' });
+    setNewProduct({ title: '', description: '', price: '', image: '', inStock:'' });
   };
 
   return (
@@ -56,6 +60,16 @@ export default function AddProductForm() {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            label="Price"
+            name="price"
+            value={newProduct.price}
+            onChange={handleInputChange}
+            required
+            fullWidth
+          />
+         </Grid>
+        <Grid item xs={12}>
+          <TextField
             label="Image URL"
             name="image"
             value={newProduct.image}
@@ -65,11 +79,22 @@ export default function AddProductForm() {
           />
         </Grid>
         <Grid item xs={12}>
+          <TextField
+            label="In Stock"
+            name="instock"
+            value={newProduct.inStock}
+            onChange={handleInputChange}
+            required
+            fullWidth
+          />
+         </Grid>
+        <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary">
             Add Product
           </Button>
         </Grid>
-      </Grid>
+    </Grid>
     </form>
-  );
+  )
 }
+
