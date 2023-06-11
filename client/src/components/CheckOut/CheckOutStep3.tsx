@@ -12,8 +12,6 @@ import { useShoppingCart } from "../../context/CartContext"; // hämtar context
 
 import { Order, useOrder } from "../../context/OrderContext";
 
-import OrderConfirmation from "../OrderConfirmation/OrderConfirmation"; //nytt
-
 interface Step3Props {
   onBack: () => void;
   onComplete: () => void;
