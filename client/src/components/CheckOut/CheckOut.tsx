@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Stepper, Step, StepLabel, Button, Typography } from '@mui/material';
 
 import CheckOutStep1 from "../CheckOut/CheckOutStep1";

@@ -15,4 +15,7 @@ export const themeOptions: ThemeOptions = {
       main: '#0288d1',
     },
   },
+  typography: {
+    fontFamily: 'Cabin',
+  },
 };

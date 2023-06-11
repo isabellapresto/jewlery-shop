@@ -94,13 +94,12 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         </div>
       )}
       <div style={{ marginTop: '20px' }}></div>
-      <Button onClick={onBack} style={{ backgroundColor: 'black', color: 'white', marginRight: '10px' }}>
+      <Button onClick={onBack} style={{ marginRight: '10px' }}  variant="outlined">
         Back to shipping
       </Button>
       <Button
-        variant="contained"
-        color="inherit"
-        style={{ backgroundColor: 'black', color: 'white' }}
+        variant="outlined"
+        
         onClick={() => {
           //
           handleComplete();

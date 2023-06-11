@@ -4,10 +4,10 @@ import './Home.css'
 
 export default function Home() {
     return (
-        <body className='backgroundColor'>
+        <div className='backgroundColor'>
             <Banner></Banner>
             <ImageList></ImageList>
-        </body>
+        </div>
 
     );
   }

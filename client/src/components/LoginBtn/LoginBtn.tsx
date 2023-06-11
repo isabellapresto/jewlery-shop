@@ -6,7 +6,7 @@ import { useContext} from 'react'
 import {  UserContextType,} from '../CurrentUserContext'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-
+import './LoginBtn.css'
 
 
 
@@ -32,16 +32,19 @@ export default function LoginBtn() {
   return (
     <>
       {loggedInUser?.isAdmin === false ? (
-        <>
+        <div className='LoginBtnContainer'>
         <Button size="small" variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>
           Logout
         </Button>
         <Link to="/login">
-            <AccountCircleIcon/>
+          
+          <AccountCircleIcon/>
+          
+            
         </Link>
-        </>
+        </div>
       ) :  loggedInUser ? (
-        <>
+        <div className='LoginBtnContainer'>
         <Button variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>
           Logout
         </Button>
@@ -52,15 +55,17 @@ export default function LoginBtn() {
           <AdminPanelSettingsIcon/>
         </Link>
         
-        </>
+        </div>
 
         ) : (
-      
-        <Link to="/login">
+        <div className='LoginBtnContainer'>
+            <Link to="/login">
           <Button variant="text" startIcon={<LoginIcon />}>
             LogIn
           </Button>
         </Link>
+        </div>
+        
        )}
     </>
      

@@ -91,21 +91,14 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
 
       <div style={{ marginTop: "20px" }}>
         <Button
-          variant="contained"
-          color="inherit"
-          style={{
-            backgroundColor: "black",
-            color: "white",
-            marginRight: "10px",
-          }}
+          variant="outlined"
+          style={{marginRight: "10px"}}
           onClick={onBack}
         >
           Back
         </Button>
         <Button
-          variant="contained"
-          color="inherit"
-          style={{ backgroundColor: "black", color: "white" }}
+          variant="outlined"
           onClick={handleNext}
         >
           Next
