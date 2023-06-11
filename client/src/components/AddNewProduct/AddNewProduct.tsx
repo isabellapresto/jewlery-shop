@@ -15,8 +15,16 @@ export default function AddNewProduct() {
   const [image, setImage] = useState("");
   const [inStock, setInStock] = useState<number>(0);
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>();
   const [success, setSuccess] = useState(false);
+
+  const resetForm = () => {
+    setTitle("")
+    setDescription("")
+    setPrice(0)
+    setImage("")
+    setInStock(0)
+  }
 
   //----------------------------START - Add/send new product to database-------------------------------------//
 
@@ -44,6 +52,7 @@ export default function AddNewProduct() {
         console.log("New product successfully added to the database:", newProductToDatabase);
 
         setSuccess(true);
+        resetForm();
       }
 
       if ((productResponse.status === 400))
@@ -58,10 +67,10 @@ export default function AddNewProduct() {
 
   //----------------------------START - Handle Alert visibility-------------------------------------//
 
-  function toggleShow() {
+  function handleShow() {
     setShow(!show);
   }
-
+  
   //----------------------------END - Handle Alert visibility-------------------------------------//
 
   //----------------------------START - Handle submit / button-------------------------------------//
@@ -78,7 +87,7 @@ export default function AddNewProduct() {
     };
 
     sendNewProductToDataBase(newProduct);
-    toggleShow();
+    handleShow();
 
   };
 
@@ -151,7 +160,7 @@ export default function AddNewProduct() {
         <Grid item xs={12}>
 
         { show && !success ? (
-          <Alert severity="error" style={{marginBottom: '2rem'}}>ERROR - Error adding new product to the database.<br></br> Please try again</Alert>
+          <Alert onClose={handleShow} severity="error" style={{marginBottom: '2rem'}}>ERROR - Error adding new product to the database.<br></br> Please try again</Alert>
             ) : (
           <Alert severity="error" style={{display: 'none'}}></Alert> 
         )}
