@@ -4,6 +4,7 @@ import { TextField, Button, Grid } from '@mui/material';
 import { NavLink } from "react-router-dom";
 import { NewProduct } from '../../context/ProductContext';
 import Alert from '@mui/material/Alert';
+import '../AddNewProduct/AddNewProduct.css'
 
 
 export default function AddNewProduct() {
@@ -14,14 +15,15 @@ export default function AddNewProduct() {
   const [image, setImage] = useState("");
   const [inStock, setInStock] = useState<number>(0);
 
+  const [show, setShow] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   //----------------------------START - Add/send new product to database-------------------------------------//
 
   const sendNewProductToDataBase = async (productData: NewProduct) => {
     
     const { title, description, price, image, inStock } = productData;
    
-    console.log(" NEW PRODUCT BEFORE SENDING TO DATABASE", productData);
-
     try {
       const productResponse = await fetch("/api/products", {
         method: "POST",
@@ -37,22 +39,30 @@ export default function AddNewProduct() {
         }),
       });
 
-      console.log('PRODUCT RESPONSE', productResponse)
-
       if (productResponse.ok) {
         const newProductToDatabase = await productResponse.json();
-
-        <Alert severity="success">New product successfully added to the database</Alert>
         console.log("New product successfully added to the database:", newProductToDatabase);
-        
+
+        setSuccess(true);
       }
+
+      if ((productResponse.status === 400))
+      setSuccess(false);
+
     } catch (error) {
       console.error("Error adding new product to the database:", error);
-      <Alert severity="error">Error adding new product to the database</Alert>
     }
-  };
+  }
 
   //----------------------------END - Add/send new product to database-------------------------------------//
+
+  //----------------------------START - Handle Alert visibility-------------------------------------//
+
+  function toggleShow() {
+    setShow(!show);
+  }
+
+  //----------------------------END - Handle Alert visibility-------------------------------------//
 
   //----------------------------START - Handle submit / button-------------------------------------//
 
@@ -68,6 +78,8 @@ export default function AddNewProduct() {
     };
 
     sendNewProductToDataBase(newProduct);
+    toggleShow();
+
   };
 
   //----------------------------END - Handle submit / button-------------------------------------//
@@ -137,13 +149,26 @@ export default function AddNewProduct() {
           />
          </Grid>
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
-            Add Product
-          </Button>
+
+        { show && !success ? (
+          <Alert severity="error" style={{marginBottom: '2rem'}}>ERROR - Error adding new product to the database.<br></br> Please try again</Alert>
+            ) : (
+          <Alert severity="error" style={{display: 'none'}}></Alert> 
+        )}
+
+        <Button type="submit" variant="contained" color="primary">
+          Add Product
+        </Button>
+
+        { show && success ? (
+          <Alert severity="success" style={{marginTop: '2rem'}}>SUCCESS - New product add to the database</Alert>
+            ) : (
+          <Alert severity="success" style={{display: 'none'}}></Alert> 
+        )}
+
         </Grid>
-    </Grid>
+      </Grid>
     </form>
   </div>
   )
 }
-
