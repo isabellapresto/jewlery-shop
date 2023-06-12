@@ -28,16 +28,16 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const { setOrder, order } = useOrder();
 
   useEffect(() => {
-    console.log(order);
+    // console.log(order);
     setAddress(order.deliveryAddress.street);
     setPostCode(order.deliveryAddress.zipcode);
     setTown(order.deliveryAddress.city);
     setCountry(order.deliveryAddress.country);
   }, [order]);
 
-  useEffect(() => {
-    console.log(order);
-  }, [order]);
+  // useEffect(() => {
+  //   console.log(order);
+  // }, [order]);
 
   const handleNext = () => {
     if (name && address && email && postcode && town && country) {

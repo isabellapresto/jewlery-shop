@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   FormControlLabel,
@@ -22,6 +23,8 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
   const [expiryDate, setExpiryDate] = useState("");
   const [cvcCode, setCvcCode] = useState("");
   const [email, setEmail] = useState("");
+
+  const navigate = useNavigate();
 
   const { setOrder, order } = useOrder();
 
@@ -56,7 +59,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
     const parsedCart = JSON.parse(cart || "[]");
 
     const orderFinish = { ...order, orderItems: parsedCart };
-    console.log("WrappingUp order", orderFinish);
+
     setOrder(orderFinish);
     sendOrderToDataBase(orderFinish);
   };
@@ -69,7 +72,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
       product: item.id,
       quantity: item.quantity,
     }));
-    console.log(orderItems2);
+
     // console.log("ORDER BEFORE SENDING TO DATABASE", orderData);
     try {
       const orderResponse = await fetch("/api/orders", {
@@ -86,7 +89,13 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
       if (orderResponse.ok) {
         const order = await orderResponse.json();
-        console.log("Order successfully sent to the database:", order);
+        console.log(
+          "Order successfully sent to the database:",
+          order.orderNumber
+        );
+        setOrder({ ...order, orderNumber: order.orderNumber });
+
+        navigate("/OrderConfirmation");
       }
     } catch (error) {
       console.error("Error sending order to the database:", error);
