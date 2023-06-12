@@ -8,8 +8,8 @@ export default function Contact() {
     event.preventDefault();
   };
   return (
-    <Container className="contact-container">
-       <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500} style={{padding:'50px'}}>
+    <Container sx={{width:['95%', '75%', '60%'], textAlign:'center', height: 550, boxShadow: 3, borderRadius: 2, px: 4, py: 6, marginTop:'50px', marginBottom:'50px' }} >
+       <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
           Contact
         </Typography>
       <form onSubmit={handleSubmit} className="contact-form">
@@ -37,7 +37,7 @@ export default function Contact() {
           multiline
           rows={4}
         />
-        <Button type="submit" variant="outlined" className="CustomButton">
+        <Button type="submit" variant="outlined" className="CustomButton" style={{marginTop:'10px'}}>
           Submit
         </Button>
       </form>

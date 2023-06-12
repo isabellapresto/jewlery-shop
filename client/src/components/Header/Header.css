@@ -1,15 +1,24 @@
 .headerAreaOne {
  position: fixed;
  background-color: #E9D5EF;
- z-index: 1;
+ z-index: 2; 
  width: 100%;
- margin-bottom: 50px; 
+ padding: 8px;
+
 }
 
 .headerAreaTwo  {
  padding-top: 45px;
+
 }
 
 header {
     background-color: white;
+    min-width: 100%;
 }
+
+@media (max-width: 600px) {
+    .headerAreaOne {
+      padding-right: 20px;
+    }
+  }

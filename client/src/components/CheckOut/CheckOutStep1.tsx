@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { TextField, Button, Typography } from "@mui/material";
-import { UserContextType } from "../CurrentUserContext"; //UserType,
+import { UserContextType } from "../../context/CurrentUserContext"; //UserType,
 import { useOrder } from "../../context/OrderContext";
 import Alert from '@mui/material/Alert';
 import Stack from "@mui/material/Stack";
@@ -28,16 +28,16 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const { setOrder, order } = useOrder();
 
   useEffect(() => {
-    console.log(order);
+    // console.log(order);
     setAddress(order.deliveryAddress.street);
     setPostCode(order.deliveryAddress.zipcode);
     setTown(order.deliveryAddress.city);
     setCountry(order.deliveryAddress.country);
   }, [order]);
 
-  useEffect(() => {
-    console.log(order);
-  }, [order]);
+  // useEffect(() => {
+  //   console.log(order);
+  // }, [order]);
 
   function handleAlert() {
     setAlert(!alert);

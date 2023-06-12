@@ -12,3 +12,10 @@ a {
     align-items: center;
     
 }
+
+.MuiButton-startIcon:hover,
+.MuiSvgIcon-root:hover
+ {
+  cursor: pointer;
+  transform: scale(1.1);
+}

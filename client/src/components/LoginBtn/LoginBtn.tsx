@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/LogIn';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useContext} from 'react'
-import {  UserContextType,} from '../CurrentUserContext'
+import {  UserContextType,} from '../../context/CurrentUserContext'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import './LoginBtn.css'
