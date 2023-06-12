@@ -3,7 +3,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import { OrderProvider } from "./context/OrderContext";
 
-import UserProvider from "./components/CurrentUserContext";
+import UserProvider from "./context/CurrentUserContext";
 
 import ProductProvider from "./context/ProductContext";
 import ShoppingCartProvider from "./context/CartContext";

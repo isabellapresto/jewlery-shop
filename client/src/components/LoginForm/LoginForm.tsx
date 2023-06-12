@@ -1,6 +1,6 @@
 import { TextField, Button, Box, Typography } from "@mui/material";
 import './LoginForm.css';
-import {  UserType, UserContextType } from '../CurrentUserContext'
+import {  UserType, UserContextType } from '../../context/CurrentUserContext'
 import { useContext, useState } from 'react'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { NavLink } from "react-router-dom";
