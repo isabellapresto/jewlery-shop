@@ -10,7 +10,7 @@ export default function Footer() {
   const socialIconsUrl = 'https://medieinstitutet.se/';
 
   return (
-    <div style={{ backgroundColor: '#EDD6D3', padding: '20px 0', width:'100vw' }}>
+    <div style={{ backgroundColor: '#ffeded', padding: '20px 0' }}>
       <Grid container spacing={2}>
         {/* Nyhetsbrev */}
         <Grid item xs={12}>
