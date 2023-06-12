@@ -1,7 +1,9 @@
 import { useEffect, useContext, useState } from "react";
 import { useOrder } from "../../context/OrderContext";
 import { UserContextType } from "../CurrentUserContext";
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
+
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import CircularIndeterminate from "../Loader/Loader";
 
@@ -13,7 +15,7 @@ function OrderConfirmation() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 2000);
 
     console.log("OrderConfirmation component rendered", order);
   }, [order]);
@@ -23,39 +25,86 @@ function OrderConfirmation() {
   }
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        border: "1px solid black",
-        padding: "1rem",
-        marginTop: "1rem",
-      }}
-    >
-      <h2>Order Confirmation</h2>
-      <p>
-        Order details: {loggedInUser?.email}, {loggedInUser?.firstName},{" "}
-        {loggedInUser?.lastName}{" "}
-      </p>
-      <p>Order Number: {order.orderNumber}</p>
+    <Container>
+      <Container
+        style={{
+          textAlign: "center",
+          marginTop: "2rem",
+          border: "3px solid #E9D5EF",
+          minWidth: "50%",
+          padding: "3rem",
+          borderRadius: "1rem",
+        }}
+      >
+        <h2>Thanks for your order</h2>
+        <br />
+        <FavoriteBorderIcon fontSize="large" style={{ color: "#E9D5EF" }} />
+      </Container>
+      <Container
+        maxWidth="sm"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
 
-      <p>
-        Delivery Address: {order.deliveryAddress.street}
-        {order.deliveryAddress.zipcode} {order.deliveryAddress.city},
-        {order.deliveryAddress.country}
-      </p>
+          padding: "1rem",
+          marginTop: "2rem",
+          marginBottom: "2rem",
+        }}
+      >
+        <br />
+        <h2>Order Confirmation </h2>
+        <br />
+        <Container>
+          <p>
+            <h3>Order Details</h3>
+            <br />
+            Email: {loggedInUser?.email}
+            <br /> Fullname: {loggedInUser?.firstName} {loggedInUser?.lastName}{" "}
+            <br /> Order Number: {order.orderNumber}
+          </p>
+        </Container>
+        <br />
+        <Container>
+          <p>
+            <h3>Delivery Address</h3>
+            <br></br>
+            Street: {order.deliveryAddress.street} <br />
+            City: {order.deliveryAddress.city} <br />
+            Zipcode: {order.deliveryAddress.zipcode} <br />
+            Country: {order.deliveryAddress.country}
+          </p>
+        </Container>
+        <br />
+        <Container
+          style={{ borderTop: "3px solid #E9D5EF", marginBottom: "3rem" }}
+        >
+          <br />
+          <h3 style={{ textAlign: "center" }}>Order Items</h3>
+          <br />
 
-      <h3>Order Items:</h3>
-      <ul>
-        {order.orderItems.map((item) => (
-          <li key={item.product}>
-            Product: {item.product}, Quantity: {item.quantity}, Price:{" "}
-            {item.price}
-          </li>
-        ))}
-      </ul>
+          <ul style={{ listStyleType: "none" }}>
+            {order.orderItems.map((item) => (
+              <li key={item.product}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderBottom: "2px solid #E9D5EF",
+                    padding: "1rem",
+                    margin: "0.5rem",
+                    marginLeft: "0",
+                  }}
+                >
+                  Product: {item.product}, Quantity: {item.quantity}, Price:{" "}
+                  {item.price}
+                </Box>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Container>
     </Container>
   );
 }
