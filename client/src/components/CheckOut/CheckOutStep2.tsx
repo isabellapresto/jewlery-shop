@@ -85,7 +85,19 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
   };
 
   return (
-    <div style={{ paddingTop: "50px", paddingBottom: "50px", maxWidth: '50%', margin: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Box 
+    sx={{ 
+      width: ["95%", "80%", "60%"], 
+      display: 'flex', 
+      flexDirection: 'column', 
+      justifyContent: 'space-between', 
+      alignItems: "center", 
+      margin: "auto", 
+      marginTop: 5, 
+      boxShadow: 3, 
+      borderRadius: 2, 
+      px: 4, py: 6 }}>
+    
       <h2 style={{ textAlign: "center", paddingBottom: "2rem" }}>Shipping methods</h2>
       <FormControl component="fieldset">
         <RadioGroup
