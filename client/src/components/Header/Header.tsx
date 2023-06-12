@@ -11,21 +11,8 @@ export default function Header() {
   return (
     <header>
       <div className="headerAreaOne">
-      <Container
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          // backgroundColor: "red",
-          width: "100%",
-          height: "50px",
-          paddingRight: "0",
-          paddingLeft: "0",
-        }}
-      >
-        <Typography variant="body1" sx={{ whiteSpace: "nowrap" }}>
-          1 YEAR WARRANTY
-        </Typography>
+
+     
         <Container
           sx={{
             display: "flex",
@@ -39,7 +26,7 @@ export default function Header() {
           
           <LoginBtn />
           <ShoppingCartIcon/>
-        </Container>
+     
       </Container>
 </div>
 
