@@ -18,7 +18,6 @@ header {
 
 @media (max-width: 600px) {
     .headerAreaOne {
-      padding-right: 50px;
-      padding-left: 50px;
+      padding-right: 20px;
     }
   }
