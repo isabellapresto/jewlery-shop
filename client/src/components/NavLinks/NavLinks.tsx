@@ -21,13 +21,16 @@ function NavLinks() {
       {isMobile ? (
         <>
           <IconButton
-            edge="start"
+          //  style={{ display: "flex",
+          //  justifyContent: "flex-end",
+          //  marginRight: "20px", }}
+            // edge="start" edge="end"
+
             color="inherit"
-            aria-label="menu"
             onClick={toggleDrawer}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton >
         {/* drawer = sidomenyn, isDrawerOpen, stängs på onClose */}
           <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}> 
             <List>
