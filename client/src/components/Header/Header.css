@@ -3,7 +3,8 @@
  background-color: #E9D5EF;
  z-index: 1;
  width: 100%;
- margin-bottom: 50px; 
+ padding: 8px;
+
 }
 
 .headerAreaTwo  {
@@ -12,4 +13,12 @@
 
 header {
     background-color: white;
+    min-width: 100%;
 }
+
+@media (max-width: 600px) {
+    .headerAreaOne {
+      padding-right: 50px;
+      padding-left: 50px;
+    }
+  }
