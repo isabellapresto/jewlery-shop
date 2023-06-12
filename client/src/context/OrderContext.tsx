@@ -12,6 +12,7 @@ export interface Order {
   orderItems: CartItem[];
   deliveryAddress: Address;
   shippingMethod: string | number;
+  orderNumber?: number;
 }
 
 interface IOrderContext {
