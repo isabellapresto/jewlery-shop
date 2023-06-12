@@ -7,7 +7,7 @@ export default function ImageList() {
 
     <Grid container width='80%' margin='auto' marginTop='30px' paddingBottom='50px' spacing={2}>
 
-        <Grid item margin='auto' xs={12} sm={6} md={6} lg={3}>
+        <Grid item margin='auto' xs={12} sm={6} md={6} lg={3} style={{paddingLeft: '0'}}>
             <div className="imageContainer">
             <Link to='http://localhost:5173/shop'>
                 <img
@@ -21,7 +21,7 @@ export default function ImageList() {
             </div>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={6} lg={3}>
+        <Grid item xs={12} sm={6} md={6} lg={3} style={{paddingLeft: '0'}}>
             <div className="imageContainer">
             <Link to='http://localhost:5173/shop'>
                 <img
@@ -35,7 +35,7 @@ export default function ImageList() {
             </div>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={6} lg={3}>
+        <Grid item xs={12} sm={6} md={6} lg={3} style={{paddingLeft: '0'}}>
             <div className="imageContainer">
             <Link to='http://localhost:5173/shop'>
                 <img
@@ -49,7 +49,7 @@ export default function ImageList() {
             </div>
         </Grid>  
 
-        <Grid item xs={12} sm={6} md={6} lg={3}>
+        <Grid item xs={12} sm={6} md={6} lg={3} style={{paddingLeft: '0'}}>
             <div className="imageContainer ">
             <Link to='http://localhost:5173/shop'>
                 <img

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, TextField, Button, Checkbox, FormControlLabel } from '@mui/material';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -11,7 +10,7 @@ export default function Footer() {
   const socialIconsUrl = 'https://medieinstitutet.se/';
 
   return (
-    <div style={{ backgroundColor: '#EDD6D3',marginTop:'50px', padding: '20px 0' }}>
+    <div style={{ backgroundColor: '#EDD6D3', padding: '20px 0' }}>
       <Grid container spacing={2}>
         {/* Nyhetsbrev */}
         <Grid item xs={12}>

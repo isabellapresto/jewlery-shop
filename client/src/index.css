@@ -7,3 +7,7 @@
 body {
   background-color: rgb(249, 249, 249);
 }
+
+#root {
+  min-width: 100%;
+}
