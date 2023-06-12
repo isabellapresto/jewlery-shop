@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import {
   FormControl,
   FormControlLabel,
@@ -93,7 +94,8 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       justifyContent: 'space-between', 
       alignItems: "center", 
       margin: "auto", 
-      marginTop: 5, 
+      marginTop: "50px",
+      marginBottom: "50px",  
       boxShadow: 3, 
       borderRadius: 2, 
       px: 4, py: 6 }}>
@@ -140,7 +142,7 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
           Next
         </Button>
       </div>
-    </div>
+  </Box>
   );
 };
 

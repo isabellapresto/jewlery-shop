@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import {
   FormControl,
   FormControlLabel,
@@ -95,7 +97,21 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
   //----------------------------OrderToDataBase-------------------------------------//
 
   return (
-    <div style={{ padding: "50px", display: "flex", flexDirection: "column", alignItems: "center", maxWidth: "50%", margin: "auto"}}>
+
+    <Box 
+    sx={{ 
+      width: ["95%", "80%", "60%"], 
+      display: 'flex', 
+      flexDirection: 'column', 
+      justifyContent: 'space-between', 
+      alignItems: "center", 
+      margin: "auto", 
+      marginTop: "50px",
+      marginBottom: "50px",  
+      boxShadow: 3, 
+      borderRadius: 2, 
+      px: 4, py: 6 }}>
+    
       <h2 style={{ textAlign: "center", paddingBottom: "1rem" }}>Payment methods</h2>
       <FormControl component="fieldset">
         <RadioGroup value={paymentMethod} onChange={handlePaymentMethodChange}>
@@ -152,8 +168,14 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         </div>
       )}
 
-      <div style={{paddingTop: "1rem"}}>
-        <Button onClick={onBack} style={{ marginRight: '10px' }}  variant="outlined">
+      <Stack
+         direction={{ xs: 'column', sm: 'row' }}
+         spacing={{xs: 2, md:2}}
+         alignItems= "center"
+         justifyContent="space-between"
+         style={{paddingTop: "1rem", margin: "auto"}}
+      >
+        <Button onClick={onBack} variant="outlined">
           Back to shipping
         </Button>
 
@@ -166,9 +188,9 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         }}>
           Complete purchase
         </Button>
-      </div>
+      </Stack>
 
-    </div>
+    </Box>
   );
 };
 
