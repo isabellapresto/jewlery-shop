@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import { useOrder } from "../../context/OrderContext";
-import { UserContextType } from "../CurrentUserContext";
+import { UserContextType } from "../../context/CurrentUserContext";
 import { Container, Box } from "@mui/material";
 
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
