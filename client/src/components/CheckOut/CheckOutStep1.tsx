@@ -1,9 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import { UserContextType } from "../CurrentUserContext"; //UserType,
-
 import { useOrder } from "../../context/OrderContext";
-
+import Alert from '@mui/material/Alert';
 import Stack from "@mui/material/Stack";
 import CartItem from "../CartItem/CartItem";
 import { useShoppingCart } from "../../context/CartContext";
@@ -23,6 +22,8 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [country, setCountry] = useState("");
   const { cartItems } = useShoppingCart();
 
+  const [alert, setAlert] = useState(false);
+
   const { setOrder, order } = useOrder();
 
   useEffect(() => {
@@ -37,12 +38,17 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
     console.log(order);
   }, [order]);
 
+  function handleAlert() {
+    setAlert(!alert);
+  }
+
+
   const handleNext = () => {
     if (name && address && email && postcode && town && country) {
       onNext();
     } else {
-   
-      alert("Please fill in all mandatory fields.");
+
+      handleAlert()
     }
   };
 
@@ -189,6 +195,15 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
+
+      { alert ? (
+          <Alert onClose={handleNext} severity="error" style={{marginBottom: '2rem'}}>
+            Please fill in all mandatory fields
+          </Alert>
+            ) : (
+          <Alert severity="error" style={{display: 'none'}}></Alert> 
+        )}
+
       <Button
         variant="outlined"
         // color="inherit"
