@@ -12,6 +12,7 @@ form {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 4.5vw;
+    font-family: Cormorant Garamond, serif;
   }
 
   .imgContainer {
@@ -24,6 +25,7 @@ form {
     margin-top: 10px;
     margin-bottom: 20px;
     font-size: 3vw;
+    font-family: Cormorant Garamond, serif;
   }
 
   .imgStyle {

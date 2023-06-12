@@ -1,4 +1,4 @@
-import { TextField, Button, Box } from "@mui/material";
+import { TextField, Button, Box, Typography } from "@mui/material";
 import './LoginForm.css';
 import {  UserType, UserContextType } from '../CurrentUserContext'
 import { useContext, useState } from 'react'
@@ -59,8 +59,10 @@ export default function LoginForm() {
             </Box>
           ) : (
             <form onSubmit={handleLogin}>
-              <Box sx={{ width: "50%", height: 380, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: "center", marginTop: 5, boxShadow: 3, borderRadius: 2, px: 4, py: 6 }}>
-                <h1>Sign In</h1><br />
+              <Box sx={{ width: ["95%", "80%", "50%"], height: 480, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: "center", marginTop: 5, boxShadow: 3, borderRadius: 2, px: 4, py: 6 }}>
+              <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500} style={{marginTop:'10px'}}>
+                 Sign In
+               </Typography>
                 <TextField required id="standard-required" fullWidth={true} label="Email address" value={email} onChange={(e) => setEmail(e.target.value)} /> <br />
                 <TextField required id="standard-required" fullWidth={true} type="password" label="Password" value={password} onChange={(e) => setPassword(e.target.value)} /> <br />
                 <Button fullWidth variant="outlined" type="submit">Sign In</Button> <br />
