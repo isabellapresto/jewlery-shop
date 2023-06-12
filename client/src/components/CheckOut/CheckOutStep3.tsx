@@ -8,6 +8,7 @@ import {
   Radio,
   Button,
   TextField,
+  Typography
 } from "@mui/material";
 import { useShoppingCart } from "../../context/CartContext"; // hämtar context
 
@@ -111,8 +112,11 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
       boxShadow: 3, 
       borderRadius: 2, 
       px: 4, py: 6 }}>
+
+      <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
+        Payment methods
+      </Typography>
     
-      <h2 style={{ textAlign: "center", paddingBottom: "1rem" }}>Payment methods</h2>
       <FormControl component="fieldset">
         <RadioGroup value={paymentMethod} onChange={handlePaymentMethodChange}>
           <FormControlLabel value="card" control={<Radio />} label="Card" />

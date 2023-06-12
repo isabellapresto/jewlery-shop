@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import { UserContextType } from "../CurrentUserContext"; //UserType,
 import { useOrder } from "../../context/OrderContext";
 import Alert from '@mui/material/Alert';
@@ -69,15 +69,10 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         borderRadius: 2, 
         px: 4, py: 6 }}>
       
-      
-      <h2
-        style={{
-          paddingBottom: "0.5rem",
-          textAlign: "center",
-        }}
-      >
+      <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
         Cart
-      </h2>
+      </Typography>
+      
       <p
         style={{
           paddingBottom: "1rem",
@@ -115,14 +110,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         borderRadius: 2, 
         px: 4, py: 6 }}>
 
-      <h2
-        style={{
-          paddingBottom: "0.5rem",
-          textAlign: "center",
-        }}
-      >
+      <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
         Billing Details
-      </h2>
+      </Typography>
 
       <p
         style={{

@@ -7,6 +7,7 @@ import {
   RadioGroup,
   Radio,
   Button,
+  Typography
 } from "@mui/material";
 
 import { useOrder } from "../../context/OrderContext";
@@ -99,8 +100,11 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       boxShadow: 3, 
       borderRadius: 2, 
       px: 4, py: 6 }}>
+
+      <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
+        Shipping methods
+      </Typography>
     
-      <h2 style={{ textAlign: "center", paddingBottom: "2rem" }}>Shipping methods</h2>
       <FormControl component="fieldset">
         <RadioGroup
           value={shippingMethod}
