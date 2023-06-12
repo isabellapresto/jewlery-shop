@@ -57,7 +57,6 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
    
       <h2
         style={{
-          padding: "50px",
           paddingBottom: "0.5rem",
           textAlign: "center",
         }}

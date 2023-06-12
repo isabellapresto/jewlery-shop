@@ -95,8 +95,8 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
   //----------------------------OrderToDataBase-------------------------------------//
 
   return (
-    <div style={{ padding: "50px" }}>
-      <h2 style={{ padding: "50px", textAlign: "center" }}>Payment methods</h2>
+    <div style={{ padding: "50px", display: "flex", flexDirection: "column", alignItems: "center", maxWidth: "50%", margin: "auto"}}>
+      <h2 style={{ textAlign: "center", paddingBottom: "1rem" }}>Payment methods</h2>
       <FormControl component="fieldset">
         <RadioGroup value={paymentMethod} onChange={handlePaymentMethodChange}>
           <FormControlLabel value="card" control={<Radio />} label="Card" />
@@ -105,7 +105,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
       </FormControl>
 
       {paymentMethod === "card" && (
-        <div>
+        <div style={{paddingBottom: "50px"}}>
           <TextField
             required
             id="standard-required"
@@ -152,19 +152,22 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         </div>
       )}
 
-      <Button onClick={onBack} style={{ marginRight: '10px' }}  variant="outlined">
-        Back to shipping
-      </Button>
-      <Button
+      <div style={{paddingTop: "1rem"}}>
+        <Button onClick={onBack} style={{ marginRight: '10px' }}  variant="outlined">
+          Back to shipping
+        </Button>
+
+        <Button
         variant="outlined"
         onClick={() => {
           cartIntoOrder();
           handleComplete();
           emptyCart();
-        }}
-      >
-        Complete purchase
-      </Button>
+        }}>
+          Complete purchase
+        </Button>
+      </div>
+
     </div>
   );
 };
