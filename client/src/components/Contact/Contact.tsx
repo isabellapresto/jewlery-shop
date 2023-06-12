@@ -1,14 +1,6 @@
 import { FormEvent } from "react";
 import { Typography, Container, TextField, Button } from "@mui/material";
 import "./Contact.css";
-import { styled } from '@mui/material/styles';
-
-const CustomButton = styled(Button)({
-  backgroundColor: '#ef9a9a',
-  '&:hover': {
-    backgroundColor: '#e57373',
-  },
-}) as typeof Button;
 
 
 export default function Contact() {
@@ -17,9 +9,9 @@ export default function Contact() {
   };
   return (
     <Container className="contact-container">
-      <Typography variant="h6" component="h2" gutterBottom>
-        Contact Us
-      </Typography>
+       <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500} style={{padding:'50px'}}>
+          Contact
+        </Typography>
       <form onSubmit={handleSubmit} className="contact-form">
         <TextField
           label="Name"
@@ -45,9 +37,9 @@ export default function Contact() {
           multiline
           rows={4}
         />
-        <CustomButton type="submit" variant="contained" className="CustomButton">
+        <Button type="submit" variant="outlined" className="CustomButton">
           Submit
-        </CustomButton>
+        </Button>
       </form>
     </Container>
   );

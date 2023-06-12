@@ -36,8 +36,9 @@ export default function Header() {
             gap: "20px",
           }}
         >
-          <ShoppingCartIcon/>
+          
           <LoginBtn />
+          <ShoppingCartIcon/>
         </Container>
       </Container>
 </div>
