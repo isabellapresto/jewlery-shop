@@ -1,7 +1,10 @@
-import React, { createContext, useContext, ReactNode, useState } from 'react';
-import useLocalStorage from '../components/Hooks/useLocalStorage';
+import { createContext, useContext, ReactNode } from "react";
 
-type CartItem = {
+import useLocalStorage from "../components/Hooks/useLocalStorage";
+
+// import Cart from '../components/Cart/Cart'
+
+export type CartItem = {
   id: string;
   quantity: number;
 };
@@ -19,28 +22,35 @@ type ShoppingCartContext = {
 type ShoppingCartProviderProps = {
   children: ReactNode;
 };
-
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
 
 export function useShoppingCart() {
   return useContext(ShoppingCartContext);
 }
 
-export default function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
-  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
+export default function ShoppingCartProvider({
+  children,
+}: ShoppingCartProviderProps) {
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    "shopping-cart",
+    []
+  );
 
-  const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
+  const cartQuantity = cartItems.reduce(
+    (quantity, item) => item.quantity + quantity,
+    0
+  );
 
   function getItemQuantity(id: string) {
-    return cartItems.find(item => item.id === id)?.quantity || 0;
+    return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
   function increaseCartQuantity(id: string) {
-    setCartItems(currItems => {
-      if (currItems.find(item => item.id === id) == null) {
+    setCartItems((currItems) => {
+      if (currItems.find((item) => item.id === id) == null) {
         return [...currItems, { id, quantity: 1 }];
       } else {
-        return currItems.map(item => {
+        return currItems.map((item) => {
           if (item.id === id) {
             return { ...item, quantity: item.quantity + 1 };
           } else {
@@ -52,11 +62,11 @@ export default function ShoppingCartProvider({ children }: ShoppingCartProviderP
   }
 
   function decreaseCartQuantity(id: string) {
-    setCartItems(currItems => {
-      if (currItems.find(item => item.id === id)?.quantity === 1) {
-        return currItems.filter(item => item.id !== id);
+    setCartItems((currItems) => {
+      if (currItems.find((item) => item.id === id)?.quantity === 1) {
+        return currItems.filter((item) => item.id !== id);
       } else {
-        return currItems.map(item => {
+        return currItems.map((item) => {
           if (item.id === id) {
             return { ...item, quantity: item.quantity - 1 };
           } else {
@@ -68,14 +78,14 @@ export default function ShoppingCartProvider({ children }: ShoppingCartProviderP
   }
 
   function removeFromCart(id: string) {
-    setCartItems(currItems => {
-      return currItems.filter(item => item.id !== id);
+    setCartItems((currItems) => {
+      return currItems.filter((item) => item.id !== id);
     });
   }
-//Tömmer kundvagnen med tom array
+  //Tömmer kundvagnen med tom array
   function emptyCart() {
     setCartItems([]);
-  } 
+  }
 
   return (
     <ShoppingCartContext.Provider

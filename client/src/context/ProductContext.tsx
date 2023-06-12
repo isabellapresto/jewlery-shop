@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect, useContext, PropsWithChildren } from 'react';
 
 export interface Product {
-
   _id: string;
   title: string;
   description: string;
@@ -11,11 +10,17 @@ export interface Product {
   categories: string[];
 }
 
-
-  interface ProductContext {
+interface ProductContext {
     products: Product[];
-  }
+}
 
+export interface NewProduct {
+  title: string;
+  description: string;
+  price: number,
+  image: string,
+  inStock: number
+}
 
 const ProductContext = createContext<ProductContext>({ products: []})
 export const useProductContext = () => useContext(ProductContext)
