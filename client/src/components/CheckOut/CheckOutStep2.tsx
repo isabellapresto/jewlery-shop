@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Alert from '@mui/material/Alert';
 import {
   FormControl,
   FormControlLabel,
@@ -26,6 +27,8 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
   const [shippingMethod, setShippingMethod] = useState("");
   const [shippingMethodText, setShippingMethodText] = useState("");
 
+  const [alert, setAlert] = useState(false);
+
   const { order, setOrder } = useOrder();
   useEffect(() => {
     const getShippingMethods = async () => {
@@ -43,14 +46,14 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
     getShippingMethods();
   }, []);
 
+  function handleAlert() {
+    setAlert(!alert);
+  }
+
   const handleShippingMethodChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const selectedShippingMethodId = e.target.value;
-    // setShippingMethod(selectedShippingMethodId);
-
-    // console.log("Selected Shipping Method ID:", selectedShippingMethodId);
-    // console.log("Shipping Methods:", shippingMethods);
 
     let text = "";
     const selectedMethod = shippingMethods.find(
@@ -76,7 +79,8 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       console.log("Shipping method:", shippingMethod);
       onNext();
     } else {
-      alert("Please select a shipping method.");
+      handleAlert()
+
     }
   };
 
@@ -102,6 +106,14 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       <p>{shippingMethodText}</p>
 
       <div style={{ marginTop: "20px" }}>
+
+      { alert ? (
+          <Alert onClose={handleNext} severity="error" style={{marginBottom: '2rem'}}>
+            Please select a shipping method
+          </Alert>
+            ) : (
+          <Alert severity="error" style={{display: 'none'}}></Alert> 
+        )}
         <Button
           variant="outlined"
           style={{marginRight: "10px"}}
