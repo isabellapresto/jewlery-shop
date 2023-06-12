@@ -33,7 +33,7 @@ export default function CheckoutPage() {
 //stepper
   return (
     <div>
-      <Stepper activeStep={activeStep} alternativeLabel>
+      <Stepper activeStep={activeStep} alternativeLabel style={{marginTop: '50px'}}>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>

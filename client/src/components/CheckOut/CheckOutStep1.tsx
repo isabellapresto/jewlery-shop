@@ -15,9 +15,7 @@ interface Step1Props {
 
 const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const { loggedInUser } = useContext(UserContextType);
-  const [name, setName] = useState(
-    loggedInUser?.firstName + " " + loggedInUser?.lastName
-  );
+  const [name, setName] = useState(loggedInUser?.firstName + " " + loggedInUser?.lastName);
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState(loggedInUser?.email);
   const [postcode, setPostCode] = useState("");
@@ -43,14 +41,14 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
     if (name && address && email && postcode && town && country) {
       onNext();
     } else {
-      // alert, felmedd
+   
       alert("Please fill in all mandatory fields.");
     }
   };
 
-  return loggedInUser ? (
+  return (
     <div style={{ padding: "50px" }}>
-      {/* mitten */}
+   
       <h2
         style={{
           padding: "50px",
@@ -83,6 +81,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
           ))}
         </Stack>
       </div>
+
       <h2
         style={{
           padding: "50px",
@@ -101,6 +100,8 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       >
         Please fill in your billing details
       </p>
+
+      <div style={{maxWidth: '50%', margin: 'auto'}}>
 
       <TextField
         required
@@ -192,11 +193,14 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         variant="outlined"
         // color="inherit"
         onClick={handleNext}
+        fullWidth
+        style={{marginTop: '1rem'}}
       >
         Continue to Shipping
       </Button>
     </div>
-  ) : null;
+    </div>
+  )
 };
 
 export default Step1;
