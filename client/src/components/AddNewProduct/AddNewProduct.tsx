@@ -95,7 +95,7 @@ export default function AddNewProduct() {
 
   return (
 
-    <div style={{paddingBottom: '50px', display: 'flex', flexDirection: 'column'}}>
+    <div style={{paddingBottom: '50px'}}>
 
       <div style={{width: '5rem', margin: 'auto', paddingTop: '10px', paddingBottom: '10px'}}>
         <NavLink to="/admin" style={{textDecoration: "none" }}>
@@ -111,8 +111,7 @@ export default function AddNewProduct() {
       justifyContent: 'space-between', 
       alignItems: "center", 
       margin: "auto", 
-      marginTop: "50px",
-      marginBottom: "50px",  
+      paddingBottom: 0,
       boxShadow: 3, 
       borderRadius: 2, 
       px: 4, py: 6 }}>
@@ -122,7 +121,7 @@ export default function AddNewProduct() {
         Add a new product to the database
       </h3>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{marginBottom: 0}}>
 
       <Grid container spacing={2}>
         <Grid item xs={12}>
