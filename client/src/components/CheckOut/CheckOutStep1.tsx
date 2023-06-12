@@ -4,6 +4,7 @@ import { UserContextType } from "../CurrentUserContext"; //UserType,
 import { useOrder } from "../../context/OrderContext";
 import Alert from '@mui/material/Alert';
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import CartItem from "../CartItem/CartItem";
 import { useShoppingCart } from "../../context/CartContext";
 import "./CheckOut.css";
@@ -55,6 +56,20 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   return (
     <div style={{ padding: "50px" }}>
    
+      <Box 
+      sx={{ 
+        width: ["95%", "80%", "60%"], 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'space-between', 
+        alignItems: "center", 
+        margin: "auto", 
+        marginTop: 5, 
+        boxShadow: 3, 
+        borderRadius: 2, 
+        px: 4, py: 6 }}>
+      
+      
       <h2
         style={{
           paddingBottom: "0.5rem",
@@ -72,30 +87,43 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       >
         Please check your cart details
       </p>
-      <div className="cartContainer">
+        
         <Stack spacing={2}>
           {cartItems.map((item) => (
             <Stack
-              direction="row"
+              direction={{ sm: 'column', md: 'row' }}
               spacing={2}
-              alignItems="center"
+              alignItems={{ sm: 'flexStart', md: 'center'}}
               justifyContent="space-between"
             >
               <CartItem key={item.id} {...item} />
             </Stack>
           ))}
         </Stack>
-      </div>
+      </Box>
+
+      <Box 
+      sx={{ 
+        width: ["95%", "80%", "60%"], 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'space-between', 
+        alignItems: "center", 
+        margin: "auto", 
+        marginTop: 5, 
+        boxShadow: 3, 
+        borderRadius: 2, 
+        px: 4, py: 6 }}>
 
       <h2
         style={{
-          padding: "50px",
           paddingBottom: "0.5rem",
           textAlign: "center",
         }}
       >
         Billing Details
       </h2>
+
       <p
         style={{
           paddingBottom: "1rem",
@@ -106,8 +134,6 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         Please fill in your billing details
       </p>
 
-      <div style={{maxWidth: '50%', margin: 'auto'}}>
-
       <TextField
         required
         id="standard-required"
@@ -117,6 +143,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
+
       <TextField
         required
         id="standard-required"
@@ -134,6 +161,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
+
       <TextField
         required
         id="standard-required"
@@ -151,6 +179,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
+
       <TextField
         required
         id="standard-required"
@@ -168,6 +197,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
+
       <TextField
         required
         id="standard-required"
@@ -185,6 +215,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
+
       <TextField
         required
         id="standard-required"
@@ -205,14 +236,13 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
 
       <Button
         variant="outlined"
-        // color="inherit"
         onClick={handleNext}
         fullWidth
         style={{marginTop: '1rem'}}
       >
         Continue to Shipping
       </Button>
-    </div>
+    </Box>
     </div>
   )
 };
