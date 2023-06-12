@@ -61,7 +61,7 @@ function OrderConfirmation() {
             <br />
             Email: {loggedInUser?.email}
             <br /> Fullname: {loggedInUser?.firstName} {loggedInUser?.lastName}{" "}
-            <br /> Order Number: {order.orderNumber}
+            <br /> Ordernumber: {order.orderNumber}
           </p>
         </Container>
         <br />
