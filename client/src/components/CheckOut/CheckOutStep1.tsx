@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
-import { UserContextType } from "../CurrentUserContext"; //UserType,
+import { UserContextType } from "../../context/CurrentUserContext"; //UserType,
 
 import { useOrder } from "../../context/OrderContext";
 

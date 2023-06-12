@@ -15,7 +15,7 @@ function About() {
         </div>
         <div className="about-content">
         <br />
-        <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
+        <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500} style={{marginTop:'30px'}}>
           About Us
         </Typography>
         <br />
@@ -47,7 +47,7 @@ function About() {
         <Typography variant="body1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
         Ajsha, Elin, Isabella, Sandra and Viola / Designers and Creative Directors
         </Typography>
-        <LoyaltyIcon fontSize="large" className="customLoyaltyIcon" />
+        <LoyaltyIcon fontSize="large" className="customLoyaltyIcon" style={{marginBottom:'50px'}} />
         </div>
       </Container>
     </div>

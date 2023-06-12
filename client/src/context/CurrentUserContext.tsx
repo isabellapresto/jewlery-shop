@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
-import Admin from "./Admin/Admin";
+import Admin from "../components/Admin/Admin";
 
 export type User = {
   firstName: string;

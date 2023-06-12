@@ -16,7 +16,8 @@ export default function ProductList() {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        marginTop="1.5rem"
+        marginTop="50px"
+        paddingBottom='50px'
       >
 
         {products.map((product) => (

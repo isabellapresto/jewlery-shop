@@ -10,7 +10,7 @@ export default function Footer() {
   const socialIconsUrl = 'https://medieinstitutet.se/';
 
   return (
-    <div style={{ backgroundColor: '#EDD6D3', padding: '20px 0' }}>
+    <div style={{ backgroundColor: '#EDD6D3', padding: '20px 0', width:'100vw' }}>
       <Grid container spacing={2}>
         {/* Nyhetsbrev */}
         <Grid item xs={12}>
@@ -18,14 +18,14 @@ export default function Footer() {
             <h3 style={{ fontSize: '1.5em' }}>JOIN OUR NEWSLETTER</h3>
             <p style={{ fontSize: '1em' }}>ENJOY 15% OFF</p>
           </div>
-          <div style={{width: '25%', height: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center',margin: 'auto', marginBottom: '10px' }}>
-            <TextField label="Your Email" variant="outlined" size="small" style={{width: '75%'}} />
-            <Button variant="contained" color="primary" style={{width: '25%', backgroundColor: 'black' }}>Subscribe</Button>
+          <div style={{height: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+            <TextField label="Your Email" variant="outlined" size="small" style={{width: '250px'}} />
+            <Button variant="contained" color="primary" style={{width: '100px', backgroundColor: 'black' }}>Subscribe</Button>
           </div>
-          <div style={{ textAlign: 'center', fontSize: '0.8em' }}>
-            <FormControlLabel
+          <div style={{ textAlign: 'center', padding:'20px', marginLeft:'10px', marginRight:'10px' }}>
+            <FormControlLabel 
               control={<Checkbox style={{ color: 'black' }} />}
-              label="By subscribing to our newsletter, you accept our Privacy Policy."
+              label ="By subscribing to our newsletter, you accept our Privacy Policy."
             />
           </div>
         </Grid>
