@@ -1,5 +1,4 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
-import Admin from "./Admin/Admin";
 
 export type User = {
   firstName: string;
@@ -43,15 +42,8 @@ const UserProvider = ({ children }: Props) => {
         const data = await response.json();
         if (response.status === 200) {
           setloggedInUser(data);
-          console.log("du är inloggad som " + data.firstName);
-          //isAdmin(data);
-          console.log(data.isAdmin);
         }
-        //  else {
-        //     setloggedInUser(null)
-        //     console.log('du är inte inloggad');
-
-        // }
+   
       } catch (err) {
         console.log(err);
         console.log("du är inte inloggad");
@@ -80,7 +72,7 @@ const UserProvider = ({ children }: Props) => {
           body: JSON.stringify(user),
         });
         const data = await response.json();
-        // localStorage.setItem('user', JSON.stringify(data));
+
         if (response.status === 200) {
           setloggedInUser(data);
           console.log("logged in successfully");

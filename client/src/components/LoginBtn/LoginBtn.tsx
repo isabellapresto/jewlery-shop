@@ -36,12 +36,11 @@ export default function LoginBtn() {
         <Button size="small" variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>
           Logout
         </Button>
+
         <Link to="/login">
-          
           <AccountCircleIcon/>
-          
-            
         </Link>
+        
         </div>
       ) :  loggedInUser ? (
         <div className='LoginBtnContainer'>
