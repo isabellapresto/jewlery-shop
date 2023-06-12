@@ -94,6 +94,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
           order.orderNumber
         );
         setOrder({ ...order, orderNumber: order.orderNumber });
+
         navigate("/OrderConfirmation");
       }
     } catch (error) {
