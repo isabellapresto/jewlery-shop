@@ -1,11 +1,34 @@
+import { useState, useEffect } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import Grid from '@mui/material/Grid';
 import './ProductList.css';
-import { useProductContext } from "../../context/ProductContext";
+//import { useProductContext } from "../../context/ProductContext";
+import { Product } from '../../context/ProductContext';
 
 export default function ProductList() {
 
-  const {products} = useProductContext();
+  //const {products} = useProductContext();
+
+  const [ products, setProducts ] = useState<Product[]>([]);
+
+  const getAllProducts = async () => {
+      try {
+        const response = await fetch(
+          "api/products"
+        );
+        const data = await response.json();
+        setProducts(data);
+ 
+        console.log(data);
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+  useEffect(() => {
+      getAllProducts();
+    }, []);
  
   return (
     <>

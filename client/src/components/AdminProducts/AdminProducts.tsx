@@ -38,9 +38,9 @@ export default function AdminProducts() {
     fetch(url, {method: "DELETE"})
       .then((response) => {
         if (!response){
-          throw new Error("Something went wrong, the product with " + id + " is not deleted");
+          throw new Error("ERROR - Something went wrong, the product with " + id + " is not deleted");
         }
-        console.log("Product with id " + id + " is now deleted from database")
+        console.log("OK - Product with id " + id + " is now deleted from database")
         //RENDER ALL PRODUCTS AGAIN
         getAllProducts();
       })
