@@ -27,8 +27,10 @@ export default function Admin() {
         <Button variant='outlined'>Admin excisting products</Button>
       </NavLink>
 
-
-      <Button variant='outlined'>Admin orders</Button>
+      <NavLink to="/adminorders" style={{textDecoration: "none"}}>
+        <Button variant='outlined'>Admin orders</Button>
+      </NavLink>
+      
      </Stack>
     </div>
   );

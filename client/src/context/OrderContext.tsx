@@ -1,7 +1,7 @@
 import { CartItem } from "../context/CartContext";
 import { createContext, useContext, useState, PropsWithChildren } from "react";
 
-interface Address {
+export interface Address {
   street: string;
   zipcode: string;
   city: string;
@@ -13,6 +13,7 @@ export interface Order {
   deliveryAddress: Address;
   shippingMethod: string | number;
   orderNumber?: number;
+  
 }
 
 interface IOrderContext {
