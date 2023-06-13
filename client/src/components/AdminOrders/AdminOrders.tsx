@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { CartItem } from "../../context/CartContext";
 import { Address } from "../../context/OrderContext";
 import Button from '@mui/material/Button';
@@ -10,6 +10,8 @@ export interface ShippedOrder {
     shippingMethod: string | number;
     orderNumber?: number;
     shipped: boolean;
+    customer: string;
+    _id: string;
     
   }
   
@@ -17,31 +19,32 @@ export interface ShippedOrder {
 function AdminOrders() {
 
     const [ orders, setOrders ] = useState<ShippedOrder[]>([]);
-    const [isShipped, setIsShipped] = useState<false | boolean>();
+    // const [isShipped, setIsShipped] = useState<false | boolean>();
+    const getShippingMethods = async () => {
+        try {
+          const response = await fetch(
+            "api/orders"
+          );
+          const data = await response.json();
+          setOrders(data);
+          // setIsShipped(true)
+          console.log(data);
+          // console.log(shipping);
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
     useEffect(() => {
-        const getShippingMethods = async () => {
-          try {
-            const response = await fetch(
-              "api/orders"
-            );
-            const data = await response.json();
-            setOrders(data);
-            // setIsShipped(true)
-            console.log(data);
-            // console.log(shipping);
-          } catch (err) {
-            console.log(err);
-          }
-        };
+       
         getShippingMethods();
       }, []);
 
-      const { id } = useParams();
+    //   const { id } = useParams();
       const [newOrder, setNewOrder] = useState("")
 
     //   useEffect (() => {
-        const markAsShipped = async (_id: string) => {
+        const markAsShipped = async (id: string) => {
             
                 try{
                     const response = await fetch(`api/orders/${id}`, {
@@ -57,11 +60,12 @@ function AdminOrders() {
                     
                     if (response.status === 200) {
                         
-                        setIsShipped(true)
-                        if(_id === id) {
+                        // setIsShipped(true)
+                        // if(_id === id) {
                             setNewOrder(data)
+                            getShippingMethods();
                             console.log("marked as shipped");
-                        }
+                        // }
                         
                         
                         // setOrders(data) 
@@ -78,10 +82,10 @@ function AdminOrders() {
     //   },[id]);
         
 
-      const handleSubmit = async (event: React.MouseEvent<HTMLElement>) => {
+      const handleSubmit = async (event: React.MouseEvent<HTMLElement>, id:string) => {
         event.preventDefault();
-        markAsShipped(newOrder);
-        console.log(isShipped);
+        markAsShipped(id);
+        // console.log(isShipped);
         
         
         
@@ -97,7 +101,7 @@ function AdminOrders() {
                 <p style={{paddingTop:20}}>Ordernumber: {order.orderNumber}</p>
                 <p>{order.customer.firstName + " " + order.customer.lastName}</p>
                 <p>{order.deliveryAddress.street + " " + order.deliveryAddress.zipcode + " " + order.deliveryAddress.city  + " " + order.deliveryAddress.country}</p>
-                <Button type="submit" onClick={handleSubmit}>mark as shipped</Button>
+                <Button type="submit" onClick={(e) => handleSubmit(e, order._id)}>mark as shipped</Button>
               
              </div>
            
