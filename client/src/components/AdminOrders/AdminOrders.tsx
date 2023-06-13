@@ -37,13 +37,14 @@ function AdminOrders() {
         getShippingMethods();
       }, []);
 
-      const { _id } = useParams();
+      const { id } = useParams();
+      const [newOrder, setNewOrder] = useState("")
 
     //   useEffect (() => {
-        const markAsShipped = async (_id: any) => {
+        const markAsShipped = async (_id: string) => {
             
                 try{
-                    const response = await fetch(`api/orders/${_id}`, {
+                    const response = await fetch(`api/orders/${id}`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json",
@@ -57,10 +58,14 @@ function AdminOrders() {
                     if (response.status === 200) {
                         
                         setIsShipped(true)
-                        console.log("marked as shipped");
+                        if(_id === id) {
+                            setNewOrder(data)
+                            console.log("marked as shipped");
+                        }
                         
-                        setOrders(data) 
-                        console.log("order marked as shipped");
+                        
+                        // setOrders(data) 
+                        // console.log("order marked as shipped");
                       } else {
                         console.log("sorry, the order is not marked as shipped");
                       }
@@ -69,13 +74,15 @@ function AdminOrders() {
     }
 
 }
-        markAsShipped(_id)
+        // markAsShipped()
     //   },[id]);
         
 
       const handleSubmit = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
-        markAsShipped(_id);
+        markAsShipped(newOrder);
+        console.log(isShipped);
+        
         
         
       }
