@@ -1,6 +1,6 @@
 import Drawer from "@mui/material/Drawer";
 import Button from '@mui/material/Button';
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Stack from '@mui/material/Stack';
 import './Drawer.css'
 import { useShoppingCart } from "../../context/CartContext";
@@ -66,11 +66,11 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
 
           {!isCartEmpty && (
 
-        <NavLink to="/checkout">
+        <Link to="/checkout">
           <Button variant="outlined" onClick={handleButtonClick}>
             To Checkout
           </Button>
-        </NavLink>
+        </Link>
 
           )}
           

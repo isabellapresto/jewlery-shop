@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import {
   FormControl,
   FormControlLabel,
@@ -7,6 +9,7 @@ import {
   Radio,
   Button,
   TextField,
+  Typography
 } from "@mui/material";
 import { useShoppingCart } from "../../context/CartContext"; // hämtar context
 
@@ -104,8 +107,25 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
   //----------------------------OrderToDataBase-------------------------------------//
 
   return (
-    <div style={{ padding: "50px" }}>
-      <h2 style={{ padding: "50px", textAlign: "center" }}>Payment methods</h2>
+
+    <Box 
+    sx={{ 
+      width: ["95%", "80%", "60%"], 
+      display: 'flex', 
+      flexDirection: 'column', 
+      justifyContent: 'space-between', 
+      alignItems: "center", 
+      margin: "auto", 
+      marginTop: "50px",
+      marginBottom: "50px",  
+      boxShadow: 3, 
+      borderRadius: 2, 
+      px: 4, py: 6 }}>
+
+      <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
+        Payment methods
+      </Typography>
+    
       <FormControl component="fieldset">
         <RadioGroup value={paymentMethod} onChange={handlePaymentMethodChange}>
           <FormControlLabel value="card" control={<Radio />} label="Card" />
@@ -114,7 +134,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
       </FormControl>
 
       {paymentMethod === "card" && (
-        <div>
+        <div style={{paddingBottom: "50px"}}>
           <TextField
             required
             id="standard-required"
@@ -161,20 +181,29 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         </div>
       )}
 
-      <Button onClick={onBack} style={{ marginRight: '10px' }}  variant="outlined">
-        Back to shipping
-      </Button>
-      <Button
+      <Stack
+         direction={{ xs: 'column', sm: 'row' }}
+         spacing={{xs: 2, md:2}}
+         alignItems= "center"
+         justifyContent="space-between"
+         style={{paddingTop: "1rem", margin: "auto"}}
+      >
+        <Button onClick={onBack} variant="outlined">
+          Back to shipping
+        </Button>
+
+        <Button
         variant="outlined"
         onClick={() => {
           cartIntoOrder();
           handleComplete();
           emptyCart();
-        }}
-      >
-        Complete purchase
-      </Button>
-    </div>
+        }}>
+          Complete purchase
+        </Button>
+      </Stack>
+
+    </Box>
   );
 };
 

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import {
   FormControl,
   FormControlLabel,
   RadioGroup,
   Radio,
   Button,
+  Typography
 } from "@mui/material";
 
 import { useOrder } from "../../context/OrderContext";
@@ -26,6 +29,8 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
   const [shippingMethod, setShippingMethod] = useState("");
   const [shippingMethodText, setShippingMethodText] = useState("");
 
+  const [alert, setAlert] = useState(false);
+
   const { order, setOrder } = useOrder();
   useEffect(() => {
     const getShippingMethods = async () => {
@@ -43,14 +48,14 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
     getShippingMethods();
   }, []);
 
+  function handleAlert() {
+    setAlert(!alert);
+  }
+
   const handleShippingMethodChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const selectedShippingMethodId = e.target.value;
-    // setShippingMethod(selectedShippingMethodId);
-
-    // console.log("Selected Shipping Method ID:", selectedShippingMethodId);
-    // console.log("Shipping Methods:", shippingMethods);
 
     let text = "";
     const selectedMethod = shippingMethods.find(
@@ -76,13 +81,30 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       //console.log("Shipping method:", shippingMethod);
       onNext();
     } else {
-      alert("Please select a shipping method.");
+      handleAlert()
+
     }
   };
 
   return (
-    <div style={{ padding: "50px" }}>
-      <h2 style={{ padding: "50px", textAlign: "center" }}>Shipping methods</h2>
+    <Box 
+    sx={{ 
+      width: ["95%", "80%", "60%"], 
+      display: 'flex', 
+      flexDirection: 'column', 
+      justifyContent: 'space-between', 
+      alignItems: "center", 
+      margin: "auto", 
+      marginTop: "50px",
+      marginBottom: "50px",  
+      boxShadow: 3, 
+      borderRadius: 2, 
+      px: 4, py: 6 }}>
+
+      <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
+        Shipping methods
+      </Typography>
+    
       <FormControl component="fieldset">
         <RadioGroup
           value={shippingMethod}
@@ -102,6 +124,14 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
       <p>{shippingMethodText}</p>
 
       <div style={{ marginTop: "20px" }}>
+
+      { alert ? (
+          <Alert onClose={handleNext} severity="error" style={{marginBottom: '2rem'}}>
+            Please select a shipping method
+          </Alert>
+            ) : (
+          <Alert severity="error" style={{display: 'none'}}></Alert> 
+        )}
         <Button
           variant="outlined"
           style={{marginRight: "10px"}}
@@ -116,7 +146,7 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
           Next
         </Button>
       </div>
-    </div>
+  </Box>
   );
 };
 
