@@ -26,14 +26,26 @@ const ProductContext = createContext<ProductContext>({ products: []})
 export const useProductContext = () => useContext(ProductContext)
 
 const ProductProvider = ({children}: PropsWithChildren) => {
-    const [ products, setProducts ] = useState<Product[]>([]);
+  const [ products, setProducts ] = useState<Product[]>([]);
 
-    useEffect(() => {
-        fetch("http://localhost:3000/api/products")
-        .then(res => res.json())
-        .then(data => setProducts(data))
-        .catch(err => console.log(err))
-    }, [])
+  const getAllProducts = async () => {
+      try {
+        const response = await fetch(
+          "api/products"
+        );
+        const data = await response.json();
+        setProducts(data);
+ 
+        console.log(data);
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+  useEffect(() => {
+      getAllProducts();
+    }, []);
 
 
     return (
