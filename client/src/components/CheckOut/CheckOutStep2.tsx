@@ -11,6 +11,9 @@ import {
 } from "@mui/material";
 
 import { useOrder } from "../../context/OrderContext";
+import { formatCurrency } from "../../utilities/formatCurrency";
+import { useShoppingCart } from "../../context/CartContext";
+import { useProductContext } from "../../context/ProductContext";
 
 interface Step2Props {
   onBack: () => void;
@@ -28,9 +31,10 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
   const [shippingMethods, setShippingMethods] = useState<ShippingMethod[]>([]);
   const [shippingMethod, setShippingMethod] = useState("");
   const [shippingMethodText, setShippingMethodText] = useState("");
-
+  const { cartItems } = useShoppingCart();
+  const {products } = useProductContext();
   const [alert, setAlert] = useState(false);
-
+  const [shippingMethodPrice, setShippingMethodPrice] = useState(0)
   const { order, setOrder } = useOrder();
   useEffect(() => {
     const getShippingMethods = async () => {
@@ -58,6 +62,7 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
     const selectedShippingMethodId = e.target.value;
 
     let text = "";
+    let price = 0;
     const selectedMethod = shippingMethods.find(
       (method) => method._id === selectedShippingMethodId
     );
@@ -67,10 +72,12 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
         deliveryDate.getHours() + selectedMethod.deliveryTimeInHours
       );
       text = `Your order will be delivered: ${deliveryDate.toLocaleDateString()}`;
+      price = selectedMethod.price;
     }
     setShippingMethod(selectedShippingMethodId);
 
     setShippingMethodText(text);
+    setShippingMethodPrice(price);
   };
 
   const handleNext = () => {
@@ -146,6 +153,17 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
           Next
         </Button>
       </div>
+      <div className="total-price" style={{paddingTop:20}}>
+  
+  {`Total: ${formatCurrency(
+
+    cartItems.reduce((total, cartItem) => {
+      const item = products.find(i => i._id === cartItem.id)
+      return total + (item?.price || 0) * cartItem.quantity + shippingMethodPrice
+
+    }, 0)
+  )}`}
+  </div>
   </Box>
   );
 };

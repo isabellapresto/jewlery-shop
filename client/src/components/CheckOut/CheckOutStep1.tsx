@@ -8,6 +8,8 @@ import Box from "@mui/material/Box";
 import CartItem from "../CartItem/CartItem";
 import { useShoppingCart } from "../../context/CartContext";
 import "./CheckOut.css";
+import { formatCurrency } from "../../utilities/formatCurrency";
+import { useProductContext } from "../../context/ProductContext";
 
 interface Step1Props {
   onNext: () => void;
@@ -22,7 +24,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [town, setTown] = useState("");
   const [country, setCountry] = useState("");
   const { cartItems } = useShoppingCart();
-
+  const {products } = useProductContext();
   const [alert, setAlert] = useState(false);
 
   const { setOrder, order } = useOrder();
@@ -94,6 +96,17 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
               <CartItem key={item.id} {...item} />
             </Stack>
           ))}
+          <div className="total-price">
+  
+  {`Total ${formatCurrency(
+
+    cartItems.reduce((total, cartItem) => {
+      const item = products.find(i => i._id === cartItem.id)
+      return total + (item?.price || 0) * cartItem.quantity
+
+    }, 0)
+  )}`}
+  </div>
         </Stack>
       </Box>
 
