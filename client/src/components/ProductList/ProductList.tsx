@@ -6,7 +6,7 @@ import { useProductContext } from "../../context/ProductContext";
 export default function ProductList() {
 
   const {products} = useProductContext();
-
+ 
   return (
     <>
       <Grid

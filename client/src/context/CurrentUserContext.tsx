@@ -42,14 +42,10 @@ const UserProvider = ({ children }: Props) => {
         const data = await response.json();
         if (response.status === 200) {
           setloggedInUser(data);
-          console.log("du är inloggad som " + data.firstName);
-          //isAdmin(data);
-          console.log(data.isAdmin);
         }
  
       } catch (err) {
         console.log(err);
-        console.log("du är inte inloggad");
       }
     };
     authorization();
@@ -89,6 +85,7 @@ const UserProvider = ({ children }: Props) => {
   };
 
   const logout = async () => {
+
     try {
       const response = await fetch("api/users/logout", {
         method: "POST",
