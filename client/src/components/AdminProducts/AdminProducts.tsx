@@ -1,16 +1,33 @@
-//import { useEffect, useState } from "react";
-//import { useNavigate } from "react-router-dom";
-import { useProductContext } from "../../context/ProductContext";
-//import { Product } from "../../context/ProductContext";
+import { useEffect, useState } from "react";
+import { Product } from "../../context/ProductContext";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { formatCurrency } from "../../utilities/formatCurrency";
 
-
 export default function AdminProducts() {
 
-  const {products} = useProductContext();
+  const [ products, setProducts ] = useState<Product[]>([]);
+
+  const getAllProducts = async () => {
+      try {
+        const response = await fetch(
+          "api/products"
+        );
+        const data = await response.json();
+        setProducts(data);
+ 
+        console.log(data);
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+  useEffect(() => {
+      getAllProducts();
+    }, []);
+
 
   //----------------------------START - Deleting product from database-------------------------------------//
 
@@ -25,6 +42,7 @@ export default function AdminProducts() {
         }
         console.log("Product with id " + id + " is now deleted from database")
         //RENDER ALL PRODUCTS AGAIN
+        getAllProducts();
       })
       
     .catch ((e) => {
