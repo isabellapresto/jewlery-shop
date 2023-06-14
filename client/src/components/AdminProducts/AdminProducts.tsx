@@ -14,16 +14,18 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import NavLinks from '../NavLinks/NavLinks';
+import { NewProduct } from '../../context/ProductContext';
+// import NavLinks from '../NavLinks/NavLinks';
 import { NavLink } from 'react-router-dom';
+
 
 export default function AdminProducts() {
   const [products, setProducts ] = useState<Product[]>([]);
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  const [price, setPrice] = useState("")
+  const [price, setPrice] = useState<number>(0)
   const [image, setImage] = useState("")
-  const [inStock, setInStock] = useState("")
+  const [inStock, setInStock] = useState<number>(0)
   //const {products} = useProductContext();
 
   const getAllProducts = async () => {
@@ -80,13 +82,71 @@ export default function AdminProducts() {
     setIsDeleteConfirmation(true);
   };
 
-  //----------------------------END - Deleting product from database-------------------------------------//
+const [newProduct, setNewProduct] = useState<NewProduct>()
 
-  const handleUpdate = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    setTitle("");
-    console.log('hej');
+const updateProduct = async (id: string) => {
+            
+  try{
+    const updatedFields: Partial<NewProduct> = {};
+
+    if (title !== "") {
+      updatedFields.title = title;
+    }
+    if (description !== "") {
+      updatedFields.description = description;
+    }
+    if (price !== 0) {
+      updatedFields.price = price;
+    }
+    if (image !== "") {
+      updatedFields.image = image;
+    }
+    if (inStock !== 0) {
+      updatedFields.inStock = inStock;
+    }
+    
+
+
+      const response = await fetch(`api/products/${id}`, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            _id: id,
+            ...updatedFields,
+            deleted: false,
+          })
+      });
+      const data = await response.json();
+      
+      if (response.status === 200) {
+          
+              setNewProduct(data)
+              getAllProducts();
+              console.log("updated product");          
+        
+        } else {
+          console.log("sorry, we could not update product");
+        }
+} catch (err) {
+console.log(err);
+}
+
+}
+
+const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => {
+  event.preventDefault();
+
+  const newProduct : NewProduct = {
+    title,
+    description,
+    price,
+    image,
+    inStock,
   };
+  updateProduct(id);
+}
 
   return (
     <>
@@ -95,106 +155,132 @@ export default function AdminProducts() {
           <Button variant='outlined'>Back</Button>
         </NavLink>
       </div>
+      
+    {products.map((product) => (
+      <Accordion key={product._id}>
+      <AccordionSummary
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Stack direction="row"
+        spacing={3}
+        alignItems="center"
+        marginLeft={'5%'}
+        width={'100%'}
+        justifyContent={'space-between'}
+        
+        >
 
-      {products.map((product) => (
-        <Accordion>
-          <AccordionSummary
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Stack direction="row"
-              spacing={3}
-              alignItems="center"
-              marginLeft={'5%'}
-              width={'100%'}
-              justifyContent={'space-between'}
-            >
-              <Box>
-                <img
-                  src={product?.image}
-                  style={{width: '50px', height: '50px', objectFit: 'cover'}}
-                />
-              </Box>
+        <Box >
+          <img 
+            src={product?.image}
+            style={{width: '50px', height: '50px', objectFit: 'cover'}}
+            />
+        </Box>
 
-              <Box style={{width: '40%'}}>
-                <span className="product-title">{product?.title} {" "}</span>
-              </Box>
+        <Box style={{width: '40%'}}>
+            <span className="product-title">{product?.title} {" "}</span>
+        </Box>
 
-              <Box style={{width: '10%'}}>
-                <span className="product-price ">{product && formatCurrency(product?.price)}</span>
-              </Box>
+        <Box style={{width: '5%'}}>
+          <span className="product-price ">{product && formatCurrency(product?.price)}</span>
+        </Box>
+          <Button variant='outlined' type="submit" endIcon={<DeleteForeverIcon />} onClick={handleClickOpen}>Delete</Button>
+        <Dialog
+        open={open}
+        onClose={handleCloseAlert}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+       
+        <DialogTitle id="alert-dialog-title">
+          {!isDeleteConfirmation
+            ? 'Are you sure you want to delete this product from the database?'
+            : 'The product is now deleted'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          {!isDeleteConfirmation
+            ? 'This will delete the product from the database'
+            : ''}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+        <Button onClick={(e) => handleDelete(e, product._id)} autoFocus>
+          {!isDeleteConfirmation
+            ? 'YES'
+            : ''}
+          </Button>
+          <Button onClick={handleCloseAlert}>
+          {!isDeleteConfirmation
+            ? 'NO'
+            : 'CLOSE'}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
-              <Box style={{width: '5%'}}>
-                <span className="product-price ">{product && formatCurrency(product?.price)}</span>
-              </Box>
+          <Button variant='outlined' endIcon={<ExpandMoreIcon />}>Modify product</Button>
+      </Stack>
+      </AccordionSummary>
+      
+      <AccordionDetails>
+      <Box>
+          <span className="product-description">{product.description}</span>
+        </Box>
+      <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '50' }
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+          id="outlined"
+          label="Title"
+          variant="outlined"
+          value={title || product.title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-              <Button variant='outlined' type="submit" endIcon={<DeleteForeverIcon />} onClick={handleClickOpen}>Delete</Button>
+      <TextField 
+          id="outlined"
+          label="Description"
+          variant="outlined"
+          value={description || product.description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
 
-              <Dialog
-                open={open}
-                onClose={handleCloseAlert}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {!isDeleteConfirmation
-                    ? 'Are you sure you want to delete this product from the database?'
-                    : 'The product is now deleted'}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    {!isDeleteConfirmation
-                      ? 'This will delete the product from the database'
-                      : ''}
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={(e) => handleDelete(e, product._id)} autoFocus>
-                    {!isDeleteConfirmation
-                      ? 'YES'
-                      : ''}
-                  </Button>
-                  <Button onClick={handleCloseAlert}>
-                    {!isDeleteConfirmation
-                      ? 'NO'
-                      : 'CLOSE'}
-                  </Button>
-                </DialogActions>
-              </Dialog>
+      <TextField 
+          id="outlined"
+          label="Price"
+          variant="outlined"
+          value={price || product.price}
+          onChange={(e) => setPrice(Number(e.target.value))}
+        />
 
-              <Button variant='outlined' endIcon={<ExpandMoreIcon />}>Modify product</Button>
-            </Stack>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box>
-              <span className="product-description">{product.description}</span>
-            </Box>
-            <Box
-              component="form"
-              sx={{
-                '& > :not(style)': { m: 1, width: '50' }
-              }}
-              noValidate
-              autoComplete="off"
-              onSubmit={handleUpdate}
-            >
-              <TextField required
-                id="outlined-required" label="Title" variant="outlined" value={title} onChange={(e) => setTitle(e.target.value)}/> <br />
-              <TextField required
-                id="outlined-required" label="Description" variant="outlined" value={description} onChange={(e) => setDescription(e.target.value)}/>
-              <TextField required
-                id="outlined-required" label="Price" variant="outlined" value={price} onChange={(e) => setPrice(e.target.value)}/>
-              <TextField required
-                id="outlined-required" label="Image URL" variant="outlined" value={image} onChange={(e) => setImage(e.target.value)}/>
-              <TextField required
-                id="outlined-required" label="In Stock" variant="outlined" value={inStock} onChange={(e) => setInStock(e.target.value)}/>
-              {/* <TextField required
-                id="outlined-required" label="Categories" variant="outlined" /> */}
-              <Button variant='outlined' type="submit">Update product</Button>
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-      ))}
+      <TextField 
+          id="outlined"
+          label="Image URL"
+          variant="outlined"
+          value={image || product.image}
+          onChange={(e) => setImage(e.target.value)}
+        />
+
+      <TextField
+          id="outlined"
+          label="In Stock"
+          variant="outlined"
+          value={inStock || product.inStock}
+          onChange={(e) => setInStock(Number(e.target.value))}
+          />
+
+        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update product</Button>
+    </Box>
+      </AccordionDetails>
+    </Accordion>
+    ))}
+
     </>
   )
 }
