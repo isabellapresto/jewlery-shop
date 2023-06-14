@@ -7,6 +7,8 @@ import useLocalStorage from "../components/Hooks/useLocalStorage";
 export type CartItem = {
   id: string;
   quantity: number;
+  
+
 };
 
 type ShoppingCartContext = {

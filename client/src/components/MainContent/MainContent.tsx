@@ -11,6 +11,7 @@ import Shipping from "../Shipping/Shipping";
 import AdminProducts from "../AdminProducts/AdminProducts";
 import AddNewProduct from "../AddNewProduct/AddNewProduct";
 import OrderConfirmation from "../OrderConfirmation/OrderConfirmation";
+import AdminOrders from "../AdminOrders/AdminOrders";
 
 function MainContent() {
   return (
@@ -27,6 +28,7 @@ function MainContent() {
       <Route path="/adminproducts" element={<AdminProducts />} />
       <Route path="/addnewproduct" element={<AddNewProduct />} />
       <Route path="/OrderConfirmation" element={<OrderConfirmation />} />
+      <Route path="/adminorders" element={<AdminOrders />} />
     </Routes>
   );
 }
