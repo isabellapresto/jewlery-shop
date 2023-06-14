@@ -14,15 +14,16 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { NewProduct } from '../../context/ProductContext';
 
 export default function AdminProducts() {
 
   const [products, setProducts ] = useState<Product[]>([]);
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  const [price, setPrice] = useState("")
+  const [price, setPrice] = useState<number>(0)
   const [image, setImage] = useState("")
-  const [inStock, setInStock] = useState("")
+  const [inStock, setInStock] = useState<number>(0)
   //const {products} = useProductContext();
 
   const getAllProducts = async () => {
@@ -88,18 +89,60 @@ export default function AdminProducts() {
   
   //----------------------------END - Deleting product from database-------------------------------------//
 
- 
- const handleUpdate = async (e: { preventDefault: () => void; }) => {
-  e.preventDefault()
-  setTitle("");
-  console.log('hej')
+const [newProduct, setNewProduct] = useState<NewProduct>()
+
+const updateProduct = async (id: string) => {
+            
+  try{
+      const response = await fetch(`api/products/${id}`, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            _id: id,
+            title: title,
+            description: description,
+            price: price,
+            image: image,
+            inStock: inStock,
+            deleted: false
+          })
+      });
+      const data = await response.json();
+      
+      if (response.status === 200) {
+          
+              setNewProduct(data)
+              getAllProducts();
+              console.log("updated product");          
+        
+        } else {
+          console.log("sorry, we could not update product");
+        }
+} catch (err) {
+console.log(err);
 }
 
+}
+
+const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => {
+  event.preventDefault();
+
+  const newProduct : NewProduct = {
+    title,
+    description,
+    price,
+    image,
+    inStock,
+  };
+  updateProduct(id);
+}
 
   return (
     <>
     {products.map((product) => (
-      <Accordion>
+      <Accordion key={product._id}>
       <AccordionSummary
         aria-controls="panel1a-content"
         id="panel1a-header"
@@ -122,10 +165,6 @@ export default function AdminProducts() {
 
         <Box style={{width: '40%'}}>
             <span className="product-title">{product?.title} {" "}</span>
-        </Box>
-
-        <Box style={{width: '10%'}}>
-          <span className="product-price ">{product && formatCurrency(product?.price)}</span>
         </Box>
 
         <Box style={{width: '5%'}}>
@@ -180,21 +219,48 @@ export default function AdminProducts() {
       }}
       noValidate
       autoComplete="off"
-      onSubmit={handleUpdate}
     >
-      <TextField required
-          id="outlined-required" label="Title" variant="outlined" value={title} onChange={(e) => setTitle(e.target.value)}/> <br />
-      <TextField required
-          id="outlined-required" label="Description" variant="outlined" value={description} onChange={(e) => setDescription(e.target.value)}/>
-      <TextField required
-          id="outlined-required" label="Price" variant="outlined" value={price} onChange={(e) => setPrice(e.target.value)}/>
-      <TextField required
-          id="outlined-required" label="Image URL" variant="outlined" value={image} onChange={(e) => setImage(e.target.value)}/>
-      <TextField required
-          id="outlined-required" label="In Stock" variant="outlined" value={inStock} onChange={(e) => setInStock(e.target.value)}/>
-      {/* <TextField required
-          id="outlined-required" label="Categories" variant="outlined" /> */}
-        <Button variant='outlined' type="submit">Update product</Button>
+      <TextField
+          id="outlined"
+          label="Title"
+          variant="outlined"
+          value={title || product.title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+
+      <TextField 
+          id="outlined"
+          label="Description"
+          variant="outlined"
+          value={description || product.description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+
+      <TextField 
+          id="outlined"
+          label="Price"
+          variant="outlined"
+          value={price || product.price}
+          onChange={(e) => setPrice(Number(e.target.value))}
+        />
+
+      <TextField 
+          id="outlined"
+          label="Image URL"
+          variant="outlined"
+          value={image || product.image}
+          onChange={(e) => setImage(e.target.value)}
+        />
+
+      <TextField
+          id="outlined"
+          label="In Stock"
+          variant="outlined"
+          value={inStock || product.inStock}
+          onChange={(e) => setInStock(Number(e.target.value))}
+          />
+
+        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update product</Button>
     </Box>
       </AccordionDetails>
     </Accordion>
