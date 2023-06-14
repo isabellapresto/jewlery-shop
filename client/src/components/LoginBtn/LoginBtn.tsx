@@ -11,7 +11,7 @@ import './LoginBtn.css';
 export default function LoginBtn() {
   const { logout, loggedInUser } = useContext(UserContextType);
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [anchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleLogout = async () => {
     await logout();
@@ -21,6 +21,8 @@ export default function LoginBtn() {
   const handlePopoverClose = () => {
     setPopoverOpen(false);
   };
+
+
 
   return (
     <>
