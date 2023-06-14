@@ -7,7 +7,6 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import CartItem from "../CartItem/CartItem";
 import { useShoppingCart } from "../../context/CartContext";
-import "./CheckOut.css";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useProductContext } from "../../context/ProductContext";
 
@@ -17,9 +16,7 @@ interface Step1Props {
 
 const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const { loggedInUser } = useContext(UserContextType);
-
   const [address, setAddress] = useState("");
-
   const [postcode, setPostCode] = useState("");
   const [town, setTown] = useState("");
   const [country, setCountry] = useState("");
@@ -47,7 +44,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
 
 
   const handleNext = () => {
+
     if ( address && postcode && town && country) {
+
       onNext();
     } else {
 
@@ -55,7 +54,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
     }
   };
 
+
   return loggedInUser? (
+
     <div style={{ padding: "50px" }}>
    
       <Box 
@@ -87,7 +88,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         
         <Stack spacing={2}>
           {cartItems.map((item) => (
+
             <Stack  key={item.id}
+
               direction={{ sm: 'column', md: 'row' }}
               spacing={2}
               alignItems={{ sm: 'flexStart', md: 'center'}}
@@ -150,8 +153,17 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       <TextField
         required
         id="standard-required"
+        label="Email"
+        value={loggedInUser.email}
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        required
+        id="standard-required"
         label="Street address"
-        value={order.deliveryAddress.street}
+        value={order.deliveryAddress.street || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -169,7 +181,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         required
         id="standard-required"
         label="Post code"
-        value={order.deliveryAddress.zipcode}
+        value={order.deliveryAddress.zipcode || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -187,7 +199,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         required
         id="standard-required"
         label="Town / City"
-        value={order.deliveryAddress.city}
+        value={order.deliveryAddress.city || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -205,7 +217,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         required
         id="standard-required"
         label="Country"
-        value={order.deliveryAddress.country}
+        value={order.deliveryAddress.country || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -218,16 +230,6 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
-
-      <TextField
-        required
-        id="standard-required"
-        label="Email"
-        value={loggedInUser.email}
-        fullWidth
-        margin="normal"
-      />
-
 
 
       { alert ? (
@@ -248,7 +250,8 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       </Button>
     </Box>
     </div>
-  ) :null
+
+  ) : null
 };
 
 export default Step1;
