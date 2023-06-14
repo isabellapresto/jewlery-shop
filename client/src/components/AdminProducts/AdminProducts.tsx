@@ -21,23 +21,29 @@ import { NavLink } from 'react-router-dom';
 
 export default function AdminProducts() {
   const [products, setProducts ] = useState<Product[]>([]);
+
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  const [price, setPrice] = useState<number>(0)
+
+  const [price, setPrice] = useState<number>(0);
   const [image, setImage] = useState("")
-  const [inStock, setInStock] = useState<number>(0)
+  const [inStock, setInStock] = useState<number>(0);
   //const {products} = useProductContext();
 
   const getAllProducts = async () => {
-    try {
-      const response = await fetch("api/products");
-      const data = await response.json();
-      setProducts(data);
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+      try {
+        const response = await fetch(
+          "api/products"
+        );
+        const data = await response.json();
+        setProducts(data);
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+
 
   useEffect(() => {
     getAllProducts();
@@ -101,52 +107,87 @@ const updateProduct = async (id: string) => {
     if (image !== "") {
       updatedFields.image = image;
     }
-    if (inStock !== 0) {
-      updatedFields.inStock = inStock;
-    }
+
+  
+    //Eventlistener on delete button
+      const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
+        event.preventDefault();
+        deleteProductFromDatabase(id);
+        setIsDeleteConfirmation(true);
+      }
+  
+  //----------------------------END - Deleting product from database-------------------------------------//
+
+  //----------------------------START - Update a product in database-------------------------------------//
+
+ /*const handleUpdate = async (e: { preventDefault: () => void; }) => {
+  e.preventDefault()
+  setTitle("");
+  console.log('hej')
+}*/
+
+const updateProductInDatabase = (id: string) => {
+
+  const url = 'api/products/' + id;
+
+  fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      _id: id,
+      title: title,
+      description: description,
+      price: price,
+      image: image,
+      inStock: inStock,
+      deleted: false,
+    }),
+  })
+    .then((response) => {
+      if (!response || response.status === 400){
+        throw new Error("ERROR - Something went wrong, the product with " + id + " is not updated");
+      }
+      if ( title || description || price || image || inStock ) {
+      console.log("OK - Product with id " + id + " is now updated in database")
+      //RENDER ALL PRODUCTS AGAIN
+      getAllProducts();
+    }})
     
+  .catch ((e) => {
+    console.log(e);
+  });
+  }
 
-
-      const response = await fetch(`api/products/${id}`, {
-          method: "PUT",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            _id: id,
-            ...updatedFields,
-            deleted: false,
-          })
-      });
-      const data = await response.json();
+  const handleEdit = (event: React.MouseEvent<HTMLElement>, id:string)=> {
+    event.preventDefault();
+    const selectedProduct = products.find(product => product._id === id);
+    
+    if (selectedProduct) {
+      setTitle(selectedProduct.title);
+      setDescription(selectedProduct.description);
+      setPrice(selectedProduct.price);
+      setImage(selectedProduct.image);
+      setInStock(selectedProduct.inStock);
+      console.log(selectedProduct);
       
-      if (response.status === 200) {
-          
-              setNewProduct(data)
-              getAllProducts();
-              console.log("updated product");          
-        
-        } else {
-          console.log("sorry, we could not update product");
-        }
-} catch (err) {
-console.log(err);
-}
-
-}
+    }
+  }
 
 const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => {
   event.preventDefault();
 
-  const newProduct : NewProduct = {
-    title,
-    description,
-    price,
-    image,
-    inStock,
-  };
-  updateProduct(id);
+  console.log(event)
+
+  updateProductInDatabase(id);
+
+  //setIsDeleteConfirmation(true);
 }
+
+//----------------------------END - Update a product in database-------------------------------------//
+
+
 
   return (
     <>
@@ -168,10 +209,9 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
         marginLeft={'5%'}
         width={'100%'}
         justifyContent={'space-between'}
-        
         >
 
-        <Box >
+        <Box>
           <img 
             src={product?.image}
             style={{width: '50px', height: '50px', objectFit: 'cover'}}
@@ -219,7 +259,7 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
         </DialogActions>
       </Dialog>
 
-          <Button variant='outlined' endIcon={<ExpandMoreIcon />}>Modify product</Button>
+          <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>Modify</Button>
       </Stack>
       </AccordionSummary>
       
@@ -236,46 +276,21 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
       autoComplete="off"
     >
       <TextField
-          id="outlined"
-          label="Title"
-          variant="outlined"
-          value={title || product.title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
 
-      <TextField 
-          id="outlined"
-          label="Description"
-          variant="outlined"
-          value={description || product.description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-
-      <TextField 
-          id="outlined"
-          label="Price"
-          variant="outlined"
-          value={price || product.price}
-          onChange={(e) => setPrice(Number(e.target.value))}
-        />
-
-      <TextField 
-          id="outlined"
-          label="Image URL"
-          variant="outlined"
-          value={image || product.image}
-          onChange={(e) => setImage(e.target.value)}
-        />
-
+          id="outlined-basic" label="Title" variant="outlined" required={false} value={title} onChange={(e) => setTitle(e.target.value)}/> <br />
       <TextField
-          id="outlined"
-          label="In Stock"
-          variant="outlined"
-          value={inStock || product.inStock}
-          onChange={(e) => setInStock(Number(e.target.value))}
-          />
+          id="outlined-basic" label="Description" variant="outlined" required={false} value={description} onChange={(e) => setDescription(e.target.value)}/>
+      <TextField
+          id="outlined-basic" label="Price" variant="outlined" required={false} value={price} onChange={(e) => setPrice(Number(e.target.value))}/>
+      <TextField
+          id="outlined-basic" label="Image URL" variant="outlined" required={false} value={image} onChange={(e) => setImage(e.target.value)}/>
+      <TextField 
+          id="outlined-basic" label="In Stock" variant="outlined" required={false} value={inStock} onChange={(e) => setInStock(Number(e.target.value))}/>
+      {/* <TextField required
+          id="outlined-required" label="Categories" variant="outlined" /> */}
+        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update</Button>
 
-        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update product</Button>
+         
     </Box>
       </AccordionDetails>
     </Accordion>
