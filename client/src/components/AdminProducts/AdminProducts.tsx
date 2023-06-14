@@ -14,8 +14,8 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
-import NavLinks from '../NavLinks/NavLinks';
+import { NewProduct } from '../../context/ProductContext';
+// import NavLinks from '../NavLinks/NavLinks';
 import { NavLink } from 'react-router-dom';
 
 
