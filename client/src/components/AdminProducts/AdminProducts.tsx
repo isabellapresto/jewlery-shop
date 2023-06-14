@@ -14,10 +14,12 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { NewProduct } from '../../context/ProductContext';
+
+import NavLinks from '../NavLinks/NavLinks';
+import { NavLink } from 'react-router-dom';
+
 
 export default function AdminProducts() {
-
   const [products, setProducts ] = useState<Product[]>([]);
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -27,67 +29,58 @@ export default function AdminProducts() {
   //const {products} = useProductContext();
 
   const getAllProducts = async () => {
-      try {
-        const response = await fetch(
-          "api/products"
-        );
-        const data = await response.json();
-        setProducts(data);
- 
-        console.log(data);
-
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    try {
+      const response = await fetch("api/products");
+      const data = await response.json();
+      setProducts(data);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-      getAllProducts();
-    }, []);
+    getAllProducts();
+  }, []);
 
-    //----------------------------Alert to confirm before delete-------------------------------------//
+  //----------------------------Alert to confirm before delete-------------------------------------//
 
-    const [open, setOpen] = React.useState(false);
-    const [isDeleteConfirmation, setIsDeleteConfirmation] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [isDeleteConfirmation, setIsDeleteConfirmation] = useState(false);
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleCloseAlert = () => {
-      setOpen(false);
-      setIsDeleteConfirmation(false);
-    };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleCloseAlert = () => {
+    setOpen(false);
+    setIsDeleteConfirmation(false);
+  };
 
   //----------------------------START - Deleting product from database-------------------------------------//
 
   const deleteProductFromDatabase = (id: string) => {
-
     const url = 'api/products/' + id;
-  
     fetch(url, {method: "DELETE"})
       .then((response) => {
         if (!response){
           throw new Error("ERROR - Something went wrong, the product with " + id + " is not deleted");
         }
-        console.log("OK - Product with id " + id + " is now deleted from database")
+        console.log("OK - Product with id " + id + " is now deleted from database");
         //RENDER ALL PRODUCTS AGAIN
         getAllProducts();
       })
-      
-    .catch ((e) => {
-      console.log(e);
-    });
-    }
-  
-    //Eventlistener on delete button
-      const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
-        event.preventDefault();
-        deleteProductFromDatabase(id);
-        setIsDeleteConfirmation(true);
-      }
-  
-  //----------------------------END - Deleting product from database-------------------------------------//
+      .catch ((e) => {
+        console.log(e);
+      });
+  };
+
+  //Eventlistener on delete button
+  const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
+    event.preventDefault();
+    deleteProductFromDatabase(id);
+    setIsDeleteConfirmation(true);
+  };
 
 const [newProduct, setNewProduct] = useState<NewProduct>()
 
@@ -157,6 +150,12 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
 
   return (
     <>
+      <div style={{width: '5rem', margin: 'auto', paddingTop: '10px', paddingBottom: '10px'}}>
+        <NavLink to="/admin" style={{textDecoration: "none" }}>
+          <Button variant='outlined'>Back</Button>
+        </NavLink>
+      </div>
+      
     {products.map((product) => (
       <Accordion key={product._id}>
       <AccordionSummary
@@ -281,6 +280,7 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
       </AccordionDetails>
     </Accordion>
     ))}
+
     </>
   )
 }
