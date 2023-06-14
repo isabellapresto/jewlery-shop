@@ -9,10 +9,10 @@ import {
   Radio,
   Button,
   TextField,
-  Typography
+  Typography,
+  Alert
 } from "@mui/material";
-import { useShoppingCart } from "../../context/CartContext"; // hämtar context
-
+import { useShoppingCart } from "../../context/CartContext";
 import { Order, useOrder } from "../../context/OrderContext";
 
 interface Step3Props {
@@ -21,33 +21,33 @@ interface Step3Props {
 }
 
 const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("card");
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvcCode, setCvcCode] = useState("");
-  const [email, setEmail] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const navigate = useNavigate();
-
   const { setOrder, order } = useOrder();
+  const { emptyCart } = useShoppingCart();
 
-  const { emptyCart } = useShoppingCart(); // Hämtar emptyCart fån context
+  const handleShowAlert = () => {
+    setShowAlert(true);
+  };
 
   const handleComplete = () => {
-    if (paymentMethod === "creditCard") {
+    if (paymentMethod === "card") {
       if (cardNumber && expiryDate && cvcCode) {
+        cartIntoOrder();
         onComplete();
+        emptyCart();
       } else {
-        alert("Please fill in all card details.");
-      }
-    } else if (paymentMethod === "paypal") {
-      if (email) {
-        onComplete();
-      } else {
-        alert("Please enter your email address.");
+        handleShowAlert();
       }
     } else {
+      cartIntoOrder();
       onComplete();
+      emptyCart();
     }
   };
 
@@ -67,8 +67,6 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
     sendOrderToDataBase(orderFinish);
   };
 
-  //----------------------------OrderToDataBase-------------------------------------//
-
   const sendOrderToDataBase = async (orderData: Order) => {
     const { orderItems, deliveryAddress, shippingMethod } = orderData;
     const orderItems2 = orderItems.map((item) => ({
@@ -76,7 +74,6 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
       quantity: item.quantity,
     }));
 
-    // console.log("ORDER BEFORE SENDING TO DATABASE", orderData);
     try {
       const orderResponse = await fetch("/api/orders", {
         method: "POST",
@@ -92,49 +89,42 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
       if (orderResponse.ok) {
         const order = await orderResponse.json();
-        console.log(
-          "Order successfully sent to the database:",
-          order.orderNumber
-        );
+        console.log("Order successfully sent to the database:", order.orderNumber);
         setOrder({ ...order, orderNumber: order.orderNumber });
-
         navigate("/OrderConfirmation");
       }
     } catch (error) {
       console.error("Error sending order to the database:", error);
     }
   };
-  //----------------------------OrderToDataBase-------------------------------------//
 
   return (
-
-    <Box 
-    sx={{ 
-      width: ["95%", "80%", "60%"], 
-      display: 'flex', 
-      flexDirection: 'column', 
-      justifyContent: 'space-between', 
-      alignItems: "center", 
-      margin: "auto", 
-      marginTop: "50px",
-      marginBottom: "50px",  
-      boxShadow: 3, 
-      borderRadius: 2, 
-      px: 4, py: 6 }}>
-
+    <Box
+      sx={{
+        width: ["95%", "80%", "60%"],
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: "center",
+        margin: "auto",
+        marginTop: "50px",
+        marginBottom: "50px",
+        boxShadow: 3,
+        borderRadius: 2,
+        px: 4, py: 6
+      }}
+    >
       <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
         Payment methods
       </Typography>
-    
       <FormControl component="fieldset">
         <RadioGroup value={paymentMethod} onChange={handlePaymentMethodChange}>
           <FormControlLabel value="card" control={<Radio />} label="Card" />
-          <FormControlLabel value="paypal" control={<Radio />} label="PayPal" />
         </RadioGroup>
       </FormControl>
 
       {paymentMethod === "card" && (
-        <div style={{paddingBottom: "50px"}}>
+        <div style={{ paddingBottom: "50px" }}>
           <TextField
             required
             id="standard-required"
@@ -167,42 +157,30 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         </div>
       )}
 
-      {paymentMethod === "paypal" && (
-        <div>
-          <TextField
-            required
-            id="standard-required"
-            label="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            fullWidth
-            margin="normal"
-          />
-        </div>
+      {showAlert && (
+        <Alert severity="error" onClose={() => setShowAlert(false)}>
+          Please fill in all card details.
+        </Alert>
       )}
 
       <Stack
-         direction={{ xs: 'column', sm: 'row' }}
-         spacing={{xs: 2, md:2}}
-         alignItems= "center"
-         justifyContent="space-between"
-         style={{paddingTop: "1rem", margin: "auto"}}
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={{ xs: 2, md: 2 }}
+        alignItems="center"
+        justifyContent="space-between"
+        style={{ paddingTop: "1rem", margin: "auto" }}
       >
         <Button onClick={onBack} variant="outlined">
           Back to shipping
         </Button>
 
         <Button
-        variant="outlined"
-        onClick={() => {
-          cartIntoOrder();
-          handleComplete();
-          emptyCart();
-        }}>
+          variant="outlined"
+          onClick={handleComplete}
+        >
           Complete purchase
         </Button>
       </Stack>
-
     </Box>
   );
 };

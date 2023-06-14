@@ -14,13 +14,17 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { NewProduct } from '../../context/ProductContext';
+// import NavLinks from '../NavLinks/NavLinks';
+import { NavLink } from 'react-router-dom';
+
 
 export default function AdminProducts() {
-
   const [products, setProducts ] = useState<Product[]>([]);
 
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
+
   const [price, setPrice] = useState<number>(0);
   const [image, setImage] = useState("")
   const [inStock, setInStock] = useState<number>(0);
@@ -39,44 +43,71 @@ export default function AdminProducts() {
       }
     };
 
+
+
   useEffect(() => {
-      getAllProducts();
-    }, []);
+    getAllProducts();
+  }, []);
 
-    //----------------------------Alert to confirm before delete-------------------------------------//
+  //----------------------------Alert to confirm before delete-------------------------------------//
 
-    const [open, setOpen] = React.useState(false);
-    const [isDeleteConfirmation, setIsDeleteConfirmation] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [isDeleteConfirmation, setIsDeleteConfirmation] = useState(false);
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleCloseAlert = () => {
-      setOpen(false);
-      setIsDeleteConfirmation(false);
-    };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleCloseAlert = () => {
+    setOpen(false);
+    setIsDeleteConfirmation(false);
+  };
 
   //----------------------------START - Deleting product from database-------------------------------------//
 
   const deleteProductFromDatabase = (id: string) => {
-
     const url = 'api/products/' + id;
-  
     fetch(url, {method: "DELETE"})
       .then((response) => {
         if (!response){
           throw new Error("ERROR - Something went wrong, the product with " + id + " is not deleted");
         }
-        console.log("OK - Product with id " + id + " is now deleted from database")
+        console.log("OK - Product with id " + id + " is now deleted from database");
         //RENDER ALL PRODUCTS AGAIN
         getAllProducts();
       })
-      
-    .catch ((e) => {
-      console.log(e);
-    });
+      .catch ((e) => {
+        console.log(e);
+      });
+  };
+
+  //Eventlistener on delete button
+  const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
+    event.preventDefault();
+    deleteProductFromDatabase(id);
+    setIsDeleteConfirmation(true);
+  };
+
+const [newProduct, setNewProduct] = useState<NewProduct>()
+
+const updateProduct = async (id: string) => {
+            
+  try{
+    const updatedFields: Partial<NewProduct> = {};
+
+    if (title !== "") {
+      updatedFields.title = title;
     }
+    if (description !== "") {
+      updatedFields.description = description;
+    }
+    if (price !== 0) {
+      updatedFields.price = price;
+    }
+    if (image !== "") {
+      updatedFields.image = image;
+    }
+
   
     //Eventlistener on delete button
       const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
@@ -157,8 +188,15 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
 //----------------------------END - Update a product in database-------------------------------------//
 
 
+
   return (
     <>
+      <div style={{width: '5rem', margin: 'auto', paddingTop: '10px', paddingBottom: '10px'}}>
+        <NavLink to="/admin" style={{textDecoration: "none" }}>
+          <Button variant='outlined'>Back</Button>
+        </NavLink>
+      </div>
+      
     {products.map((product) => (
       <Accordion key={product._id}>
       <AccordionSummary
@@ -182,10 +220,6 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
 
         <Box style={{width: '40%'}}>
             <span className="product-title">{product?.title} {" "}</span>
-        </Box>
-
-        <Box style={{width: '10%'}}>
-          <span className="product-price ">{product && formatCurrency(product?.price)}</span>
         </Box>
 
         <Box style={{width: '5%'}}>
@@ -242,6 +276,7 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
       autoComplete="off"
     >
       <TextField
+
           id="outlined-basic" label="Title" variant="outlined" required={false} value={title} onChange={(e) => setTitle(e.target.value)}/> <br />
       <TextField
           id="outlined-basic" label="Description" variant="outlined" required={false} value={description} onChange={(e) => setDescription(e.target.value)}/>
@@ -254,10 +289,13 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
       {/* <TextField required
           id="outlined-required" label="Categories" variant="outlined" /> */}
         <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update</Button>
+
+         
     </Box>
       </AccordionDetails>
     </Accordion>
     ))}
+
     </>
   )
 }

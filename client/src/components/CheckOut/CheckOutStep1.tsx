@@ -44,7 +44,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
 
 
   const handleNext = () => {
-    if (address && postcode && town && country) {
+
+    if ( address && postcode && town && country) {
+
       onNext();
     } else {
 
@@ -52,7 +54,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
     }
   };
 
-  return loggedInUser ? (
+
+  return loggedInUser? (
+
     <div style={{ padding: "50px" }}>
    
       <Box 
@@ -84,7 +88,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         
         <Stack spacing={2}>
           {cartItems.map((item) => (
-            <Stack key={item.id}
+
+            <Stack  key={item.id}
+
               direction={{ sm: 'column', md: 'row' }}
               spacing={2}
               alignItems={{ sm: 'flexStart', md: 'center'}}
@@ -104,7 +110,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
     }, 0)
   )}`}
   </div>
-        </Stack>
+       </Stack>
       </Box>
 
       <Box 
@@ -133,6 +139,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       >
         Please fill in your billing details
       </p>
+      
 
       <TextField
         required
@@ -224,6 +231,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         margin="normal"
       />
 
+
       { alert ? (
           <Alert onClose={handleNext} severity="error" style={{marginBottom: '2rem'}}>
             Please fill in all mandatory fields
@@ -242,6 +250,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       </Button>
     </Box>
     </div>
+
   ) : null
 };
 

@@ -35,12 +35,16 @@ export const UserContextType = createContext<UserContextType>({
 const UserProvider = ({ children }: Props) => {
   const [loggedInUser, setloggedInUser] = useState<User | null>(null);
 
+useEffect(()=>{
+console.log(loggedInUser)
+}, [loggedInUser])
+
   useEffect(() => {
     const authorization = async () => {
       try {
         const response = await fetch("/api/users/authorize");
         const data = await response.json();
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 304) {
           setloggedInUser(data);
         }
  
