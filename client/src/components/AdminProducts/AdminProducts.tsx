@@ -7,11 +7,22 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useState } from "react";
 
 export default function AdminProducts() {
-
-
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  const [price, setPrice] = useState("")
+  const [image, setImage] = useState("")
+  const [inStock, setInStock] = useState("")
   const {products} = useProductContext();
+
+ const handleUpdate = async (e: { preventDefault: () => void; }) => {
+  e.preventDefault()
+  setTitle("");
+  console.log('hej')
+}
+
 
   return (
     <>
@@ -41,12 +52,16 @@ export default function AdminProducts() {
         </Box>
         <Box style={{width: '5%'}}>
           <span className="product-price ">{product && formatCurrency(product?.price)}</span>
-          </Box>
+        </Box>
           <Button variant='outlined' endIcon={<DeleteForeverIcon />}>Remove product</Button>
-          <Button variant='outlined' endIcon={<ExpandMoreIcon />}>Modify product </Button>
+          <Button variant='outlined' endIcon={<ExpandMoreIcon />}>Modify product</Button>
       </Stack>
       </AccordionSummary>
+      
       <AccordionDetails>
+      <Box>
+          <span className="product-description">{product.description}</span>
+        </Box>
       <Box
       component="form"
       sx={{
@@ -54,13 +69,21 @@ export default function AdminProducts() {
       }}
       noValidate
       autoComplete="off"
+      onSubmit={handleUpdate}
     >
       <TextField required
-          id="outlined-required" label="Image" variant="outlined" />
+          id="outlined-required" label="Title" variant="outlined" value={title} onChange={(e) => setTitle(e.target.value)}/> <br />
       <TextField required
-          id="outlined-required" label="Name" variant="outlined" />
+          id="outlined-required" label="Description" variant="outlined" value={description} onChange={(e) => setDescription(e.target.value)}/>
       <TextField required
-          id="outlined-required" label="Price" variant="outlined" />
+          id="outlined-required" label="Price" variant="outlined" value={price} onChange={(e) => setPrice(e.target.value)}/>
+      <TextField required
+          id="outlined-required" label="Image URL" variant="outlined" value={image} onChange={(e) => setImage(e.target.value)}/>
+      <TextField required
+          id="outlined-required" label="In Stock" variant="outlined" value={inStock} onChange={(e) => setInStock(e.target.value)}/>
+      {/* <TextField required
+          id="outlined-required" label="Categories" variant="outlined" /> */}
+        <Button variant='outlined' type="submit">Update product</Button>
     </Box>
       </AccordionDetails>
     </Accordion>
