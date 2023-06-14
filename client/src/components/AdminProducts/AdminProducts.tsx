@@ -14,8 +14,8 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { NewProduct } from '../../context/ProductContext';
-// import NavLinks from '../NavLinks/NavLinks';
+// import { NewProduct } from '../../context/ProductContext';
+// import NavLink from '../NavLinks/NavLinks';
 import { NavLink } from 'react-router-dom';
 
 
@@ -88,33 +88,33 @@ export default function AdminProducts() {
     setIsDeleteConfirmation(true);
   };
 
-const [newProduct, setNewProduct] = useState<NewProduct>()
+// const [newProduct, setNewProduct] = useState<NewProduct>()
 
-const updateProduct = async (id: string) => {
+// const updateProduct = async (id: string) => {
             
-  try{
-    const updatedFields: Partial<NewProduct> = {};
+//   try{
+//     const updatedFields: Partial<NewProduct> = {};
 
-    if (title !== "") {
-      updatedFields.title = title;
-    }
-    if (description !== "") {
-      updatedFields.description = description;
-    }
-    if (price !== 0) {
-      updatedFields.price = price;
-    }
-    if (image !== "") {
-      updatedFields.image = image;
-    }
+//     if (title !== "") {
+//       updatedFields.title = title;
+//     }
+//     if (description !== "") {
+//       updatedFields.description = description;
+//     }
+//     if (price !== 0) {
+//       updatedFields.price = price;
+//     }
+//     if (image !== "") {
+//       updatedFields.image = image;
+//     }
 
   
     //Eventlistener on delete button
-      const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
-        event.preventDefault();
-        deleteProductFromDatabase(id);
-        setIsDeleteConfirmation(true);
-      }
+      // const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
+      //   event.preventDefault();
+      //   deleteProductFromDatabase(id);
+      //   setIsDeleteConfirmation(true);
+      // }
   
   //----------------------------END - Deleting product from database-------------------------------------//
 

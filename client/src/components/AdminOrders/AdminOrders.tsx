@@ -81,7 +81,7 @@ function AdminOrders() {
       
 return (
     <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-         <div style={{width: '5rem', marginLeft: '30%', paddingTop: '30px', paddingBottom: '30px'}}>
+         <div style={{width: '5rem', margin: "auto", paddingTop: '30px', paddingBottom: '30px'}}>
         <NavLink to="/admin" style={{textDecoration: "none" }}>
           <Button variant='outlined'>Back</Button>
         </NavLink>
