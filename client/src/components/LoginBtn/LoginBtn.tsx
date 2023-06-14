@@ -22,10 +22,6 @@ export default function LoginBtn() {
     setPopoverOpen(false);
   };
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   return (
     <>
       {loggedInUser?.isAdmin === false ? (
@@ -43,7 +39,7 @@ export default function LoginBtn() {
             anchorEl={anchorEl}
             onClose={handlePopoverClose}
             anchorOrigin={{
-            vertical: 'bottom',
+            vertical: 'top',
             horizontal: 'left',
             }}
           >
@@ -71,7 +67,7 @@ export default function LoginBtn() {
             anchorEl={anchorEl}
             onClose={handlePopoverClose}
             anchorOrigin={{
-            vertical: 'bottom',
+            vertical: 'top',
             horizontal: 'left',
             }}
           >
@@ -91,7 +87,7 @@ export default function LoginBtn() {
             anchorEl={anchorEl}
             onClose={handlePopoverClose}
             anchorOrigin={{
-            vertical: 'bottom',
+            vertical: 'top',
             horizontal: 'left',
             }}
           >
