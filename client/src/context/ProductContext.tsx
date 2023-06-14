@@ -19,7 +19,7 @@ export interface NewProduct {
   description: string;
   price: number,
   image: string,
-  inStock: number
+  inStock: number,
 }
 
 const ProductContext = createContext<ProductContext>({ products: []})

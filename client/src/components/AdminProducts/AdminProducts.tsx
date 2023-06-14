@@ -94,6 +94,26 @@ const [newProduct, setNewProduct] = useState<NewProduct>()
 const updateProduct = async (id: string) => {
             
   try{
+    const updatedFields: Partial<NewProduct> = {};
+
+    if (title !== "") {
+      updatedFields.title = title;
+    }
+    if (description !== "") {
+      updatedFields.description = description;
+    }
+    if (price !== 0) {
+      updatedFields.price = price;
+    }
+    if (image !== "") {
+      updatedFields.image = image;
+    }
+    if (inStock !== 0) {
+      updatedFields.inStock = inStock;
+    }
+    
+
+
       const response = await fetch(`api/products/${id}`, {
           method: "PUT",
           headers: {
@@ -101,12 +121,8 @@ const updateProduct = async (id: string) => {
           },
           body: JSON.stringify({
             _id: id,
-            title: title,
-            description: description,
-            price: price,
-            image: image,
-            inStock: inStock,
-            deleted: false
+            ...updatedFields,
+            deleted: false,
           })
       });
       const data = await response.json();
