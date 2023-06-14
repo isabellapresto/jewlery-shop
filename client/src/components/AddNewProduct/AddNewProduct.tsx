@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { TextField, Button, Grid } from '@mui/material';
+import { TextField, Button, Grid, Box } from '@mui/material';
 import { NavLink } from "react-router-dom";
 import { NewProduct } from '../../context/ProductContext';
 import Alert from '@mui/material/Alert';
@@ -87,7 +87,10 @@ export default function AddNewProduct() {
     };
 
     sendNewProductToDataBase(newProduct);
-    handleShow();
+
+    setTimeout(() => {
+      handleShow();
+    }, 300);
 
   };
 
@@ -97,15 +100,32 @@ export default function AddNewProduct() {
 
     <div style={{paddingBottom: '50px'}}>
 
-      <div style={{width: '5rem', marginLeft: '30%', paddingTop: '10px', paddingBottom: '10px'}}>
+      <div style={{width: '5rem', margin: 'auto', paddingTop: '10px', paddingBottom: '10px'}}>
         <NavLink to="/admin" style={{textDecoration: "none" }}>
           <Button variant='outlined'>Back</Button>
         </NavLink>
       </div>
 
-      <h3 style={{textAlign: 'center', paddingBottom: '25px'}}>Add a new product to the database</h3>
-   
-      <form onSubmit={handleSubmit} style={{width: '40%', margin: 'auto'}}>
+      <Box 
+    sx={{ 
+      width: ["95%", "80%", "60%"], 
+      display: 'flex', 
+      flexDirection: 'column', 
+      justifyContent: 'space-between', 
+      alignItems: "center", 
+      margin: "auto", 
+      paddingBottom: 0,
+      boxShadow: 3, 
+      borderRadius: 2, 
+      px: 4, py: 6 }}>
+
+
+      <h3 style={{textTransform: 'uppercase'}}>
+        Add a new product to the database
+      </h3>
+
+      <form onSubmit={handleSubmit} style={{marginBottom: 0}}>
+
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -165,12 +185,12 @@ export default function AddNewProduct() {
           <Alert severity="error" style={{display: 'none'}}></Alert> 
         )}
 
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" variant="outlined" color="primary" fullWidth>
           Add Product
         </Button>
 
         { show && success ? (
-          <Alert severity="success" style={{marginTop: '2rem'}}>SUCCESS - New product add to the database</Alert>
+          <Alert onClose={handleShow} severity="success" style={{marginTop: '2rem'}}>SUCCESS - New product add to the database</Alert>
             ) : (
           <Alert severity="success" style={{display: 'none'}}></Alert> 
         )}
@@ -178,6 +198,7 @@ export default function AddNewProduct() {
         </Grid>
       </Grid>
     </form>
+    </Box>
   </div>
   )
 }

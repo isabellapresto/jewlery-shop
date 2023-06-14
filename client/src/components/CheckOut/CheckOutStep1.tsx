@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import { UserContextType } from "../../context/CurrentUserContext"; //UserType,
-
 import { useOrder } from "../../context/OrderContext";
-
+import Alert from '@mui/material/Alert';
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import CartItem from "../CartItem/CartItem";
 import { useShoppingCart } from "../../context/CartContext";
-import "./CheckOut.css";
+
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useProductContext } from "../../context/ProductContext";
 
@@ -17,16 +17,16 @@ interface Step1Props {
 
 const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const { loggedInUser } = useContext(UserContextType);
-  const [name, setName] = useState(
-    loggedInUser?.firstName + " " + loggedInUser?.lastName
-  );
   const [address, setAddress] = useState("");
-  const [email, setEmail] = useState(loggedInUser?.email);
   const [postcode, setPostCode] = useState("");
   const [town, setTown] = useState("");
   const [country, setCountry] = useState("");
   const { cartItems } = useShoppingCart();
   const {products } = useProductContext();
+
+  const [alert, setAlert] = useState(false);
+
+
   const { setOrder, order } = useOrder();
 
   useEffect(() => {
@@ -41,27 +41,44 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   //   console.log(order);
   // }, [order]);
 
+  function handleAlert() {
+    setAlert(!alert);
+  }
+
+
   const handleNext = () => {
-    if (name && address && email && postcode && town && country) {
+
+    if ( address && postcode && town && country) {
+
       onNext();
     } else {
-      // alert, felmedd
-      alert("Please fill in all mandatory fields.");
+
+      handleAlert()
     }
   };
 
-  return loggedInUser ? (
+
+  return loggedInUser? (
+
     <div style={{ padding: "50px" }}>
-      {/* mitten */}
-      <h2
-        style={{
-          padding: "50px",
-          paddingBottom: "0.5rem",
-          textAlign: "center",
-        }}
-      >
+   
+      <Box 
+      sx={{ 
+        width: ["95%", "80%", "60%"], 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'space-between', 
+        alignItems: "center", 
+        margin: "auto", 
+        marginTop: 5, 
+        boxShadow: 3, 
+        borderRadius: 2, 
+        px: 4, py: 6 }}>
+      
+      <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
         Cart
-      </h2>
+      </Typography>
+      
       <p
         style={{
           paddingBottom: "1rem",
@@ -71,19 +88,23 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       >
         Please check your cart details
       </p>
-      <div className="cartContainer">
+        
         <Stack spacing={2}>
           {cartItems.map((item) => (
-            <Stack
-              direction="row"
+
+            <Stack  key={item.id}
+
+              direction={{ sm: 'column', md: 'row' }}
               spacing={2}
-              alignItems="center"
+              alignItems={{ sm: 'flexStart', md: 'center'}}
               justifyContent="space-between"
             >
-              <CartItem key={item.id} {...item} />
+              <CartItem {...item} />
             </Stack>
           ))}
-           <div className="total-price">
+
+          <div className="total-price">
+
   
   {`Total ${formatCurrency(
 
@@ -94,19 +115,28 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
     }, 0)
   )}`}
 
-</div>
-        </Stack>
-       
-      </div>
-      <h2
-        style={{
-          padding: "50px",
-          paddingBottom: "0.5rem",
-          textAlign: "center",
-        }}
-      >
+  </div>
+       </Stack>
+      </Box>
+
+      <Box 
+      sx={{ 
+        width: ["95%", "80%", "60%"], 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'space-between', 
+        alignItems: "center", 
+        margin: "auto", 
+        marginTop: 5, 
+        boxShadow: 3, 
+        borderRadius: 2, 
+        px: 4, py: 6 }}>
+
+      <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
+
         Billing Details
-      </h2>
+      </Typography>
+
       <p
         style={{
           paddingBottom: "1rem",
@@ -116,21 +146,31 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       >
         Please fill in your billing details
       </p>
+      
 
       <TextField
         required
         id="standard-required"
         label="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={loggedInUser.firstName + " " + loggedInUser.lastName}
         fullWidth
         margin="normal"
       />
+
+      <TextField
+        required
+        id="standard-required"
+        label="Email"
+        value={loggedInUser.email}
+        fullWidth
+        margin="normal"
+      />
+
       <TextField
         required
         id="standard-required"
         label="Street address"
-        value={address}
+        value={order.deliveryAddress.street || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -143,11 +183,12 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
+
       <TextField
         required
         id="standard-required"
         label="Post code"
-        value={postcode}
+        value={order.deliveryAddress.zipcode || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -160,11 +201,12 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
+
       <TextField
         required
         id="standard-required"
         label="Town / City"
-        value={town}
+        value={order.deliveryAddress.city || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -177,11 +219,12 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
+
       <TextField
         required
         id="standard-required"
         label="Country"
-        value={country}
+        value={order.deliveryAddress.country || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -194,24 +237,28 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         fullWidth
         margin="normal"
       />
-      <TextField
-        required
-        id="standard-required"
-        label="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        fullWidth
-        margin="normal"
-      />
+
+
+      { alert ? (
+          <Alert onClose={handleNext} severity="error" style={{marginBottom: '2rem'}}>
+            Please fill in all mandatory fields
+          </Alert>
+            ) : (
+          <Alert severity="error" style={{display: 'none'}}></Alert> 
+        )}
+
       <Button
         variant="outlined"
-        // color="inherit"
         onClick={handleNext}
+        fullWidth
+        style={{marginTop: '1rem'}}
       >
         Continue to Shipping
       </Button>
+    </Box>
     </div>
-  ) : null;
+
+  ) : null
 };
 
 export default Step1;

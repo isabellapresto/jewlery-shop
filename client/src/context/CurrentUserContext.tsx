@@ -1,5 +1,4 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
-import Admin from "../components/Admin/Admin";
 
 export type User = {
   firstName: string;
@@ -36,25 +35,21 @@ export const UserContextType = createContext<UserContextType>({
 const UserProvider = ({ children }: Props) => {
   const [loggedInUser, setloggedInUser] = useState<User | null>(null);
 
+useEffect(()=>{
+console.log(loggedInUser)
+}, [loggedInUser])
+
   useEffect(() => {
     const authorization = async () => {
       try {
         const response = await fetch("/api/users/authorize");
         const data = await response.json();
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 304) {
           setloggedInUser(data);
-          console.log("du är inloggad som " + data.firstName);
-          //isAdmin(data);
-          console.log(data.isAdmin);
         }
-        //  else {
-        //     setloggedInUser(null)
-        //     console.log('du är inte inloggad');
-
-        // }
+ 
       } catch (err) {
         console.log(err);
-        console.log("du är inte inloggad");
       }
     };
     authorization();
@@ -80,7 +75,7 @@ const UserProvider = ({ children }: Props) => {
           body: JSON.stringify(user),
         });
         const data = await response.json();
-        // localStorage.setItem('user', JSON.stringify(data));
+ 
         if (response.status === 200) {
           setloggedInUser(data);
           console.log("logged in successfully");
@@ -94,6 +89,7 @@ const UserProvider = ({ children }: Props) => {
   };
 
   const logout = async () => {
+
     try {
       const response = await fetch("api/users/logout", {
         method: "POST",

@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { NavLink } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 export default function Admin() {
   return (
@@ -15,7 +16,10 @@ export default function Admin() {
       alignItems: 'center',
       gap: '2rem',
       }}>
-    <h1>Admin Panel</h1>
+
+      <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
+        Admin Panel
+      </Typography>
 
      <Stack direction='row' spacing={2}>
 
