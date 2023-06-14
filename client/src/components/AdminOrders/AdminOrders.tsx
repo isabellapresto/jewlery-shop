@@ -100,8 +100,8 @@ return (
             <div style={{paddingBottom:20, paddingTop:20}}>
             <p style={{ fontWeight:"bold", paddingBottom:7 }}>Ordernumber: {order.orderNumber}</p>
           <p>Name: {order.customer.firstName} {order.customer.lastName}</p>
-          <p>Address: {order.deliveryAddress.street} {order.deliveryAddress.zipcode}{" "}
-            {order.deliveryAddress.city} {order.deliveryAddress.country}
+          <p>Address: {order.deliveryAddress.street}, {order.deliveryAddress.zipcode}{" "}
+            {order.deliveryAddress.city}, {order.deliveryAddress.country}
           </p>
             </div>
             
