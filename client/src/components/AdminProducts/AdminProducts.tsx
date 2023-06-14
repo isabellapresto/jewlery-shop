@@ -129,15 +129,15 @@ export default function AdminProducts() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
+        <Button onClick={(e) => handleDelete(e, product._id)} autoFocus>
+          {!isDeleteConfirmation
+            ? 'YES'
+            : ''}
+          </Button>
           <Button onClick={handleCloseAlert}>
           {!isDeleteConfirmation
             ? 'NO'
             : 'CLOSE'}
-          </Button>
-          <Button onClick={(e) => handleDelete(e, product._id)} autoFocus>
-          {!isDeleteConfirmation
-            ? 'YES'
-            : ''}
           </Button>
         </DialogActions>
       </Dialog>
