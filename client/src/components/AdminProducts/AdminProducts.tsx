@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from "react";
 import { Product } from "../../context/ProductContext";
 import { formatCurrency } from "../../utilities/formatCurrency";
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -109,11 +110,13 @@ const updateProductInDatabase = (id: string) => {
   })
     .then((response) => {
       if (!response || response.status === 400){
+        setSuccess(false);
         throw new Error("ERROR - Something went wrong, the product with " + id + " is not updated");
       }
       if ( title || description || price || image || inStock ) {
       console.log("OK - Product with id " + id + " is now updated in database")
       //RENDER ALL PRODUCTS AGAIN
+      setSuccess(true);
       getAllProducts();
     }})
     
@@ -138,9 +141,21 @@ const updateProductInDatabase = (id: string) => {
 const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => {
   event.preventDefault();
   updateProductInDatabase(id);
+
+  setTimeout(() => {
+    handleShow();
+  }, 300);
 }
 
+
 //----------------------------END - Update a product in database-------------------------------------//
+
+const [show, setShow] = useState<boolean>();
+const [success, setSuccess] = useState(false);
+
+function handleShow() {
+  setShow(!show);
+}
 
   return (
     <>
@@ -178,7 +193,9 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
         <Box style={{width: '5%'}}>
           <span className="product-price ">{product && formatCurrency(product?.price)}</span>
         </Box>
-          <Button variant='outlined' type="submit" endIcon={<DeleteForeverIcon />} onClick={handleClickOpen}>Delete</Button>
+        <Button variant='outlined' type="submit" endIcon={<DeleteForeverIcon />} onClick={handleClickOpen}>
+          Delete
+        </Button>
         <Dialog
         open={open}
         onClose={handleCloseAlert}
@@ -212,15 +229,36 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
         </DialogActions>
       </Dialog>
 
-      <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>Edit</Button>
+        <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>
+          Edit
+        </Button>
+ 
       </Stack>
       </AccordionSummary>
       
       <AccordionDetails>
       <Box>
           <span className="product-description">{product.description}</span>
-        </Box>
+      </Box>
+
+      <Box style={{marginTop: '1rem'}}>
+      { show && success ? (
+          <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated!</Alert>
+            ) : (
+          <Alert severity="success" style={{display: 'none'}}></Alert> 
+        )}
+      </Box>
+
+      <Box style={{marginTop: '1rem'}}>
+      { show && !success ? (
+          <Alert onClose={handleShow} severity="error">ERROR - The product is not updated! Try again</Alert>
+            ) : (
+          <Alert severity="error" style={{display: 'none'}}></Alert> 
+        )}
+      </Box>
+
       <Box
+      id='edit-form'
       component="form"
       sx={{
         '& > :not(style)': { m: 1, width: '50' }
@@ -272,13 +310,14 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
           value={inStock} 
           onChange={(e) => setInStock(Number(e.target.value))}
         />
- 
-        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update</Button>
+        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)} aria-expanded="false">
+          Update
+        </Button>
 
-
-    </Box>
+        </Box>
       </AccordionDetails>
     </Accordion>
+    
     ))}
 
     </>
