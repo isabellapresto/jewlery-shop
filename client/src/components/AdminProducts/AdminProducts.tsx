@@ -14,8 +14,6 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-// import { NewProduct } from '../../context/ProductContext';
-// import NavLink from '../NavLinks/NavLinks';
 import { NavLink } from 'react-router-dom';
 
 
@@ -42,8 +40,6 @@ export default function AdminProducts() {
         console.log(err);
       }
     };
-
-
 
   useEffect(() => {
     getAllProducts();
@@ -88,43 +84,9 @@ export default function AdminProducts() {
     setIsDeleteConfirmation(true);
   };
 
-// const [newProduct, setNewProduct] = useState<NewProduct>()
-
-// const updateProduct = async (id: string) => {
-            
-//   try{
-//     const updatedFields: Partial<NewProduct> = {};
-
-//     if (title !== "") {
-//       updatedFields.title = title;
-//     }
-//     if (description !== "") {
-//       updatedFields.description = description;
-//     }
-//     if (price !== 0) {
-//       updatedFields.price = price;
-//     }
-//     if (image !== "") {
-//       updatedFields.image = image;
-//     }
-
-  
-    //Eventlistener on delete button
-      // const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
-      //   event.preventDefault();
-      //   deleteProductFromDatabase(id);
-      //   setIsDeleteConfirmation(true);
-      // }
-  
   //----------------------------END - Deleting product from database-------------------------------------//
 
   //----------------------------START - Update a product in database-------------------------------------//
-
- /*const handleUpdate = async (e: { preventDefault: () => void; }) => {
-  e.preventDefault()
-  setTitle("");
-  console.log('hej')
-}*/
 
 const updateProductInDatabase = (id: string) => {
 
@@ -169,25 +131,16 @@ const updateProductInDatabase = (id: string) => {
       setDescription(selectedProduct.description);
       setPrice(selectedProduct.price);
       setImage(selectedProduct.image);
-      setInStock(selectedProduct.inStock);
-      console.log(selectedProduct);
-      
+      setInStock(selectedProduct.inStock);      
     }
   }
 
 const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => {
   event.preventDefault();
-
-  console.log(event)
-
   updateProductInDatabase(id);
-
-  //setIsDeleteConfirmation(true);
 }
 
 //----------------------------END - Update a product in database-------------------------------------//
-
-
 
   return (
     <>
@@ -259,7 +212,7 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
         </DialogActions>
       </Dialog>
 
-          <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>Modify</Button>
+      <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>Edit</Button>
       </Stack>
       </AccordionSummary>
       
@@ -276,21 +229,53 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
       autoComplete="off"
     >
       <TextField
+          id="outlined-basic" 
+          label="Title" 
+          variant="outlined" 
+          required={false} 
+          value={title} 
+          onChange={(e) => setTitle(e.target.value)}
+      /> <br/>
 
-          id="outlined-basic" label="Title" variant="outlined" required={false} value={title} onChange={(e) => setTitle(e.target.value)}/> <br />
       <TextField
-          id="outlined-basic" label="Description" variant="outlined" required={false} value={description} onChange={(e) => setDescription(e.target.value)}/>
+          id="outlined-basic" 
+          label="Description" 
+          variant="outlined" 
+          required={false} 
+          value={description} 
+          onChange={(e) => setDescription(e.target.value)}
+      />
+
       <TextField
-          id="outlined-basic" label="Price" variant="outlined" required={false} value={price} onChange={(e) => setPrice(Number(e.target.value))}/>
+          id="outlined-basic" 
+          label="Price" 
+          variant="outlined" 
+          required={false} 
+          value={price} 
+          onChange={(e) => setPrice(Number(e.target.value))}
+      />
+
       <TextField
-          id="outlined-basic" label="Image URL" variant="outlined" required={false} value={image} onChange={(e) => setImage(e.target.value)}/>
+          id="outlined-basic" 
+          label="Image URL" 
+          variant="outlined" 
+          required={false} 
+          value={image} 
+          onChange={(e) => setImage(e.target.value)}
+        />
+
       <TextField 
-          id="outlined-basic" label="In Stock" variant="outlined" required={false} value={inStock} onChange={(e) => setInStock(Number(e.target.value))}/>
-      {/* <TextField required
-          id="outlined-required" label="Categories" variant="outlined" /> */}
+          id="outlined-basic" 
+          label="In Stock" 
+          variant="outlined" 
+          required={false} 
+          value={inStock} 
+          onChange={(e) => setInStock(Number(e.target.value))}
+        />
+ 
         <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update</Button>
 
-         
+
     </Box>
       </AccordionDetails>
     </Accordion>

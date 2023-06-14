@@ -17,10 +17,8 @@ export interface ShippedOrder {
     shipped: boolean;
     customer: User;
     _id: string;
-    
   }
   
-
 function AdminOrders() {
 
     const [ orders, setOrders ] = useState<ShippedOrder[]>([]);
@@ -76,7 +74,6 @@ function AdminOrders() {
       const handleSubmit = async (event: React.MouseEvent<HTMLElement>, id:string) => {
         event.preventDefault();
         markAsShipped(id);
-       
       }
       
 return (
