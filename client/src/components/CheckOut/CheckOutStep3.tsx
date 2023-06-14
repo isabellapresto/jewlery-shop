@@ -9,7 +9,8 @@ import {
   Radio,
   Button,
   TextField,
-  Typography
+  Typography,
+  Alert
 } from "@mui/material";
 import { useShoppingCart } from "../../context/CartContext";
 import { Order, useOrder } from "../../context/OrderContext";
@@ -24,20 +25,29 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvcCode, setCvcCode] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const navigate = useNavigate();
   const { setOrder, order } = useOrder();
   const { emptyCart } = useShoppingCart();
 
+  const handleShowAlert = () => {
+    setShowAlert(true);
+  };
+
   const handleComplete = () => {
     if (paymentMethod === "card") {
       if (cardNumber && expiryDate && cvcCode) {
+        cartIntoOrder();
         onComplete();
+        emptyCart();
       } else {
-        alert("Please fill in all card details.");
+        handleShowAlert();
       }
     } else {
+      cartIntoOrder();
       onComplete();
+      emptyCart();
     }
   };
 
@@ -107,7 +117,6 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
       <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
         Payment methods
       </Typography>
-    
       <FormControl component="fieldset">
         <RadioGroup value={paymentMethod} onChange={handlePaymentMethodChange}>
           <FormControlLabel value="card" control={<Radio />} label="Card" />
@@ -115,7 +124,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
       </FormControl>
 
       {paymentMethod === "card" && (
-        <div style={{paddingBottom: "50px"}}>
+        <div style={{ paddingBottom: "50px" }}>
           <TextField
             required
             id="standard-required"
@@ -148,12 +157,18 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         </div>
       )}
 
+      {showAlert && (
+        <Alert severity="error" onClose={() => setShowAlert(false)}>
+          Please fill in all card details.
+        </Alert>
+      )}
+
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
-        spacing={{xs: 2, md:2}}
-        alignItems= "center"
+        spacing={{ xs: 2, md: 2 }}
+        alignItems="center"
         justifyContent="space-between"
-        style={{paddingTop: "1rem", margin: "auto"}}
+        style={{ paddingTop: "1rem", margin: "auto" }}
       >
         <Button onClick={onBack} variant="outlined">
           Back to shipping
@@ -161,16 +176,11 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
         <Button
           variant="outlined"
-          onClick={() => {
-            cartIntoOrder();
-            handleComplete();
-            emptyCart();
-          }}
+          onClick={handleComplete}
         >
           Complete purchase
         </Button>
       </Stack>
-
     </Box>
   );
 };
