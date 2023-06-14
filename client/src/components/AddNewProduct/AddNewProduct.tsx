@@ -87,7 +87,10 @@ export default function AddNewProduct() {
     };
 
     sendNewProductToDataBase(newProduct);
-    handleShow();
+
+    setTimeout(() => {
+      handleShow();
+    }, 300);
 
   };
 
@@ -187,7 +190,7 @@ export default function AddNewProduct() {
         </Button>
 
         { show && success ? (
-          <Alert severity="success" style={{marginTop: '2rem'}}>SUCCESS - New product add to the database</Alert>
+          <Alert onClose={handleShow} severity="success" style={{marginTop: '2rem'}}>SUCCESS - New product add to the database</Alert>
             ) : (
           <Alert severity="success" style={{display: 'none'}}></Alert> 
         )}

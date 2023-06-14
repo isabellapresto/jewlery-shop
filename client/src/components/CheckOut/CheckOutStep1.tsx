@@ -7,7 +7,6 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import CartItem from "../CartItem/CartItem";
 import { useShoppingCart } from "../../context/CartContext";
-import "./CheckOut.css";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useProductContext } from "../../context/ProductContext";
 
@@ -17,9 +16,7 @@ interface Step1Props {
 
 const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const { loggedInUser } = useContext(UserContextType);
-  const [name, setName] = useState(loggedInUser?.firstName + " " + loggedInUser?.lastName);
   const [address, setAddress] = useState("");
-  const [email, setEmail] = useState(loggedInUser?.email);
   const [postcode, setPostCode] = useState("");
   const [town, setTown] = useState("");
   const [country, setCountry] = useState("");
@@ -47,7 +44,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
 
 
   const handleNext = () => {
-    if (name && address && email && postcode && town && country) {
+    if (address && postcode && town && country) {
       onNext();
     } else {
 
@@ -55,7 +52,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
     }
   };
 
-  return (
+  return loggedInUser ? (
     <div style={{ padding: "50px" }}>
    
       <Box 
@@ -87,13 +84,13 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         
         <Stack spacing={2}>
           {cartItems.map((item) => (
-            <Stack
+            <Stack key={item.id}
               direction={{ sm: 'column', md: 'row' }}
               spacing={2}
               alignItems={{ sm: 'flexStart', md: 'center'}}
               justifyContent="space-between"
             >
-              <CartItem key={item.id} {...item} />
+              <CartItem {...item} />
             </Stack>
           ))}
           <div className="total-price">
@@ -141,8 +138,16 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         required
         id="standard-required"
         label="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={loggedInUser.firstName + " " + loggedInUser.lastName}
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        required
+        id="standard-required"
+        label="Email"
+        value={loggedInUser.email}
         fullWidth
         margin="normal"
       />
@@ -151,7 +156,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         required
         id="standard-required"
         label="Street address"
-        value={address}
+        value={order.deliveryAddress.street || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -169,7 +174,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         required
         id="standard-required"
         label="Post code"
-        value={postcode}
+        value={order.deliveryAddress.zipcode || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -187,7 +192,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         required
         id="standard-required"
         label="Town / City"
-        value={town}
+        value={order.deliveryAddress.city || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -205,7 +210,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         required
         id="standard-required"
         label="Country"
-        value={country}
+        value={order.deliveryAddress.country || ''}
         onChange={(e) =>
           setOrder({
             ...order,
@@ -215,16 +220,6 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
             },
           })
         }
-        fullWidth
-        margin="normal"
-      />
-
-      <TextField
-        required
-        id="standard-required"
-        label="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
         fullWidth
         margin="normal"
       />
@@ -247,7 +242,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
       </Button>
     </Box>
     </div>
-  )
+  ) : null
 };
 
 export default Step1;
