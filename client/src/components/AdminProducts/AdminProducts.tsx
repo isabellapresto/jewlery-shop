@@ -1,13 +1,22 @@
+import * as React from 'react';
 import { useEffect, useState } from "react";
 import { Product } from "../../context/ProductContext";
+import { formatCurrency } from "../../utilities/formatCurrency";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import { formatCurrency } from "../../utilities/formatCurrency";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 export default function AdminProducts() {
 
   const [ products, setProducts ] = useState<Product[]>([]);
+  const [open, setOpen] = React.useState(false);
+
 
   const getAllProducts = async () => {
       try {
@@ -27,6 +36,14 @@ export default function AdminProducts() {
   useEffect(() => {
       getAllProducts();
     }, []);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
 
   //----------------------------START - Deleting product from database-------------------------------------//
@@ -87,7 +104,28 @@ export default function AdminProducts() {
 
         <Button variant='outlined'>Modify product</Button>
 
-        <Button variant='outlined' type="submit" onClick={(e) => handleDelete(e, product._id)}>Delete</Button>
+        <Button variant='outlined' type="submit" onClick={handleClickOpen}>Delete</Button>
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Are you sure you want to delete this product from the database?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+           This will delete the product from the database and can't be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>NO</Button>
+          <Button onClick={(e) => handleDelete(e, product._id)} autoFocus>
+            YES
+          </Button>
+        </DialogActions>
+      </Dialog>
 
     </Stack>
         ))}
