@@ -15,8 +15,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function AdminProducts() {
 
   const [ products, setProducts ] = useState<Product[]>([]);
-  const [open, setOpen] = React.useState(false);
-
 
   const getAllProducts = async () => {
       try {
@@ -37,14 +35,19 @@ export default function AdminProducts() {
       getAllProducts();
     }, []);
 
+    //----------------------------Alert to confirm before delete-------------------------------------//
+
+    const [open, setOpen] = React.useState(false);
+    const [isDeleteConfirmation, setIsDeleteConfirmation] = useState(false);
+
     const handleClickOpen = () => {
       setOpen(true);
     };
   
-    const handleClose = () => {
+    const handleCloseAlert = () => {
       setOpen(false);
+      setIsDeleteConfirmation(false);
     };
-
 
   //----------------------------START - Deleting product from database-------------------------------------//
 
@@ -71,6 +74,7 @@ export default function AdminProducts() {
       const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
         event.preventDefault();
         deleteProductFromDatabase(id);
+        setIsDeleteConfirmation(true);
       }
   
   //----------------------------END - Deleting product from database-------------------------------------//
@@ -107,22 +111,33 @@ export default function AdminProducts() {
         <Button variant='outlined' type="submit" onClick={handleClickOpen}>Delete</Button>
         <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleCloseAlert}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
+       
         <DialogTitle id="alert-dialog-title">
-          {"Are you sure you want to delete this product from the database?"}
+          {!isDeleteConfirmation
+            ? 'Are you sure you want to delete this product from the database?'
+            : 'The product is now deleted'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-           This will delete the product from the database and can't be undone.
+          {!isDeleteConfirmation
+            ? 'This will delete the product from the database'
+            : ''}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>NO</Button>
+          <Button onClick={handleCloseAlert}>
+          {!isDeleteConfirmation
+            ? 'NO'
+            : 'CLOSE'}
+          </Button>
           <Button onClick={(e) => handleDelete(e, product._id)} autoFocus>
-            YES
+          {!isDeleteConfirmation
+            ? 'YES'
+            : ''}
           </Button>
         </DialogActions>
       </Dialog>
