@@ -44,25 +44,29 @@ export default function LoginBtn() {
         </div>
       ) :  loggedInUser ? (
         <div className='LoginBtnContainer'>
-        <Button variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>
-          Logout
-        </Button>
-        <Link to="/login">
-          <AccountCircleIcon/>
-        </Link>
-        <Link to="/admin">
-          <AdminPanelSettingsIcon/>
-        </Link>
+          <Link to="/">
+            <Button variant="text" startIcon={<LogoutIcon />} onClick={handleLogout}>
+              Logout
+            </Button>
+          </Link>
+
+          <Link to="/login">
+            <AccountCircleIcon/>
+          </Link>
+          
+          <Link to="/admin">
+            <AdminPanelSettingsIcon/>
+          </Link>
         
         </div>
 
         ) : (
         <div className='LoginBtnContainer'>
-            <Link to="/login">
-          <Button variant="text" startIcon={<LoginIcon />}>
-            LogIn
-          </Button>
-        </Link>
+          <Link to="/login">
+            <Button variant="text" startIcon={<LoginIcon />}>
+              LogIn
+            </Button>
+          </Link>
         </div>
         
        )}
