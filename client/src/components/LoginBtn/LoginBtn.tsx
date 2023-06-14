@@ -11,7 +11,7 @@ import './LoginBtn.css';
 export default function LoginBtn() {
   const { logout, loggedInUser } = useContext(UserContextType);
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [anchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleLogout = async () => {
     await logout();
@@ -22,9 +22,7 @@ export default function LoginBtn() {
     setPopoverOpen(false);
   };
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+
 
   return (
     <>
@@ -43,7 +41,7 @@ export default function LoginBtn() {
             anchorEl={anchorEl}
             onClose={handlePopoverClose}
             anchorOrigin={{
-            vertical: 'bottom',
+            vertical: 'top',
             horizontal: 'left',
             }}
           >
@@ -71,7 +69,7 @@ export default function LoginBtn() {
             anchorEl={anchorEl}
             onClose={handlePopoverClose}
             anchorOrigin={{
-            vertical: 'bottom',
+            vertical: 'top',
             horizontal: 'left',
             }}
           >
@@ -91,7 +89,7 @@ export default function LoginBtn() {
             anchorEl={anchorEl}
             onClose={handlePopoverClose}
             anchorOrigin={{
-            vertical: 'bottom',
+            vertical: 'top',
             horizontal: 'left',
             }}
           >
