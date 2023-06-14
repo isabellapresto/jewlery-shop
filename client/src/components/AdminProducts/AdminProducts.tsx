@@ -129,6 +129,21 @@ const updateProductInDatabase = (id: string) => {
   });
   }
 
+  const handleEdit = (event: React.MouseEvent<HTMLElement>, id:string)=> {
+    event.preventDefault();
+    const selectedProduct = products.find(product => product._id === id);
+    
+    if (selectedProduct) {
+      setTitle(selectedProduct.title);
+      setDescription(selectedProduct.description);
+      setPrice(selectedProduct.price);
+      setImage(selectedProduct.image);
+      setInStock(selectedProduct.inStock);
+      console.log(selectedProduct);
+      
+    }
+  }
+
 const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => {
   event.preventDefault();
 
@@ -210,7 +225,7 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
         </DialogActions>
       </Dialog>
 
-          <Button variant='outlined' endIcon={<ExpandMoreIcon />}>Modify</Button>
+          <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>Modify</Button>
       </Stack>
       </AccordionSummary>
       
@@ -227,15 +242,15 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
       autoComplete="off"
     >
       <TextField
-          id="outlined-basic" label="Title" variant="outlined" required={false} value={product?.title} onChange={(e) => setTitle(e.target.value)}/> <br />
+          id="outlined-basic" label="Title" variant="outlined" required={false} value={title} onChange={(e) => setTitle(e.target.value)}/> <br />
       <TextField
-          id="outlined-basic" label="Description" variant="outlined" required={false} value={product?.description} onChange={(e) => setDescription(e.target.value)}/>
+          id="outlined-basic" label="Description" variant="outlined" required={false} value={description} onChange={(e) => setDescription(e.target.value)}/>
       <TextField
-          id="outlined-basic" label="Price" variant="outlined" required={false} value={product?.price} onChange={(e) => setPrice(Number(e.target.value))}/>
+          id="outlined-basic" label="Price" variant="outlined" required={false} value={price} onChange={(e) => setPrice(Number(e.target.value))}/>
       <TextField
-          id="outlined-basic" label="Image URL" variant="outlined" required={false} value={product?.image} onChange={(e) => setImage(e.target.value)}/>
+          id="outlined-basic" label="Image URL" variant="outlined" required={false} value={image} onChange={(e) => setImage(e.target.value)}/>
       <TextField 
-          id="outlined-basic" label="In Stock" variant="outlined" required={false} value={product?.inStock} onChange={(e) => setInStock(Number(e.target.value))}/>
+          id="outlined-basic" label="In Stock" variant="outlined" required={false} value={inStock} onChange={(e) => setInStock(Number(e.target.value))}/>
       {/* <TextField required
           id="outlined-required" label="Categories" variant="outlined" /> */}
         <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update</Button>
