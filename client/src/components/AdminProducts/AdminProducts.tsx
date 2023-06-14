@@ -17,13 +17,13 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export default function AdminProducts() {
 
-  const [ products, setProducts ] = useState<Product[]>([]);
+  const [products, setProducts ] = useState<Product[]>([]);
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState("")
   const [image, setImage] = useState("")
   const [inStock, setInStock] = useState("")
-  const {products} = useProductContext();
+  //const {products} = useProductContext();
 
   const getAllProducts = async () => {
       try {
@@ -110,6 +110,7 @@ export default function AdminProducts() {
         marginLeft={'5%'}
         width={'100%'}
         justifyContent={'space-between'}
+        
         >
 
         <Box >
@@ -126,9 +127,6 @@ export default function AdminProducts() {
         <Box style={{width: '10%'}}>
           <span className="product-price ">{product && formatCurrency(product?.price)}</span>
         </Box>
-
-    </Stack>
-        ))}
 
         <Box style={{width: '5%'}}>
           <span className="product-price ">{product && formatCurrency(product?.price)}</span>
