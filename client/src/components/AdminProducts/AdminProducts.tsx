@@ -42,7 +42,7 @@ export default function AdminProducts() {
     getAllProducts();
   }, []);
 
-  //----------------------------Alert to confirm before delete-------------------------------------//
+//----------------------------Alert to confirm before delete-------------------------------------//
 
   const [open, setOpen] = React.useState(false);
   const [isDeleteConfirmation, setIsDeleteConfirmation] = useState(false);
@@ -56,7 +56,7 @@ export default function AdminProducts() {
     setIsDeleteConfirmation(false);
   };
 
-  //----------------------------START - Deleting product from database-------------------------------------//
+//----------------------------START - Deleting product from database-------------------------------------//
 
   const deleteProductFromDatabase = (id: string) => {
     const url = 'api/products/' + id;
@@ -66,7 +66,6 @@ export default function AdminProducts() {
           throw new Error("ERROR - Something went wrong, the product with " + id + " is not deleted");
         }
         console.log("OK - Product with id " + id + " is now deleted from database");
-        //RENDER ALL PRODUCTS AGAIN
         getAllProducts();
       })
       .catch ((e) => {
@@ -74,16 +73,16 @@ export default function AdminProducts() {
       });
   };
 
-  //Eventlistener on delete button
+//Eventlistener on delete button
   const handleDelete = async (event: React.MouseEvent<HTMLElement>, id:string) => {
     event.preventDefault();
     deleteProductFromDatabase(id);
     setIsDeleteConfirmation(true);
   };
 
-  //----------------------------END - Deleting product from database-------------------------------------//
+//----------------------------END - Deleting product from database-------------------------------------//
 
-  //----------------------------START - Update a product in database-------------------------------------//
+//----------------------------START - Update a product in database-------------------------------------//
 
 const updateProductInDatabase = (id: string) => {
 
@@ -111,7 +110,7 @@ const updateProductInDatabase = (id: string) => {
       }
       if ( title || description || price || image || inStock ) {
       console.log("OK - Product with id " + id + " is now updated in database")
-      //RENDER ALL PRODUCTS AGAIN
+  
       setSuccess(true);
       getAllProducts();
     }})
@@ -227,12 +226,12 @@ function handleShow() {
         </DialogActions>
       </Dialog>
 
-        <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>
-          Edit
-        </Button>
+      <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>
+        Edit
+      </Button>
 
-      </Stack>
-      </AccordionSummary>
+    </Stack>
+  </AccordionSummary>
       
       <AccordionDetails>
 
@@ -244,6 +243,23 @@ function handleShow() {
         <Grid item xs={12} md={12}>
         <span className="product-description">{product.description}</span>
         </Grid>
+
+        <Box style={{marginTop: '1rem'}}>
+            { show && success ? (
+            <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated! The page will soon refresh automatically...</Alert>
+              ) : (
+            <Alert severity="success" style={{display: 'none'}}></Alert> 
+            )}
+        </Box>
+
+        <Box style={{marginTop: '1rem'}}>
+          { show && !success ? (
+          <Alert onClose={handleShow} severity="error">ERROR - The product is not updated! Try again</Alert>
+            ) : (
+          <Alert severity="error" style={{display: 'none'}}></Alert> 
+          )}
+        </Box>
+
         <Grid item xs={6} md={2}>
         <TextField
           id="outlined"
@@ -253,6 +269,7 @@ function handleShow() {
           onChange={(e) => setTitle(e.target.value)}
         />
         </Grid>
+
         <Grid item xs={6} md={2}>
         <TextField 
           id="outlined"
@@ -261,24 +278,8 @@ function handleShow() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-          
-      <Box style={{marginTop: '1rem'}}>
-      { show && success ? (
-          <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated! The page will soon refresh automatically...</Alert>
-            ) : (
-          <Alert severity="success" style={{display: 'none'}}></Alert> 
-        )}
-      </Box>
-
-      <Box style={{marginTop: '1rem'}}>
-      { show && !success ? (
-          <Alert onClose={handleShow} severity="error">ERROR - The product is not updated! Try again</Alert>
-            ) : (
-          <Alert severity="error" style={{display: 'none'}}></Alert> 
-        )}
-      </Box>
-          
         </Grid>
+
         <Grid item xs={6} md={2}>
         <TextField 
           id="outlined"
@@ -288,6 +289,7 @@ function handleShow() {
           onChange={(e) => setPrice(Number(e.target.value))}
         />
         </Grid>
+
         <Grid item xs={6} md={2}>
         <TextField 
           id="outlined"
@@ -297,6 +299,7 @@ function handleShow() {
           onChange={(e) => setImage(e.target.value)}
         />
         </Grid>
+
         <Grid item xs={6} md={2}>
         <TextField
           id="outlined"
@@ -306,9 +309,11 @@ function handleShow() {
           onChange={(e) => setInStock(Number(e.target.value))}
           />
         </Grid>
+
         <Grid item xs={6} md={2}>
         <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update</Button>
         </Grid>
+
       </Grid>
      </AccordionDetails>
     </Accordion>

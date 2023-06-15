@@ -1,14 +1,10 @@
 import { createContext, useContext, ReactNode } from "react";
-
 import useLocalStorage from "../components/Hooks/useLocalStorage";
 
-// import Cart from '../components/Cart/Cart'
 
 export type CartItem = {
   id: string;
   quantity: number;
-  
-
 };
 
 type ShoppingCartContext = {
@@ -16,7 +12,7 @@ type ShoppingCartContext = {
   increaseCartQuantity: (id: string) => void;
   decreaseCartQuantity: (id: string) => void;
   removeFromCart: (id: string) => void;
-  emptyCart: () => void; // Lägg till emptyCart-funktionen
+  emptyCart: () => void;
   cartQuantity: number;
   cartItems: CartItem[];
 };
@@ -84,7 +80,7 @@ export default function ShoppingCartProvider({
       return currItems.filter((item) => item.id !== id);
     });
   }
-  //Tömmer kundvagnen med tom array
+
   function emptyCart() {
     setCartItems([]);
   }

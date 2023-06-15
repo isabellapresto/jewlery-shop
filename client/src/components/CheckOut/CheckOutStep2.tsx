@@ -83,9 +83,9 @@ const Step2: React.FC<Step2Props> = ({ onBack, onNext }) => {
   const handleNext = () => {
     if (shippingMethod) {
       const updatedOrder = { ...order, shippingMethod: shippingMethod };
-      //console.log("Updated Order:", updatedOrder);
+
       setOrder(updatedOrder);
-      //console.log("Shipping method:", shippingMethod);
+
       onNext();
     } else {
       handleAlert()

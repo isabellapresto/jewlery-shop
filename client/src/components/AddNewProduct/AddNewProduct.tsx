@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TextField, Button, Grid, Box } from '@mui/material';
 import { NavLink } from "react-router-dom";
 import { NewProduct, useProductContext } from '../../context/ProductContext';

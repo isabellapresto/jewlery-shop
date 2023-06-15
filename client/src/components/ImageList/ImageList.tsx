@@ -61,7 +61,6 @@ export default function ImageList() {
                 />
             </Link>
             </div>
-        </Grid>
-        
+        </Grid>   
     </Grid>
 )};

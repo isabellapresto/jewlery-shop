@@ -38,6 +38,7 @@ function OrderConfirmation() {
         <br />
         <FavoriteBorderIcon fontSize="large" style={{ color: "#E9D5EF" }} />
       </Container>
+
       <Container
         maxWidth="sm"
         sx={{
@@ -64,6 +65,7 @@ function OrderConfirmation() {
           </p>
         </Container>
         <br />
+
         <Container>
           <Typography variant="h5">Delivery Address</Typography>
           <br />
@@ -75,6 +77,7 @@ function OrderConfirmation() {
           </p>
         </Container>
         <br />
+        
         <Container
           style={{ borderTop: "3px solid #E9D5EF", marginBottom: "3rem" }}
         >

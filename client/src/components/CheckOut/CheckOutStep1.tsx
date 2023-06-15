@@ -7,7 +7,6 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import CartItem from "../CartItem/CartItem";
 import { useShoppingCart } from "../../context/CartContext";
-
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useProductContext } from "../../context/ProductContext";
 
@@ -23,28 +22,19 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [country, setCountry] = useState("");
   const { cartItems } = useShoppingCart();
   const {products } = useProductContext();
-
   const [alert, setAlert] = useState(false);
-
-
   const { setOrder, order } = useOrder();
 
   useEffect(() => {
-    // console.log(order);
     setAddress(order.deliveryAddress.street);
     setPostCode(order.deliveryAddress.zipcode);
     setTown(order.deliveryAddress.city);
     setCountry(order.deliveryAddress.country);
   }, [order]);
 
-  // useEffect(() => {
-  //   console.log(order);
-  // }, [order]);
-
   function handleAlert() {
     setAlert(!alert);
   }
-
 
   const handleNext = () => {
 
@@ -103,16 +93,14 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
             </Stack>
           ))}
 
-          <div className="total-price">
+        <div className="total-price">
 
-  
-  {`Total ${formatCurrency(
+          {`Total ${formatCurrency(
 
-    cartItems.reduce((total, cartItem) => {
-      const item = products.find(i => i._id === cartItem.id)
-      return total + (item?.price || 0) * cartItem.quantity
-
-    }, 0)
+          cartItems.reduce((total, cartItem) => {
+            const item = products.find(i => i._id === cartItem.id)
+            return total + (item?.price || 0) * cartItem.quantity
+          }, 0)
   )}`}
 
   </div>
@@ -133,7 +121,6 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         px: 4, py: 6 }}>
 
       <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
-
         Billing Details
       </Typography>
 

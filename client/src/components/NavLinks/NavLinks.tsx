@@ -1,37 +1,31 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Typography, List, ListItem, ListItemText, Button, Drawer, IconButton, useMediaQuery, useTheme, Theme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./NavLinks.css";
 
-function NavLinks() {
-  //useMediaQuery och useTheme från mui för att se se om det är en mobil
+export default function NavLinks() {
   const theme: Theme = useTheme();
   const isMobile: boolean = useMediaQuery(theme.breakpoints.down("sm"));
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
-  const toggleDrawer = () => {  //öppning/stängning av sidomeny (drawer)
+  const toggleDrawer = () => { 
     setDrawerOpen(!isDrawerOpen);
   };
 
   return (
-    //om det är en mobil visas IconButton - när den klickas öppnas/ stängs isDrawrOpen
+  
     <>
       {isMobile ? (
         <>
           <IconButton
-          //  style={{ display: "flex",
-          //  justifyContent: "flex-end",
-          //  marginRight: "20px", }}
-            // edge="start" edge="end"
-
             color="inherit"
             onClick={toggleDrawer}
           >
             <MenuIcon />
           </IconButton >
-        {/* drawer = sidomenyn, isDrawerOpen, stängs på onClose */}
+   
           <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}> 
             <List>
               <NavLink
@@ -64,6 +58,7 @@ function NavLinks() {
                   />
                 </ListItem>
               </NavLink>
+
               <NavLink
                 to="/about"
                 style={{ textDecoration: "none" }}
@@ -79,12 +74,14 @@ function NavLinks() {
                   />
                 </ListItem>
               </NavLink>
+
               <NavLink
                 to="/contact"
                 style={{ textDecoration: "none" }}
                 onClick={toggleDrawer}
               >
                 <ListItem >
+
                   <ListItemText
                     primary={
                       <Typography className="text-menu" variant="body1">
@@ -123,6 +120,7 @@ function NavLinks() {
             </Button>
           </NavLink>
           <NavLink to="/shop" style={{ textDecoration: "none" }}>
+
             <Button
               className="menu-hover-effect"
               component={ListItem}
@@ -137,6 +135,7 @@ function NavLinks() {
               />
             </Button>
           </NavLink>
+
           <NavLink to="/about" style={{ textDecoration: "none" }}>
             <Button
               className="menu-hover-effect"
@@ -152,6 +151,7 @@ function NavLinks() {
               />
             </Button>
           </NavLink>
+
           <NavLink to="/contact" style={{ textDecoration: "none" }}>
             <Button
               className="menu-hover-effect"
@@ -172,5 +172,3 @@ function NavLinks() {
     </>
   );
 }
-
-export default NavLinks;

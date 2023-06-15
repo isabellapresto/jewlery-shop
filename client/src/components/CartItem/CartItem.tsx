@@ -13,7 +13,6 @@ type CartItemProps = {
   id: string;
   quantity: number;
 };
-//Detta ska bli Orderitem. id -> product
 
 export default function CartItem({ id, quantity }: CartItemProps) {
   const { increaseCartQuantity, decreaseCartQuantity, removeFromCart } =
@@ -25,7 +24,6 @@ export default function CartItem({ id, quantity }: CartItemProps) {
 
   return (
     <>
-      {/* "Raden" för bild, titel och pris*/}
       <Stack direction="row" spacing={2} alignItems="center">
         <Box>
           <img
@@ -44,34 +42,34 @@ export default function CartItem({ id, quantity }: CartItemProps) {
         </Box>
       </Stack>
 
-      {/* "Raden" för knapparna samt quantity */}
       <Stack
         direction="row"
         spacing={0.5}
         justifyContent="center"
         alignItems="center"
       >
+      <Button
+        className="cartitem-qty-btn"
+        onClick={() => item && increaseCartQuantity(item?._id)}
+      >
+      <AddIcon />
+      </Button>
+
+      <Box className="cartitem-qty-btn">
+        <div className="qty-div">x {quantity}</div>
+      </Box>
+
+      {quantity > 1 ? (
         <Button
           className="cartitem-qty-btn"
-          onClick={() => item && increaseCartQuantity(item?._id)}
+          onClick={() => item && decreaseCartQuantity(item?._id)}
         >
-          <AddIcon />
+        <RemoveIcon />
         </Button>
-        <Box className="cartitem-qty-btn">
-          <div className="qty-div">x {quantity}</div>
-        </Box>
-
-        {quantity > 1 ? (
-          <Button
-            className="cartitem-qty-btn"
-            onClick={() => item && decreaseCartQuantity(item?._id)}
-          >
-            <RemoveIcon />
-          </Button>
         ) : (
-          <Button className="cartitem-qty-btn">
-            <RemoveIcon />
-          </Button>
+        <Button className="cartitem-qty-btn">
+          <RemoveIcon />
+        </Button>
         )}
 
         <Button

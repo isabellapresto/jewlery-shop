@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Stepper, Step, StepLabel } from '@mui/material';
-
 import CheckOutStep1 from "../CheckOut/CheckOutStep1";
 import CheckOutStep2 from '../CheckOut/CheckOutStep2';
 import CheckOutStep3 from '../CheckOut/CheckOutStep3';
