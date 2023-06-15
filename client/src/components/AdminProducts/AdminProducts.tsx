@@ -65,7 +65,7 @@ export default function AdminProducts() {
         if (!response){
           throw new Error("ERROR - Something went wrong, the product with " + id + " is not deleted");
         }
-        console.log("OK - Product with id " + id + " is now deleted from database");
+
         getAllProducts();
       })
       .catch ((e) => {
@@ -109,8 +109,7 @@ const updateProductInDatabase = (id: string) => {
         throw new Error("ERROR - Something went wrong, the product with " + id + " is not updated");
       }
       if ( title || description || price || image || inStock ) {
-      console.log("OK - Product with id " + id + " is now updated in database")
-  
+
       setSuccess(true);
       getAllProducts();
     }})

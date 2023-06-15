@@ -89,7 +89,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
 
       if (orderResponse.ok) {
         const order = await orderResponse.json();
-        console.log("Order successfully sent to the database:", order.orderNumber);
+
         setOrder({ ...order, orderNumber: order.orderNumber });
         navigate("/OrderConfirmation");
       }

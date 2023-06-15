@@ -60,9 +60,7 @@ export default function AdminOrders() {
                             setNewOrder(data)
                             getShippingMethods();
                           
-                      } else {
-                        console.log("sorry, the order is not marked as shipped");
-                      }
+                      } 
             } catch (err) {
       console.log(err);
     }
