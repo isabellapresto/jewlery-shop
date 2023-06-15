@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Grid, Box } from '@mui/material';
 import { NavLink } from "react-router-dom";
-import { NewProduct } from '../../context/ProductContext';
+import { NewProduct, useProductContext } from '../../context/ProductContext';
 import Alert from '@mui/material/Alert';
 import '../AddNewProduct/AddNewProduct.css'
 
@@ -87,6 +87,9 @@ export default function AddNewProduct() {
     };
 
     sendNewProductToDataBase(newProduct);
+    const { getAllProducts } = useProductContext();
+    getAllProducts();
+  
 
     setTimeout(() => {
       handleShow();

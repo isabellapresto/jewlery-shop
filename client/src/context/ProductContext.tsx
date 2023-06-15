@@ -12,6 +12,7 @@ export interface Product {
 
 interface ProductContext {
     products: Product[];
+    getAllProducts: () => Promise<void>;
 }
 
 export interface NewProduct {
@@ -22,7 +23,11 @@ export interface NewProduct {
   inStock: number,
 }
 
-const ProductContext = createContext<ProductContext>({ products: []})
+const ProductContext = createContext<ProductContext>({
+  products: [],
+  getAllProducts: async () => {},
+})
+
 export const useProductContext = () => useContext(ProductContext)
 
 const ProductProvider = ({children}: PropsWithChildren) => {
@@ -49,7 +54,7 @@ const ProductProvider = ({children}: PropsWithChildren) => {
 
 
     return (
-    <ProductContext.Provider value = {{ products }}>
+    <ProductContext.Provider value = {{ products, getAllProducts }}>
         {children}
     </ProductContext.Provider>
 )

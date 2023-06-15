@@ -11,12 +11,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails, Grid } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { NavLink } from 'react-router-dom';
-
 
 export default function AdminProducts() {
   const [products, setProducts ] = useState<Product[]>([]);
@@ -24,7 +23,7 @@ export default function AdminProducts() {
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState<number>(0);
   const [image, setImage] = useState("")
-  const [inStock, setInStock] = useState<number>(0);
+  const [inStock, setInStock] = useState<number>(0)
 
   const getAllProducts = async () => {
       try {
@@ -163,16 +162,16 @@ function handleShow() {
       </div>
       
     {products.map((product) => (
-      <Accordion key={product._id}>
+      <Accordion key={product._id} >
       <AccordionSummary
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Stack direction="row"
-        spacing={3}
+        <Stack direction={{ xs: 'column', sm: 'row' }}
+        spacing={1}
         alignItems="center"
-        marginLeft={'5%'}
-        width={'100%'}
+        marginLeft={'10%'}
+        width={'80%'}
         justifyContent={'space-between'}
         >
 
@@ -183,16 +182,18 @@ function handleShow() {
             />
         </Box>
 
-        <Box style={{width: '40%'}}>
+        <Box style={{width: '300px'}}>
             <span className="product-title">{product?.title} {" "}</span>
         </Box>
 
-        <Box style={{width: '5%'}}>
+        <Box>
           <span className="product-price ">{product && formatCurrency(product?.price)}</span>
         </Box>
+
         <Button variant='outlined' type="submit" endIcon={<DeleteForeverIcon />} onClick={handleClickOpen}>
           Delete
         </Button>
+
         <Dialog
         open={open}
         onClose={handleCloseAlert}
@@ -229,15 +230,38 @@ function handleShow() {
         <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>
           Edit
         </Button>
- 
+
       </Stack>
       </AccordionSummary>
       
       <AccordionDetails>
-      <Box>
-          <span className="product-description">{product.description}</span>
-      </Box>
 
+      <Grid container 
+        spacing={2}
+        alignItems={'center'}
+        >
+
+        <Grid item xs={12} md={12}>
+        <span className="product-description">{product.description}</span>
+        </Grid>
+        <Grid item xs={6} md={2}>
+        <TextField
+          id="outlined"
+          label="Title"
+          variant="outlined"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        </Grid>
+        <Grid item xs={6} md={2}>
+        <TextField 
+          id="outlined"
+          label="Description"
+          variant="outlined"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+          
       <Box style={{marginTop: '1rem'}}>
       { show && success ? (
           <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated! The page will soon refresh automatically...</Alert>
@@ -253,70 +277,43 @@ function handleShow() {
           <Alert severity="error" style={{display: 'none'}}></Alert> 
         )}
       </Box>
-
-      <Box
-      id='edit-form'
-      component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '50' }
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <TextField
-          id="outlined-basic" 
-          label="Title" 
-          variant="outlined" 
-          required={false} 
-          value={title} 
-          onChange={(e) => setTitle(e.target.value)}
-      /> <br/>
-
-      <TextField
-          id="outlined-basic" 
-          label="Description" 
-          variant="outlined" 
-          required={false} 
-          value={description} 
-          onChange={(e) => setDescription(e.target.value)}
-      />
-
-      <TextField
-          id="outlined-basic" 
-          label="Price" 
-          variant="outlined" 
-          required={false} 
-          value={price} 
+          
+        </Grid>
+        <Grid item xs={6} md={2}>
+        <TextField 
+          id="outlined"
+          label="Price"
+          variant="outlined"
+          value={price}
           onChange={(e) => setPrice(Number(e.target.value))}
-      />
-
-      <TextField
-          id="outlined-basic" 
-          label="Image URL" 
-          variant="outlined" 
-          required={false} 
-          value={image} 
+        />
+        </Grid>
+        <Grid item xs={6} md={2}>
+        <TextField 
+          id="outlined"
+          label="Image URL"
+          variant="outlined"
+          value={image}
           onChange={(e) => setImage(e.target.value)}
         />
-
-      <TextField 
-          id="outlined-basic" 
-          label="In Stock" 
-          variant="outlined" 
-          required={false} 
-          value={inStock} 
+        </Grid>
+        <Grid item xs={6} md={2}>
+        <TextField
+          id="outlined"
+          label="In Stock"
+          variant="outlined"
+          value={inStock}
           onChange={(e) => setInStock(Number(e.target.value))}
-        />
-        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)} aria-expanded="false">
-          Update
-        </Button>
-
-        </Box>
-      </AccordionDetails>
+          />
+        </Grid>
+        <Grid item xs={6} md={2}>
+        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update</Button>
+        </Grid>
+      </Grid>
+     </AccordionDetails>
     </Accordion>
-    
     ))}
-
     </>
   )
 }
+
