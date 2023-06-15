@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import Grid from '@mui/material/Grid';
 import './ProductList.css';
-//import { useProductContext } from "../../context/ProductContext";
+// import { useProductContext } from "../../context/ProductContext";
 import { Product } from '../../context/ProductContext';
 
 export default function ProductList() {
 
-  //const {products} = useProductContext();
+  // const { products, getAllProducts } = useProductContext();
+
 
   const [ products, setProducts ] = useState<Product[]>([]);
 
@@ -26,9 +27,7 @@ export default function ProductList() {
       }
     };
 
-  useEffect(() => {
-      getAllProducts();
-    }, []);
+    getAllProducts();
  
   return (
     <>
