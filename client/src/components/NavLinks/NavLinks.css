@@ -1,0 +1,17 @@
+.active {
+    border-bottom: 2px solid black
+}
+
+.menu-hover-effect:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    background-color: white;
+}
+
+.text-menu {
+    color: black;
+}
+
+.text-menu:visited {
+    color: inherit;
+}

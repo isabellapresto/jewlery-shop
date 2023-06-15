@@ -3,11 +3,11 @@ POST http://localhost:3000/api/users/register
 Content-Type: application/json
 
 {
-  "firstName": "Admin",
-  "lastName": "Adminsson",
-  "email": "admin@admin.se",
-  "password": "admin",
-  "isAdmin": true
+  "firstName": "User",
+  "lastName": "Usersson",
+  "email": "user@user.se",
+  "password": "user",
+  "isAdmin": false
 }
 
 ###
@@ -23,28 +23,39 @@ Content-Type: application/json
 
 ###
 
+
 //Skapa produkter här
 POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-  "title": "",
-  "price": 0,
-  "description": "",
-  "image": "",
-  "inStock": 0
+  "title": "PRINCESS ADA RING – VINTAGE ROSE",
+  "price": 329,
+  "description": "An upgraded version of our Ada ring, featuring a larger Vintage Rose hued centre stone, it still gets right to the point. Set in a rigid band of gold this ring will always impress. Compliment your look by pairing with our Ada earrings.",
+  "image": "https://lilyandrose.se/wp-content/uploads/2019/09/30463_m.jpg",
+  "inStock": 30
 }
 
 ###
 
+POST http://localhost:3000/api/categories
+Content-Type: application/json
+
+{
+  "title": "Earring",
+  "description": "This is a earring category."
+}
+
+##
 //Skapa fraktsätt här
+
 POST http://localhost:3000/api/shippingMethod
 Content-Type: application/json
 
 {
-  "company": "PostNord",
+  "company": "Standard",
   "price": 20,
- "deliveryTimeInHours": 72
+ "deliveryTimeInHours": 24
 }
 
 ##
