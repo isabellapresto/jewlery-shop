@@ -7,6 +7,7 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import CartItem from "../CartItem/CartItem";
 import { useShoppingCart } from "../../context/CartContext";
+
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useProductContext } from "../../context/ProductContext";
 
@@ -22,7 +23,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
   const [country, setCountry] = useState("");
   const { cartItems } = useShoppingCart();
   const {products } = useProductContext();
+
   const [alert, setAlert] = useState(false);
+
 
   const { setOrder, order } = useOrder();
 
@@ -99,7 +102,9 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
               <CartItem {...item} />
             </Stack>
           ))}
+
           <div className="total-price">
+
   
   {`Total ${formatCurrency(
 
@@ -109,6 +114,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
 
     }, 0)
   )}`}
+
   </div>
        </Stack>
       </Box>
@@ -127,6 +133,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
         px: 4, py: 6 }}>
 
       <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
+
         Billing Details
       </Typography>
 

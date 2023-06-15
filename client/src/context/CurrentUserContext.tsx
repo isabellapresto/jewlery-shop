@@ -35,9 +35,9 @@ export const UserContextType = createContext<UserContextType>({
 const UserProvider = ({ children }: Props) => {
   const [loggedInUser, setloggedInUser] = useState<User | null>(null);
 
-useEffect(()=>{
+/*useEffect(()=>{
 console.log(loggedInUser)
-}, [loggedInUser])
+}, [loggedInUser])*/
 
   useEffect(() => {
     const authorization = async () => {

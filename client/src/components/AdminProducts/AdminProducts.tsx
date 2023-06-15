@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from "react";
 import { Product } from "../../context/ProductContext";
 import { formatCurrency } from "../../utilities/formatCurrency";
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -14,28 +15,28 @@ import { Accordion, AccordionSummary, AccordionDetails, Grid } from "@mui/materi
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { NewProduct } from '../../context/ProductContext';
 import { NavLink } from 'react-router-dom';
-
 
 export default function AdminProducts() {
   const [products, setProducts ] = useState<Product[]>([]);
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  const [price, setPrice] = useState<number>(0)
+  const [price, setPrice] = useState<number>(0);
   const [image, setImage] = useState("")
   const [inStock, setInStock] = useState<number>(0)
 
   const getAllProducts = async () => {
-    try {
-      const response = await fetch("api/products");
-      const data = await response.json();
-      setProducts(data);
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+      try {
+        const response = await fetch(
+          "api/products"
+        );
+        const data = await response.json();
+        setProducts(data);
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
   useEffect(() => {
     getAllProducts();
@@ -80,64 +81,76 @@ export default function AdminProducts() {
     setIsDeleteConfirmation(true);
   };
 
-const [newProduct, setNewProduct] = useState<NewProduct>()
+  //----------------------------END - Deleting product from database-------------------------------------//
 
-const updateProduct = async (id: string) => {
-            
-  try{
-    const updatedFields: Partial<NewProduct> = {};
+  //----------------------------START - Update a product in database-------------------------------------//
 
-    if (title !== "") {
-      updatedFields.title = title;
-    }
-    if (description !== "") {
-      updatedFields.description = description;
-    }
-    if (price !== 0) {
-      updatedFields.price = price;
-    }
-    if (image !== "") {
-      updatedFields.image = image;
-    }
-    if (inStock !== 0) {
-      updatedFields.inStock = inStock;
-    }
+const updateProductInDatabase = (id: string) => {
+
+  const url = 'api/products/' + id;
+
+  fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      _id: id,
+      title: title,
+      description: description,
+      price: price,
+      image: image,
+      inStock: inStock,
+      deleted: false,
+    }),
+  })
+    .then((response) => {
+      if (!response || response.status === 400){
+        setSuccess(false);
+        throw new Error("ERROR - Something went wrong, the product with " + id + " is not updated");
+      }
+      if ( title || description || price || image || inStock ) {
+      console.log("OK - Product with id " + id + " is now updated in database")
+      //RENDER ALL PRODUCTS AGAIN
+      setSuccess(true);
+      getAllProducts();
+    }})
     
+  .catch ((e) => {
+    console.log(e);
+  });
+  }
 
-
-      const response = await fetch(`api/products/${id}`, {
-          method: "PUT",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            _id: id,
-            ...updatedFields,
-            deleted: false,
-          })
-      });
-      const data = await response.json();
-      
-      if (response.status === 200) {
-          
-              setNewProduct(data)
-              getAllProducts();
-              console.log("updated product");          
-        
-        } else {
-          console.log("sorry, we could not update product");
-        }
-} catch (err) {
-console.log(err);
-}
-
-}
+  const handleEdit = (event: React.MouseEvent<HTMLElement>, id:string)=> {
+    event.preventDefault();
+    const selectedProduct = products.find(product => product._id === id);
+    
+    if (selectedProduct) {
+      setTitle(selectedProduct.title);
+      setDescription(selectedProduct.description);
+      setPrice(selectedProduct.price);
+      setImage(selectedProduct.image);
+      setInStock(selectedProduct.inStock);      
+    }
+  }
 
 const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => {
   event.preventDefault();
+  updateProductInDatabase(id);
 
+  setTimeout(() => {
+    handleShow();
+  }, 300);
 
-  updateProduct(id);
+}
+
+//----------------------------END - Update a product in database-------------------------------------//
+
+const [show, setShow] = useState<boolean>();
+const [success, setSuccess] = useState(false);
+
+function handleShow() {
+  setShow(!show);
 }
 
   return (
@@ -160,7 +173,6 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
         marginLeft={'10%'}
         width={'80%'}
         justifyContent={'space-between'}
-        
         >
 
         <Box>
@@ -177,7 +189,11 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
         <Box>
           <span className="product-price ">{product && formatCurrency(product?.price)}</span>
         </Box>
-          <Button variant='outlined' type="submit" endIcon={<DeleteForeverIcon /> } onClick={handleClickOpen}>Delete</Button>
+
+        <Button variant='outlined' type="submit" endIcon={<DeleteForeverIcon />} onClick={handleClickOpen}>
+          Delete
+        </Button>
+
         <Dialog
         open={open}
         onClose={handleCloseAlert}
@@ -211,11 +227,15 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
         </DialogActions>
       </Dialog>
 
-          <Button variant='outlined' endIcon={<ExpandMoreIcon />}>Modify</Button>
+        <Button onClick={(e) => handleEdit(e, product._id)} variant='outlined' endIcon={<ExpandMoreIcon />}>
+          Edit
+        </Button>
+
       </Stack>
       </AccordionSummary>
       
       <AccordionDetails>
+
       <Grid container 
         spacing={2}
         alignItems={'center'}
@@ -229,8 +249,8 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
           id="outlined"
           label="Title"
           variant="outlined"
-          value={title || product.title}
-          onChange={(e) => setTitle(e.target.value || product.title)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
         </Grid>
         <Grid item xs={6} md={2}>
@@ -238,16 +258,33 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
           id="outlined"
           label="Description"
           variant="outlined"
-          value={description || product.description}
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+          
+      <Box style={{marginTop: '1rem'}}>
+      { show && success ? (
+          <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated! The page will soon refresh automatically...</Alert>
+            ) : (
+          <Alert severity="success" style={{display: 'none'}}></Alert> 
+        )}
+      </Box>
+
+      <Box style={{marginTop: '1rem'}}>
+      { show && !success ? (
+          <Alert onClose={handleShow} severity="error">ERROR - The product is not updated! Try again</Alert>
+            ) : (
+          <Alert severity="error" style={{display: 'none'}}></Alert> 
+        )}
+      </Box>
+          
         </Grid>
         <Grid item xs={6} md={2}>
         <TextField 
           id="outlined"
           label="Price"
           variant="outlined"
-          value={price || product.price}
+          value={price}
           onChange={(e) => setPrice(Number(e.target.value))}
         />
         </Grid>
@@ -256,7 +293,7 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
           id="outlined"
           label="Image URL"
           variant="outlined"
-          value={image || product.image}
+          value={image}
           onChange={(e) => setImage(e.target.value)}
         />
         </Grid>
@@ -265,18 +302,17 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
           id="outlined"
           label="In Stock"
           variant="outlined"
-          value={inStock || product.inStock}
+          value={inStock}
           onChange={(e) => setInStock(Number(e.target.value))}
           />
         </Grid>
         <Grid item xs={6} md={2}>
-        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update product</Button>
+        <Button variant='outlined' type="submit" onClick={(e) => handleUpdate(e, product._id)}>Update</Button>
         </Grid>
       </Grid>
-      </AccordionDetails>
+     </AccordionDetails>
     </Accordion>
     ))}
-
     </>
   )
 }
