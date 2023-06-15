@@ -246,7 +246,7 @@ function handleShow() {
 
         <Box style={{marginTop: '1rem'}}>
             { show && success ? (
-            <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated! The page will soon refresh automatically...</Alert>
+            <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated!</Alert>
               ) : (
             <Alert severity="success" style={{display: 'none'}}></Alert> 
             )}
