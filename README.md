@@ -26,9 +26,9 @@ Man når Adminpanelen både via en ikon i headern samt en länk på Välkommen t
 **Kontaktssidan samt länkarna i footern har ingen funktionalitet, dvs de är med bara för utseendets skull. **
 
 # CSS
-Material UI (MUI)
-CSS direkt i koden
-Egna CSS-filer
+- Material UI (MUI)
+- CSS direkt i koden
+- Egna CSS-filer
 
 Vi har använt en mix av dessa tre metoder. I första hand MUI och där har vi skapat ett eget tema för att kunna styra färger och övrig style generellt i projektet. Där vi har velat ha en anpaasd CSS har vi kompletterat CSS direkt i koden. 
 Där det har blivit mycket CSS eller CSS med olika villkor så har vi skapat egna CSS filer som vi importerat i den komponenten.
