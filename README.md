@@ -9,6 +9,7 @@ Sidan är fullt responsiv men vi har valt som minst storlek 375 x 667 som är en
 - Öppna serversidan i terminalen och kör kommandot npm start.
 - Öppna klientsidan i terminalen och kör kommandot npm run dev.
 - Nu kan du se applikationen i din webbläsare på din http://localhost:(nummer)/
+- Se till att du har Framer Motion installerat (npm install framer-motion)
 
 # Projektets struktur
 Landningssidan är en hemsida som innehåller bland annat en navigeringsmeny. Därifrån kan man ta sig till shop där vi har listat alla produkter. När man trycker på en produkt så går man till en detaljsidan. 
