@@ -1,10 +1,8 @@
 import { useEffect, useContext, useState } from "react";
 import { useOrder } from "../../context/OrderContext";
 import { UserContextType } from "../../context/CurrentUserContext";
-import { Container, Box } from "@mui/material";
-
+import { Container, Box, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-
 import CircularIndeterminate from "../Loader/Loader";
 
 function OrderConfirmation() {
@@ -46,29 +44,30 @@ function OrderConfirmation() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-
           padding: "1rem",
           marginTop: "2rem",
           marginBottom: "2rem",
         }}
       >
         <br />
-        <h2>Order Confirmation </h2>
+        <Typography variant="h4">Order Confirmation</Typography>
         <br />
         <Container>
+          <Typography variant="h5">Order Details</Typography>
+          <br />
           <p>
-            <h3>Order Details</h3>
-            <br />
             Email: {loggedInUser?.email}
-            <br /> Fullname: {loggedInUser?.firstName} {loggedInUser?.lastName}{" "}
-            <br /> Ordernumber: {order.orderNumber}
+            <br />
+            Fullname: {loggedInUser?.firstName} {loggedInUser?.lastName}
+            <br />
+            Ordernumber: {order.orderNumber}
           </p>
         </Container>
         <br />
         <Container>
+          <Typography variant="h5">Delivery Address</Typography>
+          <br />
           <p>
-            <h3>Delivery Address</h3>
-            <br></br>
             Street: {order.deliveryAddress.street} <br />
             City: {order.deliveryAddress.city} <br />
             Zipcode: {order.deliveryAddress.zipcode} <br />
@@ -80,9 +79,10 @@ function OrderConfirmation() {
           style={{ borderTop: "3px solid #E9D5EF", marginBottom: "3rem" }}
         >
           <br />
-          <h3 style={{ textAlign: "center" }}>Order Items</h3>
+          <Typography variant="h5" style={{ textAlign: "center" }}>
+            Order Items
+          </Typography>
           <br />
-
           <ul style={{ listStyleType: "none" }}>
             {order.orderItems.map((item) => (
               <li key={item.product}>
