@@ -18,7 +18,7 @@ import { NewProduct } from '../../context/ProductContext';
 import { NavLink } from 'react-router-dom';
 
 
-function AdminProducts() {
+export default function AdminProducts() {
   const [products, setProducts ] = useState<Product[]>([]);
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -216,7 +216,11 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
       </AccordionSummary>
       
       <AccordionDetails>
-      <Grid container spacing={2}>
+      <Grid container 
+        spacing={2}
+        alignItems={'center'}
+        >
+
         <Grid item xs={12} md={12}>
         <span className="product-description">{product.description}</span>
         </Grid>
@@ -277,4 +281,3 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
   )
 }
 
-export default { AdminProducts}
