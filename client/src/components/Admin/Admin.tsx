@@ -25,11 +25,11 @@ export default function Admin() {
      <Stack direction='row' spacing={2}>
 
       <NavLink to="/addnewproduct" style={{textDecoration: "none" }}>
-        <Button variant='outlined'>Add new product</Button>
+        <Button variant='outlined'>Add product</Button>
       </NavLink>
 
       <NavLink to="/adminproducts" style={{textDecoration: "none" }}>
-        <Button variant='outlined'>Admin excisting products</Button>
+        <Button variant='outlined'>Edit products</Button>
       </NavLink>
 
       <NavLink to="/adminorders" style={{textDecoration: "none"}}>
