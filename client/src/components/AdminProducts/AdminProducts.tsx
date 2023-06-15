@@ -139,7 +139,7 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
 
   setTimeout(() => {
     handleShow();
-  }, 300);
+  }, 400);
 
 }
 
@@ -235,16 +235,7 @@ function handleShow() {
       
       <AccordionDetails>
 
-      <Grid container 
-        spacing={2}
-        alignItems={'center'}
-        >
-
-        <Grid item xs={12} md={12}>
-        <span className="product-description">{product.description}</span>
-        </Grid>
-
-        <Box style={{marginTop: '1rem'}}>
+      <Box style={{marginTop: '1rem'}}>
             { show && success ? (
             <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated!</Alert>
               ) : (
@@ -259,6 +250,15 @@ function handleShow() {
           <Alert severity="error" style={{display: 'none'}}></Alert> 
           )}
         </Box>
+
+      <Grid container 
+        spacing={2}
+        alignItems={'center'}
+        >
+
+        <Grid item xs={12} md={12}>
+        <span className="product-description">{product.description}</span>
+        </Grid>
 
         <Grid item xs={6} md={2}>
         <TextField
