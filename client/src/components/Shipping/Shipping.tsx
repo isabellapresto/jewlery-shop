@@ -18,8 +18,7 @@ export default function Shipping() {
         );
         const data = await response.json();
         setShippings(data);
-        console.log(data);
-        // console.log(shipping);
+
       } catch (err) {
         console.log(err);
       }

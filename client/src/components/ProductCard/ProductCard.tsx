@@ -14,7 +14,6 @@ type Props = {
 
 export default function ProductCard ({product} : Props) {
 
-
 return (
   <Card sx={{ width: 300, height: 500, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
     <Link to={`/${product._id}`} key = {product._id} >

@@ -5,23 +5,24 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 
-
 export default function Footer() {
   const socialIconsUrl = 'https://medieinstitutet.se/';
 
   return (
     <div style={{ backgroundColor: '#ffeded', padding: '20px 0' }}>
       <Grid container spacing={2}>
-        {/* Nyhetsbrev */}
+ 
         <Grid item xs={12}>
           <div style={{ marginBottom: '10px', textAlign: 'center' }}>
             <h3 style={{ fontSize: '1.5em' }}>JOIN OUR NEWSLETTER</h3>
             <p style={{ fontSize: '1em' }}>ENJOY 15% OFF</p>
           </div>
+
           <div style={{height: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
             <TextField label="Your Email" variant="outlined" size="small" style={{width: '250px'}} />
             <Button variant="contained" color="primary" style={{width: '100px', backgroundColor: 'black' }}>Subscribe</Button>
           </div>
+
           <div style={{ textAlign: 'center', padding:'20px', marginLeft:'10px', marginRight:'10px' }}>
             <FormControlLabel 
               control={<Checkbox style={{ color: 'black' }} />}
@@ -34,7 +35,6 @@ export default function Footer() {
           <hr style={{ borderTop: '1px solid white', width: '80%', margin: '0 auto' }} />
         </Grid>
 
-        {/* Kolumn 1 */}
         <Grid item xs={12}  md={3}>
           <ul className="" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <li>Returns and Exchanges</li>
@@ -43,7 +43,6 @@ export default function Footer() {
           </ul>
         </Grid>
 
-        {/* Kolumn 2 */}
         <Grid item xs={12}  md={3}>
           <ul className="" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <li>Payment Terms</li>
@@ -52,7 +51,6 @@ export default function Footer() {
           </ul>
         </Grid>
 
-        {/* Kolumn 3 */}
         <Grid item xs={12}  md={3}>
           <ul className="" style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <li>Retailers</li>
@@ -61,7 +59,6 @@ export default function Footer() {
           </ul>
         </Grid>
 
-        {/* Sociala ikoner */}
         <Grid item xs={12} md={3}>
         <ul className="social-icons" style={{ listStyle: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <li style={{ marginRight: '10px' }}>

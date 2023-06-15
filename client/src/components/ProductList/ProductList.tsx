@@ -2,13 +2,9 @@ import { useState } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import Grid from '@mui/material/Grid';
 import './ProductList.css';
-// import { useProductContext } from "../../context/ProductContext";
 import { Product } from '../../context/ProductContext';
 
 export default function ProductList() {
-
-  // const { products, getAllProducts } = useProductContext();
-
 
   const [ products, setProducts ] = useState<Product[]>([]);
 
@@ -20,8 +16,6 @@ export default function ProductList() {
         const data = await response.json();
         setProducts(data);
  
-        console.log(data);
-
       } catch (err) {
         console.log(err);
       }

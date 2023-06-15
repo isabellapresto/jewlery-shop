@@ -117,6 +117,7 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
       <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500}>
         Payment methods
       </Typography>
+
       <FormControl component="fieldset">
         <RadioGroup value={paymentMethod} onChange={handlePaymentMethodChange}>
           <FormControlLabel value="card" control={<Radio />} label="Card" />
@@ -170,16 +171,17 @@ const Step3: React.FC<Step3Props> = ({ onBack, onComplete }) => {
         justifyContent="space-between"
         style={{ paddingTop: "1rem", margin: "auto" }}
       >
-        <Button onClick={onBack} variant="outlined">
-          Back to shipping
-        </Button>
 
-        <Button
+      <Button onClick={onBack} variant="outlined">
+        Back to shipping
+      </Button>
+
+      <Button
           variant="outlined"
           onClick={handleComplete}
-        >
-          Complete purchase
-        </Button>
+      >
+        Complete purchase
+      </Button>
       </Stack>
     </Box>
   );

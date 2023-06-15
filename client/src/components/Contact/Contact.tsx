@@ -20,6 +20,7 @@ export default function Contact() {
           margin="normal"
           required
         />
+
         <TextField
           label="Email"
           variant="outlined"
@@ -28,6 +29,7 @@ export default function Contact() {
           required
           type="email"
         />
+
         <TextField
           label="Message"
           variant="outlined"
@@ -37,9 +39,11 @@ export default function Contact() {
           multiline
           rows={4}
         />
+
         <Button type="submit" variant="outlined" className="CustomButton" style={{marginTop:'10px'}}>
           Submit
         </Button>
+        
       </form>
     </Container>
   );

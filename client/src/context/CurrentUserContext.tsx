@@ -35,10 +35,6 @@ export const UserContextType = createContext<UserContextType>({
 const UserProvider = ({ children }: Props) => {
   const [loggedInUser, setloggedInUser] = useState<User | null>(null);
 
-/*useEffect(()=>{
-console.log(loggedInUser)
-}, [loggedInUser])*/
-
   useEffect(() => {
     const authorization = async () => {
       try {
@@ -58,10 +54,7 @@ console.log(loggedInUser)
   //Check if user is an admin
   const isAdmin = (user: UserType) => {
     if (user.isAdmin == false) {
-      console.log("No - not an Admin");
-    } else {
-      console.log("Yes - you are an Admin");
-    }
+    } 
   };
 
   const login = async (user: UserType) => {
@@ -78,10 +71,7 @@ console.log(loggedInUser)
  
         if (response.status === 200) {
           setloggedInUser(data);
-          console.log("logged in successfully");
-        } else {
-          console.log("wrong email or password");
-        }
+        } 
       } catch (err) {
         console.log(err);
       }

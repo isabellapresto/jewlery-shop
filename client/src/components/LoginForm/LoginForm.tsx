@@ -6,14 +6,11 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { NavLink } from "react-router-dom";
 
 
-
 export default function LoginForm() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const {login, loggedInUser, isAdmin } = useContext(UserContextType);
 
- 
-   
     const handleLogin = async (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         const user: UserType = {
@@ -23,20 +20,16 @@ export default function LoginForm() {
         
         setEmail("");
         setPassword("");
-        console.log(loggedInUser?.firstName);
-        
+
         isAdmin(user) 
         await login(user)   
-      
     }
 
-
     return(
-     
         <>
           {loggedInUser?.isAdmin == true ? (
             
-              <Box sx={{ width: "85%", opacity: 0.8, display: 'flex', alignItems: 'center', margin: 'auto', marginTop: 10, marginBottom: 10, flexDirection:"column"}}>
+            <Box sx={{ width: "85%", opacity: 0.8, display: 'flex', alignItems: 'center', margin: 'auto', marginTop: 10, marginBottom: 10, flexDirection:"column"}}>
               <div className='imgContainer'>
                 <div className='centered'>Welcome {loggedInUser.firstName}!!</div>
                 <img className="imgStyle" src="https://lilyandrose.se/wp-content/uploads/2023/04/Banner_miranda-collection.jpg" width={"85%"} />
@@ -47,8 +40,6 @@ export default function LoginForm() {
                 </NavLink>
             </Box>
                
-            
-            
           ) : loggedInUser ? (
             <Box sx={{ width: "85%", opacity: 0.8, display: 'flex', alignItems: 'center', margin: 'auto', marginTop: 10, marginBottom: 10 }}>
               <div className='imgContainer'>
@@ -57,7 +48,9 @@ export default function LoginForm() {
                 <div className='messageDiv'>You are logged in as a member</div>
               </div>
             </Box>
+
           ) : (
+            
             <form onSubmit={handleLogin}>
               <Box sx={{ width: ["95%", "80%", "50%"], height: 480, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: "center", marginTop: 5, boxShadow: 3, borderRadius: 2, px: 4, py: 6 }}>
               <Typography variant="h4" component="h1" gutterBottom fontFamily={'Cormorant Garamond, serif'} fontWeight={500} style={{marginTop:'10px'}}>

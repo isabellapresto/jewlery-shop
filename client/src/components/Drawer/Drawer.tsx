@@ -15,8 +15,7 @@ interface ShoppingDrawerProps {
 }
 
 
-
-function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
+export default function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
   
   const { cartItems } = useShoppingCart();
   const {products } = useProductContext();
@@ -78,7 +77,4 @@ function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
     </Drawer>
   );
 }
-
-export default ShoppingDrawer;
-
-      
+   
