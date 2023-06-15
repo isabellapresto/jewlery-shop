@@ -7,7 +7,8 @@ export default function Admin() {
   return (
     <div 
     style={{
-      width: '50%', 
+      width: '50%',
+      minHeight: '50vh', 
       margin: 'auto', 
       paddingTop:'50px', 
       paddingBottom:'50px', 
