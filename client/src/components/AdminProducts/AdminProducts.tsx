@@ -20,14 +20,11 @@ import { NavLink } from 'react-router-dom';
 
 export default function AdminProducts() {
   const [products, setProducts ] = useState<Product[]>([]);
-
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-
   const [price, setPrice] = useState<number>(0);
   const [image, setImage] = useState("")
   const [inStock, setInStock] = useState<number>(0);
-  //const {products} = useProductContext();
 
   const getAllProducts = async () => {
       try {
@@ -145,8 +142,8 @@ const handleUpdate = async (event: React.MouseEvent<HTMLElement>, id:string) => 
   setTimeout(() => {
     handleShow();
   }, 300);
-}
 
+}
 
 //----------------------------END - Update a product in database-------------------------------------//
 
@@ -243,7 +240,7 @@ function handleShow() {
 
       <Box style={{marginTop: '1rem'}}>
       { show && success ? (
-          <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated!</Alert>
+          <Alert onClose={handleShow} severity="success">SUCCESS - The product is updated! The page will soon refresh automatically...</Alert>
             ) : (
           <Alert severity="success" style={{display: 'none'}}></Alert> 
         )}
