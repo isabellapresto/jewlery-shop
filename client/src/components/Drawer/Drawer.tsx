@@ -8,6 +8,8 @@ import { useProductContext } from "../../context/ProductContext";
 import CartItem from "../CartItem/CartItem";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import CloseIcon from '@mui/icons-material/Close';
+import {  UserContextType } from '../../context/CurrentUserContext';
+import { useContext } from 'react'
 
 interface ShoppingDrawerProps {
   open: boolean;
@@ -19,6 +21,7 @@ export default function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
   
   const { cartItems } = useShoppingCart();
   const {products } = useProductContext();
+  const {loggedInUser} = useContext(UserContextType);
 
   const toggleDrawer = () => (event: { type: string; key: string; }) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -63,16 +66,20 @@ export default function ShoppingDrawer({ open, setOpen}: ShoppingDrawerProps) {
 
         </div>
 
-          {!isCartEmpty && (
-
+        {!isCartEmpty && (
         <Link to="/checkout">
           <Button variant="outlined" onClick={handleButtonClick}>
             To Checkout
           </Button>
         </Link>
+        )}
 
-          )}
-          
+        {!loggedInUser && (
+          <div>
+            <p style={{color: 'red'}}>You need to log in to be able to go to CheckOut</p>
+          </div>
+        )}
+
       </div>
     </Drawer>
   );
